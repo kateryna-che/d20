@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 
 from d20.models import (
     Campaign,
@@ -13,9 +13,9 @@ from d20.models import (
 
 
 @admin.register(User)
-class UserAdmin(UserAdmin):
-    fieldsets = UserAdmin.fieldsets + ((("Profile", {"fields": ("bio",)}),))
-    add_fieldsets = UserAdmin.add_fieldsets + (
+class UserAdmin(DjangoUserAdmin):
+    fieldsets = DjangoUserAdmin.fieldsets + ((("Profile", {"fields": ("bio",)}),))
+    add_fieldsets = DjangoUserAdmin.add_fieldsets + (
         (
             (
                 "Profile",
