@@ -272,6 +272,7 @@ class CharacterListView(LoginRequiredMixin, SearchMixin, generic.ListView):
     """
 
     model = Character
+    ordering = ("name", "pk")
     paginate_by = 8
     search_field = "name"
 
@@ -324,7 +325,7 @@ class GameSessionListView(LoginRequiredMixin, SearchMixin, generic.ListView):
     queryset = (
         GameSession.objects.select_related("campaign")
         .annotate(answers_count=Count("participations"))
-        .order_by("-scheduled_at")
+        .order_by("-scheduled_at", "-pk")
     )
     paginate_by = 8
 
