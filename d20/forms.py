@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserCreationForm
 
 from d20.models import (
     Campaign,
@@ -9,6 +10,16 @@ from d20.models import (
     PreparationNote,
     SessionParticipation,
 )
+
+
+class RegistrationForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = get_user_model()
+        fields = UserCreationForm.Meta.fields + (
+            "first_name",
+            "last_name",
+            "email",
+        )
 
 
 class ProfileForm(forms.ModelForm):

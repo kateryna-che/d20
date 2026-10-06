@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Sign up | D20{% endblock %}
+
+{% block content %}
+  <section class="card form-card">
+    <p class="eyebrow">New at the table</p>
+    <h1>Sign up</h1>
+    <p class="muted">An account lets you run campaigns as a game master and join other campaigns as a player.</p>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="actions">
+        <button class="button" type="submit">Sign up</button>
+        <a class="button secondary" href="{% url 'login' %}">I already have an account</a>
+      </div>
+    </form>
+  </section>
+{% endblock %}

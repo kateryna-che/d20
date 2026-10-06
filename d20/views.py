@@ -23,6 +23,7 @@ from d20.forms import (
     GameSessionForm,
     CharacterForm,
     ProfileForm,
+    RegistrationForm,
     MembershipForm,
     PreparationNoteForm,
     ParticipationForm,
@@ -234,6 +235,13 @@ def index(request):
     }
 
     return render(request, "d20/index.html", context=context)
+
+
+class RegisterView(SuccessMessageMixin, generic.CreateView):
+    form_class = RegistrationForm
+    template_name = "registration/register.html"
+    success_url = reverse_lazy("login")
+    success_message = "Welcome to the table! Log in with your new account."
 
 
 class UserDetailView(LoginRequiredMixin, generic.DetailView):
