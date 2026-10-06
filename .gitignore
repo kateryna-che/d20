@@ -16,6 +16,7 @@ db.sqlite3-journal
 *.log
 *.mo
 /media/
+/staticfiles/
 
 # Tests and coverage
 .coverage

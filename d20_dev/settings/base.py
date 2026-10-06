@@ -1,17 +1,11 @@
 import os
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+from dotenv import load_dotenv
 
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-SECRET_KEY = os.environ.get(
-    "DJANGO_SECRET_KEY",
-    "django-insecure-kcye==jf*fsy8fvkrg!4q$h*!^y^!%cyg5!)6oh(&o)0cs97j+",
-)
-
-DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
-
-ALLOWED_HOSTS = ["127.0.0.1"]
+load_dotenv(BASE_DIR / ".env")
 
 
 INSTALLED_APPS = [
@@ -55,16 +49,6 @@ TEMPLATES = [
 WSGI_APPLICATION = "d20_dev.wsgi.application"
 
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-        "OPTIONS": {
-            "transaction_mode": "IMMEDIATE",
-        },
-    }
-}
-
 AUTH_USER_MODEL = "d20.User"
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "d20:index"
@@ -96,7 +80,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-WHITENOISE_USE_FINDERS = True
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
 MAILERS = {
