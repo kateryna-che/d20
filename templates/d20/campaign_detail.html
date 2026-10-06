@@ -12,7 +12,7 @@
     </div>
     {% if is_game_master %}
       <div class="actions">
-        <a class="button" href="{% url 'd20:campaign-update' campaign.pk %}">Edit campaign</a>
+        <a class="button" href="{% url 'd20:campaign-update' campaign.pk %}?next={{ request.get_full_path|urlencode }}">Edit campaign</a>
         <a class="button danger" href="{% url 'd20:campaign-delete' campaign.pk %}">Delete campaign</a>
       </div>
     {% endif %}
@@ -43,14 +43,23 @@
     </section>
     <section class="card">
       <h2>Game sessions</h2>
+      {% if is_game_master %}
+        <p><a class="button" href="{% url 'd20:session-create' campaign.pk %}?next={{ request.get_full_path|urlencode }}">Plan a session</a></p>
+      {% endif %}
       <ul class="entry-list">
         {% for session in campaign.game_sessions.all %}
           <li>
-            <h3>{{ session.title }}</h3>
+            <h3><a href="{% url 'd20:session-detail' session.pk %}">{{ session.title }}</a></h3>
             <p>{{ session.scheduled_at|date:"j M Y, H:i" }} &middot; {{ session.get_status_display }}</p>
             {% if session.play_location %}<p>{{ session.play_location }}</p>{% endif %}
             {% if session.agenda %}{{ session.agenda|linebreaks }}{% endif %}
             {% if session.summary %}{{ session.summary|linebreaks }}{% endif %}
+            {% if is_game_master %}
+              <div class="actions">
+                <a class="button secondary" href="{% url 'd20:session-update' session.pk %}?next={{ request.get_full_path|urlencode }}">Edit session</a>
+                <a class="button danger" href="{% url 'd20:session-delete' session.pk %}">Delete session</a>
+              </div>
+            {% endif %}
           </li>
         {% empty %}
           <li class="muted">No game sessions scheduled yet.</li>

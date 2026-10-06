@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}{% if object %}Edit session{% else %}Plan a session{% endif %} | D20{% endblock %}
+
+{% block content %}
+  <section class="card form-card">
+    <h1>{% if object %}Edit session{% else %}Plan a session{% endif %}</h1>
+    <p class="muted">Campaign: {% if object %}{{ object.campaign.title }}{% else %}{{ campaign.title }}{% endif %}</p>
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}">
+      {{ form.as_p }}
+      <div class="actions">
+        <button class="button" type="submit">{% if object %}Save changes{% else %}Plan session{% endif %}</button>
+        <a class="button secondary" href="{{ next }}">Cancel</a>
+      </div>
+    </form>
+  </section>
+{% endblock %}

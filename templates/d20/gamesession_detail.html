@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}{{ gamesession.title }} | D20{% endblock %}
+
+{% block content %}
+  <a class="back-link" href="{% url 'd20:campaign-detail' gamesession.campaign_id %}">&larr; {{ gamesession.campaign.title }}</a>
+  <div class="page-heading">
+    <div>
+      <span class="badge">{{ gamesession.get_status_display }}</span>
+      <h1>{{ gamesession.title }}</h1>
+      <p>{{ gamesession.scheduled_at|date:"j M Y, H:i" }}</p>
+      {% if gamesession.play_location %}<p>{{ gamesession.play_location }}</p>{% endif %}
+      <p class="muted">Game master: {{ gamesession.campaign.game_master.display_name }}</p>
+    </div>
+    {% if is_game_master %}
+      <div class="actions">
+        <a class="button" href="{% url 'd20:session-update' gamesession.pk %}?next={{ request.get_full_path|urlencode }}">Edit session</a>
+        <a class="button danger" href="{% url 'd20:session-delete' gamesession.pk %}">Delete session</a>
+      </div>
+    {% endif %}
+  </div>
+  {% if gamesession.agenda %}
+    <section class="card">
+      <h2>Agenda</h2>
+      {{ gamesession.agenda|linebreaks }}
+    </section>
+  {% endif %}
+  {% if gamesession.summary %}
+    <section class="card">
+      <h2>Summary</h2>
+      {{ gamesession.summary|linebreaks }}
+    </section>
+  {% endif %}
+  <section class="card">
+    <h2>Attendance</h2>
+    {% if my_participation %}
+      <p>Your response: {{ my_participation.get_attendance_status_display }}</p>
+    {% endif %}
+    <ul class="entry-list">
+      {% for participation in gamesession.participations.all %}
+        <li>
+          <strong>{{ participation.membership.player.display_name }}</strong>
+          &middot; {{ participation.get_attendance_status_display }}
+          {% if participation.membership.character %}<p>{{ participation.membership.character.name }}</p>{% endif %}
+        </li>
+      {% empty %}
+        <li class="muted">No attendance responses yet.</li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endblock %}

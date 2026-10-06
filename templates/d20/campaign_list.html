@@ -9,7 +9,7 @@
       <h1>All campaigns</h1>
       <p class="muted">Browse campaigns, players and game sessions.</p>
     </div>
-    <a class="button" href="{% url 'd20:campaign-create' %}">Create campaign</a>
+    <a class="button" href="{% url 'd20:campaign-create' %}?next={{ request.get_full_path|urlencode }}">Create campaign</a>
   </div>
   <div class="campaign-grid">
     {% for campaign in campaign_list %}
