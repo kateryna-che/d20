@@ -1,5 +1,6 @@
 from urllib.parse import urlsplit
 
+from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -143,6 +144,8 @@ def respond_to_session(request, pk):
             membership=membership,
             defaults=form.cleaned_data,
         )
+    else:
+        messages.error(request, "Choose a valid answer: confirmed or declined.")
     return redirect(game_session)
 
 
