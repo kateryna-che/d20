@@ -139,11 +139,6 @@ class SearchMixin:
         return context
 
 
-def get_user_campaigns(user):
-    """Campaigns that the user runs or plays in."""
-    return Campaign.objects.filter(Q(game_master=user) | Q(players=user)).distinct()
-
-
 @require_POST
 def update_campaign_membership(request, pk):
     """Join or leave the campaign according to the submitted action.
@@ -202,7 +197,7 @@ def index(request):
 
     user = request.user
     now = timezone.now()
-    my_campaigns = get_user_campaigns(user)
+    my_campaigns = Campaign.objects.for_user(user)
     my_sessions = GameSession.objects.filter(campaign__in=my_campaigns)
     scheduled_sessions = (
         my_sessions.filter(status=GameSession.Status.SCHEDULED)
@@ -392,7 +387,7 @@ class GameSessionListView(LoginRequiredMixin, SearchMixin, generic.ListView):
     paginate_by = 8
 
     def get_queryset(self):
-        campaigns = get_user_campaigns(self.request.user)
+        campaigns = Campaign.objects.for_user(self.request.user)
         return super().get_queryset().filter(campaign__in=campaigns)
 
 
@@ -467,7 +462,7 @@ class PreparationNoteDetailView(LoginRequiredMixin, generic.DetailView):
     queryset = PreparationNote.objects.select_related("campaign", "author")
 
     def get_queryset(self):
-        campaigns = get_user_campaigns(self.request.user)
+        campaigns = Campaign.objects.for_user(self.request.user)
         return super().get_queryset().filter(campaign__in=campaigns)
 
 
@@ -484,7 +479,7 @@ class PreparationNoteCreateView(
     success_message = "The note was added."
 
     def get_campaigns(self):
-        return get_user_campaigns(self.request.user)
+        return Campaign.objects.for_user(self.request.user)
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -502,7 +497,7 @@ class PreparationNoteUpdateView(
     success_message = "The note was saved."
 
     def get_queryset(self):
-        campaigns = get_user_campaigns(self.request.user)
+        campaigns = Campaign.objects.for_user(self.request.user)
         return super().get_queryset().filter(campaign__in=campaigns)
 
 
@@ -521,7 +516,7 @@ class PreparationNoteDeleteView(
             .get_queryset()
             .filter(
                 Q(author=user) | Q(campaign__game_master=user),
-                campaign__in=get_user_campaigns(user),
+                campaign__in=Campaign.objects.for_user(user),
             )
         )
 

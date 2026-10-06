@@ -118,6 +118,14 @@ class Character(models.Model):
         return reverse("d20:character-detail", kwargs={"pk": self.pk})
 
 
+class CampaignQuerySet(models.QuerySet):
+    def for_user(self, user):
+        """Campaigns that the user runs or plays in."""
+        return self.filter(
+            models.Q(game_master=user) | models.Q(players=user)
+        ).distinct()
+
+
 class Campaign(models.Model):
     class Status(models.TextChoices):
         PLANNING = "planning", "Planning"
@@ -138,6 +146,8 @@ class Campaign(models.Model):
         related_name="campaigns",
     )
     created_at = models.DateTimeField(auto_now_add=True)
+
+    objects = CampaignQuerySet.as_manager()
 
     class Meta:
         ordering = ["-created_at"]
