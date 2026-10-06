@@ -18,7 +18,7 @@
         <span class="badge">{{ campaign.get_status_display }}</span>
         <h2><a href="{% url 'd20:campaign-detail' campaign.pk %}">{{ campaign.title }}</a></h2>
         <p class="muted">Game master: <a href="{% url 'd20:user-detail' campaign.game_master_id %}">{{ campaign.game_master.display_name }}</a></p>
-        <p>{{ campaign.players.all|length }} player{{ campaign.players.all|length|pluralize }} &middot; {{ campaign.sessions_count }} session{{ campaign.sessions_count|pluralize }}</p>
+        <p>{{ campaign.players_count }} player{{ campaign.players_count|pluralize }} &middot; {{ campaign.sessions_count }} session{{ campaign.sessions_count|pluralize }}</p>
         {% if campaign.description %}
           <p>{{ campaign.description|truncatewords:30 }}</p>
         {% endif %}

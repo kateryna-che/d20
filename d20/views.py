@@ -205,8 +205,10 @@ class ProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, generic.UpdateV
 class CampaignListView(LoginRequiredMixin, SearchMixin, generic.ListView):
     queryset = (
         Campaign.objects.select_related("game_master")
-        .prefetch_related("players")
-        .annotate(sessions_count=Count("game_sessions", distinct=True))
+        .annotate(
+            players_count=Count("memberships", distinct=True),
+            sessions_count=Count("game_sessions", distinct=True),
+        )
         .order_by("-created_at")
     )
     paginate_by = 6
