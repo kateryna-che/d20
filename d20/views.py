@@ -446,11 +446,23 @@ class PreparationNoteUpdateView(
 
 
 class PreparationNoteDeleteView(
-    OwnerRequiredMixin, SuccessMessageMixin, generic.DeleteView
+    LoginRequiredMixin, SuccessMessageMixin, generic.DeleteView
 ):
+    """The author in the campaign or its game master deletes the note."""
+
     model = PreparationNote
-    owner_field = "author"
     success_message = "The note was deleted."
+
+    def get_queryset(self):
+        user = self.request.user
+        return (
+            super()
+            .get_queryset()
+            .filter(
+                Q(author=user) | Q(campaign__game_master=user),
+                campaign__in=get_user_campaigns(user),
+            )
+        )
 
     def get_success_url(self):
         return self.object.campaign.get_absolute_url()

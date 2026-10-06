@@ -10,9 +10,11 @@
       <h1>{{ preparationnote.title }}</h1>
       <p class="muted">Author: <a href="{% url 'd20:user-detail' preparationnote.author_id %}">{{ preparationnote.author.display_name }}</a></p>
     </div>
-    {% if preparationnote.author_id == user.pk %}
+    {% if preparationnote.author_id == user.pk or preparationnote.campaign.game_master_id == user.pk %}
       <div class="actions">
-        <a class="button" href="{% url 'd20:note-update' preparationnote.pk %}?next={{ request.get_full_path|urlencode }}">Edit note</a>
+        {% if preparationnote.author_id == user.pk %}
+          <a class="button" href="{% url 'd20:note-update' preparationnote.pk %}?next={{ request.get_full_path|urlencode }}">Edit note</a>
+        {% endif %}
         <a class="button danger" href="{% url 'd20:note-delete' preparationnote.pk %}">Delete note</a>
       </div>
     {% endif %}
