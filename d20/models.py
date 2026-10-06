@@ -117,6 +117,26 @@ class Character(models.Model):
     def get_absolute_url(self):
         return reverse("d20:character-detail", kwargs={"pk": self.pk})
 
+    @property
+    def summary(self):
+        """Short line such as "Level 3 Elf Wizard"."""
+        return (
+            f"Level {self.level} {self.get_ancestry_display()} "
+            f"{self.get_character_class_display()}"
+        )
+
+    @property
+    def stat_blocks(self):
+        """Ability scores with the modifiers that are added to dice rolls."""
+        return [
+            {
+                "label": ability.capitalize(),
+                "score": getattr(self, ability),
+                "modifier": (getattr(self, ability) - 10) // 2,
+            }
+            for ability in self.ABILITIES
+        ]
+
 
 class CampaignQuerySet(models.QuerySet):
     def for_user(self, user):
@@ -255,6 +275,10 @@ class GameSession(models.Model):
 
     def get_absolute_url(self):
         return reverse("d20:session-detail", kwargs={"pk": self.pk})
+
+    @property
+    def location_is_link(self):
+        return self.play_location.startswith(("http://", "https://"))
 
 
 class SessionParticipation(models.Model):
