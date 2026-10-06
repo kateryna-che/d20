@@ -1,6 +1,6 @@
 from django import forms
 
-from d20.models import Campaign, GameSession
+from d20.models import Campaign, GameSession, Character
 
 
 class CampaignForm(forms.ModelForm):
@@ -8,6 +8,33 @@ class CampaignForm(forms.ModelForm):
         model = Campaign
         fields = ("title", "description", "status")
         widgets = {"description": forms.Textarea(attrs={"rows": 6})}
+
+
+class CharacterForm(forms.ModelForm):
+    class Meta:
+        model = Character
+        fields = (
+            "name",
+            "concept",
+            "character_class",
+            "ancestry",
+            "level",
+            *Character.ABILITIES,
+            "max_hit_points",
+            "hit_points",
+            "armor_class",
+            "speed",
+            "abilities",
+            "inventory",
+            "notes",
+            "backstory",
+        )
+        widgets = {
+            "abilities": forms.Textarea(attrs={"rows": 6}),
+            "inventory": forms.Textarea(attrs={"rows": 6}),
+            "notes": forms.Textarea(attrs={"rows": 4}),
+            "backstory": forms.Textarea(attrs={"rows": 6}),
+        }
 
 
 class GameSessionForm(forms.ModelForm):

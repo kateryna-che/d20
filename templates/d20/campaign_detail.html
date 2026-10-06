@@ -31,7 +31,7 @@
           <li>
             <strong>{{ membership.player.display_name }}</strong>
             {% if membership.character %}
-              <p>{{ membership.character.name }} &middot; Level {{ membership.character.level }} {{ membership.character.get_character_class_display }}</p>
+              <p><a href="{% url 'd20:character-detail' membership.character_id %}">{{ membership.character.name }}</a> &middot; Level {{ membership.character.level }} {{ membership.character.get_character_class_display }}</p>
             {% else %}
               <p class="muted">No character selected yet.</p>
             {% endif %}

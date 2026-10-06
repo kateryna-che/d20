@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}{{ character.name }} | D20{% endblock %}
+
+{% block content %}
+  <a class="back-link" href="{% url 'd20:character-list' %}">&larr; My characters</a>
+  <div class="page-heading">
+    <div>
+      <span class="badge">Level {{ character.level }}</span>
+      <h1>{{ character.name }}</h1>
+      <p>{{ character.get_ancestry_display }} &middot; {{ character.get_character_class_display }}</p>
+      {% if character.concept %}<p>{{ character.concept }}</p>{% endif %}
+      <p class="muted">Player: {{ character.owner.display_name }}</p>
+    </div>
+    {% if character.owner_id == user.pk %}
+      <div class="actions">
+        <a class="button" href="{% url 'd20:character-update' character.pk %}">Edit character</a>
+        <a class="button danger" href="{% url 'd20:character-delete' character.pk %}">Delete character</a>
+      </div>
+    {% endif %}
+  </div>
+  <div class="detail-grid">
+    <section class="card">
+      <h2>Ability scores</h2>
+      <p>Strength: {{ character.strength }}</p>
+      <p>Dexterity: {{ character.dexterity }}</p>
+      <p>Constitution: {{ character.constitution }}</p>
+      <p>Intelligence: {{ character.intelligence }}</p>
+      <p>Wisdom: {{ character.wisdom }}</p>
+      <p>Charisma: {{ character.charisma }}</p>
+    </section>
+    <section class="card">
+      <h2>Combat</h2>
+      <p>Hit points: {{ character.hit_points }} / {{ character.max_hit_points }}</p>
+      <p>Armor class: {{ character.armor_class }}</p>
+      <p>Speed: {{ character.speed }} ft.</p>
+    </section>
+  </div>
+  {% if character.abilities %}
+    <section class="card">
+      <h2>Features and spells</h2>
+      {{ character.abilities|linebreaks }}
+    </section>
+  {% endif %}
+  {% if character.inventory %}
+    <section class="card">
+      <h2>Inventory</h2>
+      {{ character.inventory|linebreaks }}
+    </section>
+  {% endif %}
+  {% if character.notes %}
+    <section class="card">
+      <h2>Sheet notes</h2>
+      {{ character.notes|linebreaks }}
+    </section>
+  {% endif %}
+  {% if character.backstory %}
+    <section class="card">
+      <h2>Backstory</h2>
+      {{ character.backstory|linebreaks }}
+    </section>
+  {% endif %}
+  <section class="card">
+    <h2>Campaigns and sessions</h2>
+    <ul class="entry-list">
+      {% for membership in character.memberships.all %}
+        <li>
+          <h3><a href="{% url 'd20:campaign-detail' membership.campaign_id %}">{{ membership.campaign.title }}</a></h3>
+          {% for participation in membership.participations.all %}
+            <p>
+              <a href="{% url 'd20:session-detail' participation.game_session_id %}">{{ participation.game_session.title }}</a>
+              &middot; {{ participation.game_session.scheduled_at|date:"j M Y, H:i" }}
+              &middot; {{ participation.get_attendance_status_display }}
+            </p>
+          {% empty %}
+            <p class="muted">No session responses yet.</p>
+          {% endfor %}
+        </li>
+      {% empty %}
+        <li class="muted">This character has not joined any campaigns yet.</li>
+      {% endfor %}
+    </ul>
+  </section>
+  <p class="muted">Last updated: {{ character.updated_at|date:"j M Y, H:i" }}</p>
+{% endblock %}

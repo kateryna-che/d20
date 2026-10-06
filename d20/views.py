@@ -8,8 +8,8 @@ from django.urls import reverse, reverse_lazy
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.views import generic
 
-from d20.forms import CampaignForm, GameSessionForm
-from d20.models import Campaign, GameSession
+from d20.forms import CampaignForm, GameSessionForm, CharacterForm
+from d20.models import Campaign, GameSession, Character
 
 
 class OwnerRequiredMixin(LoginRequiredMixin):
@@ -107,6 +107,58 @@ class CampaignDeleteView(OwnerRequiredMixin, SuccessMessageMixin, generic.Delete
     model = Campaign
     success_url = reverse_lazy("d20:campaign-list")
     success_message = "The campaign was deleted."
+
+
+
+class CharacterListView(LoginRequiredMixin, generic.ListView):
+    """The characters of the logged-in user.
+
+    Characters of other players are opened from campaign pages.
+    """
+
+    model = Character
+    paginate_by = 8
+    search_field = "name"
+
+    def get_queryset(self):
+        return super().get_queryset().filter(owner=self.request.user)
+
+
+class CharacterDetailView(LoginRequiredMixin, generic.DetailView):
+    queryset = Character.objects.select_related("owner").prefetch_related(
+        "memberships__campaign",
+        "memberships__participations__game_session",
+    )
+
+
+class CharacterCreateView(
+    LoginRequiredMixin, SuccessMessageMixin, generic.CreateView
+):
+    model = Character
+    form_class = CharacterForm
+    success_message = "The character was created."
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+
+class CharacterUpdateView(
+    OwnerRequiredMixin, SuccessMessageMixin, generic.UpdateView
+):
+    model = Character
+    form_class = CharacterForm
+    owner_field = "owner"
+    success_message = "The character sheet was saved."
+
+
+class CharacterDeleteView(
+    OwnerRequiredMixin, SuccessMessageMixin, generic.DeleteView
+):
+    model = Character
+    owner_field = "owner"
+    success_url = reverse_lazy("d20:character-list")
+    success_message = "The character was deleted."
 
 
 class GameSessionListView(LoginRequiredMixin, generic.ListView):

@@ -111,6 +111,9 @@ class Character(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("d20:character-detail", kwargs={"pk": self.pk})
+
 
 class Campaign(models.Model):
     class Status(models.TextChoices):

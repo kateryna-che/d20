@@ -41,7 +41,7 @@
         <li>
           <strong>{{ participation.membership.player.display_name }}</strong>
           &middot; {{ participation.get_attendance_status_display }}
-          {% if participation.membership.character %}<p>{{ participation.membership.character.name }}</p>{% endif %}
+          {% if participation.membership.character %}<p><a href="{% url 'd20:character-detail' participation.membership.character_id %}">{{ participation.membership.character.name }}</a></p>{% endif %}
         </li>
       {% empty %}
         <li class="muted">No attendance responses yet.</li>

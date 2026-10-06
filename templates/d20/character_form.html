@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}{% if object %}Edit character{% else %}Create character{% endif %} | D20{% endblock %}
+
+{% block content %}
+  <section class="card form-card">
+    <h1>{% if object %}Edit character{% else %}Create character{% endif %}</h1>
+    <p class="muted">{% if object %}Update your character sheet.{% else %}Create a hero for your next adventure.{% endif %}</p>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="actions">
+        <button class="button" type="submit">{% if object %}Save changes{% else %}Create character{% endif %}</button>
+        <a class="button secondary" href="{% if object %}{% url 'd20:character-detail' object.pk %}{% else %}{% url 'd20:character-list' %}{% endif %}">Cancel</a>
+      </div>
+    </form>
+  </section>
+{% endblock %}
