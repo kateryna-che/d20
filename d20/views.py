@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import redirect_to_login
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Count, Q
 from django.http import HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect, render
@@ -69,6 +70,11 @@ class ReturnUrlMixin:
     def get_default_return_url(self):
         if self.success_url:
             return str(self.success_url)
+        if self.object is None:
+            raise ImproperlyConfigured(
+                f"{type(self).__name__} needs success_url or its own "
+                "get_default_return_url()."
+            )
         return self.object.get_absolute_url()
 
     def get_context_data(self, **kwargs):
