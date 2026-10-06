@@ -390,20 +390,28 @@ class GameSessionDeleteView(
 
 
 class PreparationNoteDetailView(LoginRequiredMixin, generic.DetailView):
+    """A note is open to the game master and the players of its campaign."""
+
     queryset = PreparationNote.objects.select_related("campaign", "author")
+
+    def get_queryset(self):
+        campaigns = get_user_campaigns(self.request.user)
+        return super().get_queryset().filter(campaign__in=campaigns)
 
 
 class PreparationNoteCreateView(
     LoginRequiredMixin, ReturnUrlMixin, SuccessMessageMixin, generic.CreateView
 ):
-    """Any user adds a note to the campaign from the URL."""
+    """The game master or a player adds a note to the campaign from the URL."""
 
     model = PreparationNote
     form_class = PreparationNoteForm
     success_message = "The note was added."
 
     def get_campaign(self):
-        return get_object_or_404(Campaign, pk=self.kwargs["pk"])
+        return get_object_or_404(
+            get_user_campaigns(self.request.user), pk=self.kwargs["pk"]
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -422,10 +430,16 @@ class PreparationNoteCreateView(
 class PreparationNoteUpdateView(
     OwnerRequiredMixin, ReturnUrlMixin, SuccessMessageMixin, generic.UpdateView
 ):
+    """The author edits the note while in its campaign."""
+
     model = PreparationNote
     form_class = PreparationNoteForm
     owner_field = "author"
     success_message = "The note was saved."
+
+    def get_queryset(self):
+        campaigns = get_user_campaigns(self.request.user)
+        return super().get_queryset().filter(campaign__in=campaigns)
 
     def get_default_return_url(self):
         return reverse("d20:note-detail", kwargs={"pk": self.object.pk})

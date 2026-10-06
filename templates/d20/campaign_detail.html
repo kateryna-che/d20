@@ -79,17 +79,19 @@
       </ul>
     </section>
   </div>
-  <section class="card">
-    <h2>Preparation notes</h2>
-    <p><a class="button" href="{% url 'd20:note-create' campaign.pk %}?next={{ request.get_full_path|urlencode }}">Create preparation note</a></p>
-    <ul class="entry-list">
-      {% for note in campaign.notes.all %}
-        <li>
-          <h3><a href="{% url 'd20:note-detail' note.pk %}">{{ note.title }}</a></h3>
-        </li>
-      {% empty %}
-        <li class="muted">No preparation notes yet.</li>
-      {% endfor %}
-    </ul>
-  </section>
+  {% if is_game_master or is_player %}
+    <section class="card">
+      <h2>Preparation notes</h2>
+      <p><a class="button" href="{% url 'd20:note-create' campaign.pk %}?next={{ request.get_full_path|urlencode }}">Create preparation note</a></p>
+      <ul class="entry-list">
+        {% for note in campaign.notes.all %}
+          <li>
+            <h3><a href="{% url 'd20:note-detail' note.pk %}">{{ note.title }}</a></h3>
+          </li>
+        {% empty %}
+          <li class="muted">No preparation notes yet.</li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
 {% endblock %}
