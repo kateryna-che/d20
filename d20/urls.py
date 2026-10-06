@@ -23,6 +23,7 @@ from d20.views import (
     PreparationNoteUpdateView,
     ProfileUpdateView,
     UserDetailView,
+    index,
     respond_to_session,
     update_campaign_membership,
 )
@@ -30,6 +31,7 @@ from d20.views import (
 app_name = "d20"
 
 urlpatterns = [
+    path("", index, name="index"),
     path("players/<int:pk>/", UserDetailView.as_view(), name="user-detail"),
     path("profile/update/", ProfileUpdateView.as_view(), name="profile-update"),
     path("campaigns/", CampaignListView.as_view(), name="campaign-list"),

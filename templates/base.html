@@ -10,7 +10,7 @@
 <body>
   <header class="site-header">
     <nav class="container navigation" aria-label="Main navigation">
-      <a class="brand" href="{% url 'd20:campaign-list' %}">D20</a>
+      <a class="brand" href="{% url 'd20:index' %}">D20</a>
       {% if user.is_authenticated %}
         <a href="{% url 'd20:campaign-list' %}">Campaigns</a>
         <a href="{% url 'd20:session-list' %}">My sessions</a>

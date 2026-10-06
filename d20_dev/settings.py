@@ -62,7 +62,7 @@ DATABASES = {
 
 AUTH_USER_MODEL = "d20.User"
 LOGIN_URL = "login"
-LOGIN_REDIRECT_URL = "d20:campaign-list"
+LOGIN_REDIRECT_URL = "d20:index"
 LOGOUT_REDIRECT_URL = "login"
 AUTH_PASSWORD_VALIDATORS = [
     {
