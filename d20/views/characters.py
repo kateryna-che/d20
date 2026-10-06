@@ -1,0 +1,59 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse_lazy
+from django.views import generic
+
+from d20.forms import CharacterForm
+from d20.models import Character
+from d20.views.mixins import OwnerRequiredMixin, ReturnUrlMixin, SearchMixin
+
+
+class CharacterListView(LoginRequiredMixin, SearchMixin, generic.ListView):
+    """The characters of the logged-in user.
+
+    Characters of other players are opened from campaign pages.
+    """
+
+    model = Character
+    ordering = ("name", "pk")
+    paginate_by = 8
+    search_field = "name"
+
+    def get_queryset(self):
+        return super().get_queryset().filter(owner=self.request.user)
+
+
+class CharacterDetailView(LoginRequiredMixin, generic.DetailView):
+    queryset = Character.objects.select_related("owner").prefetch_related(
+        "memberships__campaign",
+        "memberships__participations__game_session",
+    )
+
+
+class CharacterCreateView(
+    LoginRequiredMixin, ReturnUrlMixin, SuccessMessageMixin, generic.CreateView
+):
+    model = Character
+    form_class = CharacterForm
+    success_url = reverse_lazy("d20:character-list")
+    success_message = "The character was created."
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+
+class CharacterUpdateView(
+    OwnerRequiredMixin, ReturnUrlMixin, SuccessMessageMixin, generic.UpdateView
+):
+    model = Character
+    form_class = CharacterForm
+    owner_field = "owner"
+    success_message = "The character sheet was saved."
+
+
+class CharacterDeleteView(OwnerRequiredMixin, SuccessMessageMixin, generic.DeleteView):
+    model = Character
+    owner_field = "owner"
+    success_url = reverse_lazy("d20:character-list")
+    success_message = "The character was deleted."

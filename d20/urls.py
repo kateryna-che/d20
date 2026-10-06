@@ -1,32 +1,37 @@
 from django.urls import path
 
-from d20.views import (
+from d20.views.campaigns import (
     CampaignCreateView,
     CampaignDeleteView,
     CampaignDetailView,
     CampaignListView,
     CampaignUpdateView,
     MembershipUpdateView,
+    update_campaign_membership,
+)
+from d20.views.characters import (
     CharacterCreateView,
     CharacterDeleteView,
     CharacterDetailView,
     CharacterListView,
     CharacterUpdateView,
+)
+from d20.views.game_sessions import (
     GameSessionCreateView,
     GameSessionDeleteView,
     GameSessionDetailView,
     GameSessionListView,
     GameSessionUpdateView,
+    respond_to_session,
+)
+from d20.views.home import index
+from d20.views.notes import (
     PreparationNoteCreateView,
     PreparationNoteDeleteView,
     PreparationNoteDetailView,
     PreparationNoteUpdateView,
-    ProfileUpdateView,
-    UserDetailView,
-    index,
-    respond_to_session,
-    update_campaign_membership,
 )
+from d20.views.users import ProfileUpdateView, UserDetailView
 
 app_name = "d20"
 
