@@ -162,10 +162,11 @@ class UserDetailView(LoginRequiredMixin, generic.DetailView):
 class ProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, generic.UpdateView):
     form_class = ProfileForm
     template_name = "d20/user_form.html"
+    context_object_name = "profile"
     success_message = "Your profile was updated."
 
     def get_object(self, queryset=None):
-        return self.request.user
+        return get_user_model().objects.get(pk=self.request.user.pk)
 
     def get_success_url(self):
         return reverse("d20:user-detail", kwargs={"pk": self.object.pk})
