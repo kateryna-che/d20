@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
-from d20.models import Campaign, GameSession, Character, CampaignMembership, PreparationNote
+from d20.models import Campaign, GameSession, Character, CampaignMembership, PreparationNote, SessionParticipation
 
 
 class ProfileForm(forms.ModelForm):
@@ -86,3 +86,9 @@ class PreparationNoteForm(forms.ModelForm):
     class Meta:
         model = PreparationNote
         fields = ("title", "kind", "content")
+
+
+class ParticipationForm(forms.ModelForm):
+    class Meta:
+        model = SessionParticipation
+        fields = ("attendance_status",)

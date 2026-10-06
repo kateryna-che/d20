@@ -225,6 +225,8 @@ class GameSession(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse("d20:session-detail", kwargs={"pk": self.pk})
 
 class SessionParticipation(models.Model):
     """The answer of a campaign player to one game session."""

@@ -12,8 +12,9 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from django.views import generic
 from django.views.decorators.http import require_POST
 
-from d20.forms import CampaignForm, GameSessionForm, CharacterForm, ProfileForm, MembershipForm, PreparationNoteForm
-from d20.models import Campaign, GameSession, Character, CampaignMembership, PreparationNote
+from d20.forms import CampaignForm, GameSessionForm, CharacterForm, ProfileForm, MembershipForm, PreparationNoteForm, \
+    ParticipationForm
+from d20.models import Campaign, GameSession, Character, CampaignMembership, PreparationNote, SessionParticipation
 
 
 class OwnerRequiredMixin(LoginRequiredMixin):
@@ -81,6 +82,30 @@ def update_campaign_membership(request, pk):
     else:
         campaign.memberships.filter(player=request.user).delete()
     return redirect(campaign)
+
+
+@login_required
+@require_POST
+def respond_to_session(request, pk):
+    """Save the answer of a campaign player: confirmed or declined."""
+    game_session = get_object_or_404(GameSession, pk=pk)
+    membership = get_object_or_404(
+        CampaignMembership,
+        campaign=game_session.campaign_id,
+        player=request.user,
+    )
+    form = ParticipationForm(request.POST)
+    if form.is_valid():
+        participation, created = SessionParticipation.objects.get_or_create(
+            game_session=game_session,
+            membership=membership,
+            defaults=form.cleaned_data,
+        )
+        if not created:
+            SessionParticipation.objects.filter(pk=participation.pk).update(
+                **form.cleaned_data
+            )
+    return redirect(game_session)
 
 
 class UserDetailView(LoginRequiredMixin, generic.DetailView):
@@ -265,6 +290,9 @@ class GameSessionDetailView(LoginRequiredMixin, generic.DetailView):
         context["is_game_master"] = (
             self.object.campaign.game_master_id == self.request.user.pk
         )
+        context["is_player"] = CampaignMembership.objects.filter(
+            campaign_id=self.object.campaign_id, player=self.request.user
+        ).exists()
         return context
 
 
@@ -314,7 +342,6 @@ class GameSessionDeleteView(
     owner_field = "campaign__game_master"
     success_url = reverse_lazy("d20:session-list")
     success_message = "The session was deleted."
-
 
 
 class PreparationNoteDetailView(LoginRequiredMixin, generic.DetailView):

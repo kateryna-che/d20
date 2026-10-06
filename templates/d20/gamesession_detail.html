@@ -37,6 +37,13 @@
     {% if my_participation %}
       <p>Your response: {{ my_participation.get_attendance_status_display }}</p>
     {% endif %}
+    {% if is_player %}
+      <form class="actions" method="post" action="{% url 'd20:session-respond' gamesession.pk %}">
+        {% csrf_token %}
+        <button class="button" type="submit" name="attendance_status" value="confirmed">Confirm attendance</button>
+        <button class="button secondary" type="submit" name="attendance_status" value="declined">Decline attendance</button>
+      </form>
+    {% endif %}
     <ul class="entry-list">
       {% for participation in gamesession.participations.all %}
         <li>
