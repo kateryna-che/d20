@@ -320,15 +320,24 @@ class GameSessionDetailView(LoginRequiredMixin, generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["my_participation"] = self.object.participations.filter(
-            membership__player=self.request.user
-        ).first()
+        my_participation = next(
+            (
+                participation
+                for participation in self.object.participations.all()
+                if participation.membership.player_id == self.request.user.pk
+            ),
+            None,
+        )
+        context["my_participation"] = my_participation
         context["is_game_master"] = (
             self.object.campaign.game_master_id == self.request.user.pk
         )
-        context["is_player"] = CampaignMembership.objects.filter(
-            campaign_id=self.object.campaign_id, player=self.request.user
-        ).exists()
+        context["is_player"] = (
+            my_participation is not None
+            or CampaignMembership.objects.filter(
+                campaign_id=self.object.campaign_id, player=self.request.user
+            ).exists()
+        )
         return context
 
 
