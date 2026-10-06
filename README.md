@@ -43,7 +43,65 @@ The site opens at http://127.0.0.1:8000/. `manage.py` works with the
 development settings, which need no environment variables: the database is
 the `db.sqlite3` file.
 
+The database starts empty. To see the site with ready campaigns, sessions and
+characters, load the [demo data](#demo-data) instead of creating a superuser.
+
 Run the tests with `python manage.py test`.
+
+## Demo data
+
+The `demo` fixture, `d20/fixtures/demo.json`, fills an empty database with a
+busy table: 11 players, 9 campaigns, 46 game sessions, 27 character sheets
+and 32 notes.
+
+```shell
+python manage.py migrate
+python manage.py loaddata demo
+```
+
+Load it instead of `createsuperuser`: the fixture brings its own accounts and
+overwrites the rows that have the same primary keys. Every account has the
+password `roll-for-initiative`.
+
+| Login        | What it shows                                                |
+|--------------|--------------------------------------------------------------|
+| `demo`       | the main account: runs three campaigns, plays in three more, |
+|              | has ten characters and sessions that wait for an answer      |
+| `lena`       | the game master of a campaign where `demo` is a player       |
+| `tess`       | a player of "Skyship Smugglers", which `demo` sees from the  |
+|              | outside: no notes, only the button to join                   |
+| `dicegoblin` | a player without a name, a bio or a character                |
+| `robin`      | a new account: every list is empty                           |
+| `admin`      | the superuser of the admin site at `/admin/`                 |
+
+The other players are `marco`, `oleh`, `priya`, `sam` and `yuki`.
+
+The dates of the fixture are fixed: the scheduled sessions run from October
+2026 to April 2027.
+
+The production database takes the same fixture. The command needs the
+environment variables of the [production settings](#settings):
+
+```shell
+python manage.py loaddata demo --settings=d20_dev.settings.prod
+```
+
+On a public server change the password of `admin` right after that:
+
+```shell
+python manage.py changepassword admin --settings=d20_dev.settings.prod
+```
+
+The fixture is the output of `dumpdata` and is written again the same way
+when the models change:
+
+```shell
+python manage.py dumpdata d20 --indent 2 --output d20/fixtures/demo.json
+```
+
+On Windows `dumpdata --output` writes the file in the encoding of the system
+locale, so the texts of the fixture are plain ASCII. Set `PYTHONUTF8=1` before
+other characters go into it.
 
 ## Settings
 
@@ -87,3 +145,6 @@ PostgreSQL database, for example on [Neon](https://neon.tech/):
 
 Render sets `RENDER_EXTERNAL_HOSTNAME` itself, and the production settings
 add this domain to `ALLOWED_HOSTS`.
+
+The build does not load the [demo data](#demo-data): the fixture is loaded
+once by hand.
