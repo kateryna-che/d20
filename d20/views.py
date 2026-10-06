@@ -74,11 +74,11 @@ class ReturnUrlMixin:
         return self.get_return_url()
 
 
-class CampaignRelatedCreateMixin:
+class CampaignRelatedCreateMixin(ReturnUrlMixin):
     """Create an object in the campaign from the URL.
 
     The campaign is found before the form is shown or saved, so list the
-    mixin after LoginRequiredMixin.
+    mixin after LoginRequiredMixin. The form returns to the campaign page.
     """
 
     def get_campaigns(self):
@@ -365,7 +365,6 @@ class GameSessionDetailView(LoginRequiredMixin, generic.DetailView):
 class GameSessionCreateView(
     LoginRequiredMixin,
     CampaignRelatedCreateMixin,
-    ReturnUrlMixin,
     SuccessMessageMixin,
     generic.CreateView,
 ):
@@ -410,7 +409,6 @@ class PreparationNoteDetailView(LoginRequiredMixin, generic.DetailView):
 class PreparationNoteCreateView(
     LoginRequiredMixin,
     CampaignRelatedCreateMixin,
-    ReturnUrlMixin,
     SuccessMessageMixin,
     generic.CreateView,
 ):
