@@ -1,0 +1,3397 @@
+[
+{
+  "model": "d20.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$DwvfNRdpFDdECpWU1o5Tpg$jRV07l6FkkuMWOveSQ/ikraO6hjpxiMluYeFiIZJR20=",
+    "last_login": "2026-10-06T09:20:00Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@example.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-03-01T08:00:00Z",
+    "bio": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "d20.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$FAViz961NoCQXOSX4Ompif$WcwBbnUYEQWe8keXcBVfmUBiE/bqG4aAZ7sx2FCP8oA=",
+    "last_login": "2026-10-06T18:15:00Z",
+    "is_superuser": false,
+    "username": "demo",
+    "first_name": "Alex",
+    "last_name": "Morgan",
+    "email": "alex.morgan@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-02T17:30:00Z",
+    "bio": "Forever game master since 2014, player whenever someone else is brave enough to run. I like slow-burn mysteries, talkative villains and maps drawn on graph paper.\n\nFree on Thursday evenings and most Saturdays. Happy to help new players build a first character.",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "d20.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$ivfuL4BlPasN8zjF21suiM$xjNJ9eCdi4rb2dR4Nn+s3wWoQWXqwKgoyv7iX+ks0N0=",
+    "last_login": "2026-10-05T17:40:00Z",
+    "is_superuser": false,
+    "username": "lena",
+    "first_name": "Lena",
+    "last_name": "Hoffmann",
+    "email": "lena.hoffmann@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-03T07:15:00Z",
+    "bio": "Game master for beginners and for anyone who thinks they are 'not a roleplayer'. I run the Thursday game on the Dragon Coast and the beginner's table at the club.\n\nPlays druids. Always druids.",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "d20.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$LFzt17oKNSnlEu0oqQ9CEM$5vkhZ4ujVUmg0SKJifKesZ5a8j+s5juGiSKRHSrd7uU=",
+    "last_login": "2026-10-04T08:05:00Z",
+    "is_superuser": false,
+    "username": "marco",
+    "first_name": "Marco",
+    "last_name": "Rossi",
+    "email": "marco.rossi@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-05T16:00:00Z",
+    "bio": "Loud dice, louder dwarves. I run heists and one-shots, and play whoever stands in the front line.",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "d20.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$k9ShbeemEovVFr9nEut4Ac$tnX9U6lIZd7LB9MicgpecligMi6gnYPZ3j9z0/t0G30=",
+    "last_login": "2026-10-05T20:30:00Z",
+    "is_superuser": false,
+    "username": "oleh",
+    "first_name": "Oleh",
+    "last_name": "Kovalenko",
+    "email": "oleh.kovalenko@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-06T20:10:00Z",
+    "bio": "Horror and folk tales. I run Lanterns Over Blackmoor on Sundays and play far too many rangers.",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "d20.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$fwoM2S2RNuF7AfveF6TkMb$ylBxQauNInVcMvDU6wzaK+WjHaCueDnWQKiAM2MLTKw=",
+    "last_login": "2026-10-01T15:20:00Z",
+    "is_superuser": false,
+    "username": "sam",
+    "first_name": "Sam",
+    "last_name": "",
+    "email": "sam@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-07T10:45:00Z",
+    "bio": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "d20.user",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$wGhjjmUMNRxpk0V3sa3LTS$05HzlT08IoMj7+BDIzLFUAAlZGYwhDuf23abSlagGGQ=",
+    "last_login": "2026-09-30T16:55:00Z",
+    "is_superuser": false,
+    "username": "tess",
+    "first_name": "Tess",
+    "last_name": "Lindqvist",
+    "email": "tess.lindqvist@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-07T14:30:00Z",
+    "bio": "Artificers and other people who fix things. Moved cities in May, so I mostly play online now.",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "d20.user",
+  "pk": 8,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$mr09WWtwoy6QMpztWLmQlN$WcU5QHXQ6uf7puVuEf9tecX85whdJ7trxqqRHnh7NX4=",
+    "last_login": "2026-10-06T06:10:00Z",
+    "is_superuser": false,
+    "username": "yuki",
+    "first_name": "Yuki",
+    "last_name": "Tanaka",
+    "email": "yuki.tanaka@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-04-02T05:50:00Z",
+    "bio": "Skyships, tea and monks. Game master of Skyship Smugglers. I keep session notes so the rest of the party does not have to.",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "d20.user",
+  "pk": 9,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$H02LR5NBZm3rMSkm58ScXs$2LhZ+7EfVAy3kO8l88wOV3xcgA6GMCWMJXwgWSutngk=",
+    "last_login": "2026-10-03T18:45:00Z",
+    "is_superuser": false,
+    "username": "priya",
+    "first_name": "Priya",
+    "last_name": "Nair",
+    "email": "priya.nair@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-04-03T17:20:00Z",
+    "bio": "Healer main, spreadsheet enthusiast. If your party has a loot ledger, I probably wrote it.\n\nPlanning my first campaign as a game master - wish me luck.",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "d20.user",
+  "pk": 10,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$mDSPz8T3IjwS9mubYfWQ9i$ZOoAUfPfd9m16rbHjSiqN5hS6uPsFMoajiv30s5xOac=",
+    "last_login": "2026-10-02T19:30:00Z",
+    "is_superuser": false,
+    "username": "dicegoblin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-09-27T20:05:00Z",
+    "bio": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "d20.user",
+  "pk": 11,
+  "fields": {
+    "password": "pbkdf2_sha256$1500000$sPH7VGBIXNh9H6BOzBxoNs$p3yCpNy42GE2Js8t2Dp4vB4nwySUD7e0ob0WIKkuo8o=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "robin",
+    "first_name": "Robin",
+    "last_name": "Reed",
+    "email": "robin.reed@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-10-05T14:40:00Z",
+    "bio": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 1,
+  "fields": {
+    "name": "Seraphine Vale",
+    "concept": "A court singer turned spy who collects secrets the way others collect coins.",
+    "character_class": "bard",
+    "ancestry": "half-elf",
+    "level": 5,
+    "strength": 8,
+    "dexterity": 14,
+    "constitution": 13,
+    "intelligence": 12,
+    "wisdom": 10,
+    "charisma": 18,
+    "max_hit_points": 33,
+    "hit_points": 21,
+    "armor_class": 14,
+    "speed": 30,
+    "abilities": "Bardic Inspiration (d8)\nJack of All Trades\nSong of Rest\nCollege of Lore: Cutting Words\nDarkvision 60 ft.\nVicious Mockery\nHealing Word\nDissonant Whispers\nInvisibility\nHypnotic Pattern",
+    "inventory": "Rapier\nLute with a false bottom\nStudded leather armor\nDisguise kit\nSealed letter from the Ember Court\n3 potions of healing\n47 gold pieces",
+    "notes": "Owes the Red Admiral a favour - do NOT mention it in front of the party.\n\nBardic Inspiration: 2 uses left until the next rest.",
+    "backstory": "Seraphine sang at the Ember Court for six years and listened for seven. When her mentor, Maestro Oriel Vance, vanished between two verses of a duet, the court called it a scandal and moved on. She did not.\n\nShe left with his lute, a list of names and a talent for being invited to places she should not be.",
+    "owner": 2,
+    "updated_at": "2026-10-01T19:10:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 2,
+  "fields": {
+    "name": "Brakka Stonefist",
+    "concept": "A retired pit fighter who took one last job to pay for her sister's bakery.",
+    "character_class": "barbarian",
+    "ancestry": "half-orc",
+    "level": 3,
+    "strength": 17,
+    "dexterity": 13,
+    "constitution": 16,
+    "intelligence": 8,
+    "wisdom": 11,
+    "charisma": 9,
+    "max_hit_points": 35,
+    "hit_points": 35,
+    "armor_class": 14,
+    "speed": 30,
+    "abilities": "Rage (3 per day)\nUnarmored Defense\nReckless Attack\nDanger Sense\nRelentless Endurance\nSavage Attacks",
+    "inventory": "Greataxe\n2 handaxes\nExplorer's pack\nCrowbar\nA sack of slightly squashed pastries\nOne vault door (decorative)",
+    "notes": "",
+    "backstory": "Forty-one wins in the pits of Karrow, zero losses, one promise: no more fighting once the bakery opens. The bakery still needs an oven.",
+    "owner": 2,
+    "updated_at": "2026-09-27T16:00:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 3,
+  "fields": {
+    "name": "Ilyra Moonwhisper",
+    "concept": "An archivist of forgotten star charts who believes the sky is a text that can be read.",
+    "character_class": "wizard",
+    "ancestry": "elf",
+    "level": 9,
+    "strength": 8,
+    "dexterity": 14,
+    "constitution": 12,
+    "intelligence": 20,
+    "wisdom": 13,
+    "charisma": 10,
+    "max_hit_points": 47,
+    "hit_points": 47,
+    "armor_class": 12,
+    "speed": 30,
+    "abilities": "Arcane Recovery\nSchool of Divination: Portent\nExpert Divination\nFey Ancestry\nTrance\nMage Armor\nDetect Magic\nMisty Step\nCounterspell\nFireball\nScrying\nWall of Force",
+    "inventory": "Spellbook bound in midnight-blue leather\nQuarterstaff\nComponent pouch\nBrass astrolabe\nCrystal ball (cracked)\nScroll of Teleportation",
+    "notes": "Retired after the Starfall campaign. I keep the sheet for cameos.",
+    "backstory": "Ilyra spent a century cataloguing the night sky before she noticed that one constellation was missing from every chart older than her own.\n\nShe has been looking for whoever erased it ever since.",
+    "owner": 2,
+    "updated_at": "2026-03-20T18:45:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 4,
+  "fields": {
+    "name": "Pip Underbough",
+    "concept": "",
+    "character_class": "rogue",
+    "ancestry": "halfling",
+    "level": 1,
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10,
+    "max_hit_points": 10,
+    "hit_points": 10,
+    "armor_class": 10,
+    "speed": 30,
+    "abilities": "",
+    "inventory": "",
+    "notes": "",
+    "backstory": "",
+    "owner": 2,
+    "updated_at": "2026-10-02T18:05:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 5,
+  "fields": {
+    "name": "Dame Orlena Brightshield",
+    "concept": "A knight who swore an oath to a kingdom that no longer exists.",
+    "character_class": "paladin",
+    "ancestry": "human",
+    "level": 12,
+    "strength": 18,
+    "dexterity": 10,
+    "constitution": 16,
+    "intelligence": 10,
+    "wisdom": 12,
+    "charisma": 18,
+    "max_hit_points": 112,
+    "hit_points": 98,
+    "armor_class": 20,
+    "speed": 30,
+    "abilities": "Divine Sense\nLay on Hands (60 points)\nDivine Smite\nExtra Attack\nAura of Protection\nAura of Courage\nImproved Divine Smite\nOath of Devotion: Sacred Weapon\nBless\nShield of Faith\nRevivify",
+    "inventory": "Longsword \"Dawnbringer\"\nShield with a faded royal crest\nPlate armor\nHoly symbol\nWarhorse (Bramble)\nRoyal signet ring",
+    "notes": "Bramble the warhorse has 19 hit points and strong opinions.",
+    "backstory": "The kingdom of Aldermere fell in a single winter. Orlena was abroad, carrying a treaty that arrived three days too late.\n\nShe still keeps the oath. Somebody has to.",
+    "owner": 2,
+    "updated_at": "2026-04-18T10:30:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 6,
+  "fields": {
+    "name": "Zekk Tinkerspark",
+    "concept": "An inventor convinced that every problem is one more gadget away from being solved.",
+    "character_class": "artificer",
+    "ancestry": "gnome",
+    "level": 4,
+    "strength": 8,
+    "dexterity": 14,
+    "constitution": 14,
+    "intelligence": 18,
+    "wisdom": 12,
+    "charisma": 10,
+    "max_hit_points": 31,
+    "hit_points": 27,
+    "armor_class": 15,
+    "speed": 25,
+    "abilities": "Magical Tinkering\nInfuse Item\nThe Right Tool for the Job\nBattle Smith: Steel Defender\nGnome Cunning\nMending\nCure Wounds\nGrease",
+    "inventory": "Light crossbow\nTinker's tools\nThieves' tools\nBag of spare gears\nClockwork owl (does not fly yet)\nGoggles",
+    "notes": "The steel defender is called Bolt. Bolt is a good boy.",
+    "backstory": "",
+    "owner": 2,
+    "updated_at": "2026-08-30T12:15:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 7,
+  "fields": {
+    "name": "Morwen Ashgrave",
+    "concept": "She signed a contract to save her village and has been looking for a loophole ever since.",
+    "character_class": "warlock",
+    "ancestry": "tiefling",
+    "level": 7,
+    "strength": 8,
+    "dexterity": 14,
+    "constitution": 14,
+    "intelligence": 13,
+    "wisdom": 12,
+    "charisma": 19,
+    "max_hit_points": 52,
+    "hit_points": 9,
+    "armor_class": 13,
+    "speed": 30,
+    "abilities": "Pact Magic\nPact of the Tome\nEldritch Invocations: Agonizing Blast, Devil's Sight\nHellish Resistance\nEldritch Blast\nHex\nDarkness\nCounterspell\nBanishment",
+    "inventory": "Book of Shadows\nDagger\nLeather armor\nThe contract (unreadable fine print)\nBlack candle that never burns down",
+    "notes": "Badly hurt after the duel with her patron's envoy. Needs a long rest before anything else.",
+    "backstory": "The plague stopped at the edge of Ashgrave on the night Morwen signed. Nobody in the village knows why, and she would like to keep it that way.\n\nClause nine says the contract ends 'when the signatory has nothing left to lose'. She reads it differently every year.",
+    "owner": 2,
+    "updated_at": "2026-07-12T20:40:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 8,
+  "fields": {
+    "name": "Kael Thornwood",
+    "concept": "",
+    "character_class": "ranger",
+    "ancestry": "elf",
+    "level": 6,
+    "strength": 12,
+    "dexterity": 18,
+    "constitution": 14,
+    "intelligence": 10,
+    "wisdom": 16,
+    "charisma": 8,
+    "max_hit_points": 52,
+    "hit_points": 52,
+    "armor_class": 16,
+    "speed": 35,
+    "abilities": "Favored Enemy: undead, beasts\nNatural Explorer: forest\nFighting Style: Archery\nHunter: Colossus Slayer\nExtra Attack\nMask of the Wild\nHunter's Mark\nPass without Trace",
+    "inventory": "Longbow\nQuiver with 40 arrows\n2 shortswords\nHunting trap\nHerbalism kit\nCloak of dark green wool",
+    "notes": "",
+    "backstory": "Kael guarded the same stretch of forest for eighty years. Then the forest asked him to leave, politely, and he is still trying to find out what he did wrong.",
+    "owner": 2,
+    "updated_at": "2026-05-24T07:20:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 9,
+  "fields": {
+    "name": "Brother Aldous",
+    "concept": "A cheerful monk-brewer who heals with prayers and a suspicious herbal tonic.",
+    "character_class": "cleric",
+    "ancestry": "human",
+    "level": 2,
+    "strength": 13,
+    "dexterity": 9,
+    "constitution": 14,
+    "intelligence": 10,
+    "wisdom": 16,
+    "charisma": 12,
+    "max_hit_points": 17,
+    "hit_points": 17,
+    "armor_class": 16,
+    "speed": 30,
+    "abilities": "Spellcasting\nLife Domain: Disciple of Life\nChannel Divinity: Preserve Life\nSacred Flame\nGuidance\nCure Wounds\nBless",
+    "inventory": "Mace\nScale mail\nShield\nHoly symbol carved from a barrel stave\nSmall keg of abbey ale",
+    "notes": "",
+    "backstory": "The abbey sent him out to find new recipes. He took it broadly.",
+    "owner": 2,
+    "updated_at": "2026-06-02T16:05:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 10,
+  "fields": {
+    "name": "Vex",
+    "concept": "A storm given a name. Twenty levels of bad decisions and spectacular lightning.",
+    "character_class": "sorcerer",
+    "ancestry": "dragonborn",
+    "level": 20,
+    "strength": 10,
+    "dexterity": 14,
+    "constitution": 18,
+    "intelligence": 12,
+    "wisdom": 12,
+    "charisma": 20,
+    "max_hit_points": 162,
+    "hit_points": 162,
+    "armor_class": 15,
+    "speed": 30,
+    "abilities": "Draconic Bloodline (blue)\nDraconic Resilience\nMetamagic: Quickened, Twinned, Empowered, Heightened\nElemental Affinity: lightning\nDragon Wings\nDraconic Presence\nSorcerous Restoration\nBreath Weapon (lightning)\nChain Lightning\nWish\nMeteor Swarm",
+    "inventory": "Staff of Thunder and Lightning\nRobe of the Archmagi\nBag of Holding\nA single scale of the dragon she descends from\n12,400 gold pieces",
+    "notes": "Epic-level one-shots only.",
+    "backstory": "Born during a thunderstorm that lasted nine days. The storm ended when she learned to walk; the weather has been nervous around her ever since.",
+    "owner": 2,
+    "updated_at": "2026-03-05T19:00:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 11,
+  "fields": {
+    "name": "Thessaly Reed",
+    "concept": "A marsh hermit who speaks for the river and distrusts anything with a roof.",
+    "character_class": "druid",
+    "ancestry": "human",
+    "level": 5,
+    "strength": 10,
+    "dexterity": 14,
+    "constitution": 14,
+    "intelligence": 12,
+    "wisdom": 18,
+    "charisma": 8,
+    "max_hit_points": 38,
+    "hit_points": 31,
+    "armor_class": 15,
+    "speed": 30,
+    "abilities": "Druidic\nWild Shape (2 per rest)\nCircle of the Land: swamp\nNatural Recovery\nEntangle\nMoonbeam\nCall Lightning\nSpeak with Animals",
+    "inventory": "Wooden shield\nScimitar\nDruidic focus (heron skull)\nHerbalism kit\nJar of leeches",
+    "notes": "Made a promise to the hermit of the Thornwood. Not telling yet.",
+    "backstory": "Thessaly has lived on the Greywater marsh since before the crown broke. The river was quieter then, and she wants to know what woke it.",
+    "owner": 3,
+    "updated_at": "2026-09-26T19:30:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 12,
+  "fields": {
+    "name": "Captain Isolde Marr",
+    "concept": "A disgraced harbour captain who solves problems with a rapier and a raised eyebrow.",
+    "character_class": "fighter",
+    "ancestry": "human",
+    "level": 3,
+    "strength": 12,
+    "dexterity": 17,
+    "constitution": 14,
+    "intelligence": 13,
+    "wisdom": 10,
+    "charisma": 14,
+    "max_hit_points": 28,
+    "hit_points": 28,
+    "armor_class": 16,
+    "speed": 30,
+    "abilities": "Fighting Style: Dueling\nSecond Wind\nAction Surge\nBattle Master: Riposte, Parry, Feinting Attack\nSuperiority Dice (4d8)",
+    "inventory": "Rapier\nHand crossbow\nStudded leather armor\nCaptain's coat (salt-stained)\nSpyglass",
+    "notes": "",
+    "backstory": "She lost her ship in a card game that she is certain was rigged. Proving it is a long-term project.",
+    "owner": 3,
+    "updated_at": "2026-10-04T16:10:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 13,
+  "fields": {
+    "name": "Durgan Ironvein",
+    "concept": "The last shield-brother of a clan that owes money to everybody.",
+    "character_class": "fighter",
+    "ancestry": "dwarf",
+    "level": 5,
+    "strength": 18,
+    "dexterity": 10,
+    "constitution": 18,
+    "intelligence": 9,
+    "wisdom": 13,
+    "charisma": 8,
+    "max_hit_points": 54,
+    "hit_points": 40,
+    "armor_class": 18,
+    "speed": 25,
+    "abilities": "Fighting Style: Defense\nSecond Wind\nAction Surge\nChampion: Improved Critical\nExtra Attack\nDwarven Resilience\nStonecunning\nDarkvision 60 ft.",
+    "inventory": "Warhammer\nShield\nChain mail\nClan ledger (mostly debts)\nMason's tools\nFlask of something flammable",
+    "notes": "Owes 180 gp to the Ironvein clan - see the quest note of the campaign.",
+    "backstory": "Durgan left the hold to earn back what his uncles borrowed. He keeps the ledger himself, because he no longer trusts anyone else's arithmetic.",
+    "owner": 4,
+    "updated_at": "2026-09-26T19:40:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 14,
+  "fields": {
+    "name": "Grum the Unbroken",
+    "concept": "A legend who is frankly tired of being a legend.",
+    "character_class": "barbarian",
+    "ancestry": "half-orc",
+    "level": 20,
+    "strength": 24,
+    "dexterity": 14,
+    "constitution": 24,
+    "intelligence": 8,
+    "wisdom": 12,
+    "charisma": 10,
+    "max_hit_points": 285,
+    "hit_points": 285,
+    "armor_class": 19,
+    "speed": 40,
+    "abilities": "Rage (unlimited)\nPrimal Champion\nPersistent Rage\nIndomitable Might\nBrutal Critical (3 dice)\nRelentless Rage\nFeral Instinct\nFast Movement\nPath of the Totem Warrior: bear",
+    "inventory": "Greataxe \"Widowmaker\"\nBelt of Giant Strength (retired)\nBear-hide cloak\nA very comfortable chair",
+    "notes": "",
+    "backstory": "Grum has killed two dragons, one demon lord and, by accident, a tax collector. He would like to be remembered for his vegetable garden.",
+    "owner": 4,
+    "updated_at": "2026-03-06T10:00:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 15,
+  "fields": {
+    "name": "Nim Quickfingers",
+    "concept": "A locksmith's apprentice who treats every locked door as a personal insult.",
+    "character_class": "rogue",
+    "ancestry": "halfling",
+    "level": 4,
+    "strength": 8,
+    "dexterity": 18,
+    "constitution": 12,
+    "intelligence": 14,
+    "wisdom": 10,
+    "charisma": 14,
+    "max_hit_points": 27,
+    "hit_points": 27,
+    "armor_class": 15,
+    "speed": 25,
+    "abilities": "Sneak Attack (2d6)\nCunning Action\nExpertise: Stealth, Thieves' Tools\nThief: Fast Hands\nSecond-Story Work\nLucky\nHalfling Nimbleness",
+    "inventory": "Shortsword\nShortbow\nThieves' tools\nLeather armor\nA ring of keys that open nothing she knows of\nThe harbour master's second-best hat",
+    "notes": "",
+    "backstory": "",
+    "owner": 4,
+    "updated_at": "2026-10-01T19:05:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 16,
+  "fields": {
+    "name": "Kiri of the Still Water",
+    "concept": "A wandering monk who answers every question with another question.",
+    "character_class": "monk",
+    "ancestry": "elf",
+    "level": 5,
+    "strength": 10,
+    "dexterity": 18,
+    "constitution": 13,
+    "intelligence": 11,
+    "wisdom": 16,
+    "charisma": 9,
+    "max_hit_points": 33,
+    "hit_points": 33,
+    "armor_class": 17,
+    "speed": 40,
+    "abilities": "Martial Arts (d6)\nKi (5 points)\nFlurry of Blows\nPatient Defense\nStep of the Wind\nDeflect Missiles\nSlow Fall\nStunning Strike\nWay of the Open Hand",
+    "inventory": "Quarterstaff\n10 darts\nBegging bowl\nPrayer beads\nTea set wrapped in cloth\nPotion of water breathing",
+    "notes": "",
+    "backstory": "The monastery of the Still Water stands on a lake that has no reflection. Kiri was sent out to find where it went.",
+    "owner": 8,
+    "updated_at": "2026-09-12T18:50:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 17,
+  "fields": {
+    "name": "Ember",
+    "concept": "A street performer whose fire tricks stopped being tricks.",
+    "character_class": "sorcerer",
+    "ancestry": "tiefling",
+    "level": 3,
+    "strength": 8,
+    "dexterity": 14,
+    "constitution": 14,
+    "intelligence": 10,
+    "wisdom": 11,
+    "charisma": 17,
+    "max_hit_points": 20,
+    "hit_points": 14,
+    "armor_class": 12,
+    "speed": 30,
+    "abilities": "Wild Magic Surge\nTides of Chaos\nFont of Magic\nMetamagic: Subtle, Distant\nFire Bolt\nBurning Hands\nScorching Ray\nHellish Rebuke",
+    "inventory": "Dagger\nJuggling torches\nPatchwork cloak\nTin cup for coins\nA bell clapper that should not exist",
+    "notes": "Wet boots. Still wet. Possibly cursed boots?",
+    "backstory": "",
+    "owner": 8,
+    "updated_at": "2026-10-04T15:45:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 18,
+  "fields": {
+    "name": "Sister Maelis Dawnward",
+    "concept": "A battlefield healer who lost her faith and kept the job.",
+    "character_class": "cleric",
+    "ancestry": "half-elf",
+    "level": 5,
+    "strength": 12,
+    "dexterity": 10,
+    "constitution": 14,
+    "intelligence": 11,
+    "wisdom": 18,
+    "charisma": 14,
+    "max_hit_points": 38,
+    "hit_points": 0,
+    "armor_class": 18,
+    "speed": 30,
+    "abilities": "Channel Divinity (1 per rest)\nLife Domain: Disciple of Life\nPreserve Life\nDestroy Undead\nSpirit Guardians\nRevivify\nHealing Word\nSpiritual Weapon",
+    "inventory": "Mace\nShield with a sunburst\nChain mail\nHealer's kit\nFirst shard of the Emerald Crown\nDiamond worth 300 gp (for emergencies)",
+    "notes": "Went down to the herald of the Hollow King at the end of session 7. Starts the next session at 0 hit points with one failed death save.",
+    "backstory": "Maelis patched up soldiers on both sides of a war that nobody won. The prayers still work, which she finds more unsettling than comforting.\n\nShe came to Greywater because the letter said: 'Somebody here can still be saved.'",
+    "owner": 9,
+    "updated_at": "2026-09-26T19:50:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 19,
+  "fields": {
+    "name": "Quill",
+    "concept": "A tiny scribe who annotates everything, including other people's spellbooks.",
+    "character_class": "wizard",
+    "ancestry": "gnome",
+    "level": 4,
+    "strength": 6,
+    "dexterity": 14,
+    "constitution": 13,
+    "intelligence": 18,
+    "wisdom": 12,
+    "charisma": 10,
+    "max_hit_points": 22,
+    "hit_points": 22,
+    "armor_class": 12,
+    "speed": 25,
+    "abilities": "Arcane Recovery\nSchool of Illusion: Improved Minor Illusion\nGnome Cunning\nMinor Illusion\nMage Hand\nSilent Image\nShield\nMirror Image",
+    "inventory": "Spellbook (heavily annotated)\nInk in 4 colours\nQuill pens\nDagger used as a letter opener\nMagnifying glass",
+    "notes": "The wyrmling answers to 'Footnote'.",
+    "backstory": "",
+    "owner": 9,
+    "updated_at": "2026-10-01T19:00:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 20,
+  "fields": {
+    "name": "Rhogar Flamecrest",
+    "concept": "A young squire on his first quest, determined to do everything by the book.",
+    "character_class": "paladin",
+    "ancestry": "dragonborn",
+    "level": 1,
+    "strength": 16,
+    "dexterity": 10,
+    "constitution": 14,
+    "intelligence": 8,
+    "wisdom": 10,
+    "charisma": 15,
+    "max_hit_points": 12,
+    "hit_points": 12,
+    "armor_class": 18,
+    "speed": 30,
+    "abilities": "Divine Sense\nLay on Hands (5 points)\nBreath Weapon (fire)\nDamage Resistance: fire",
+    "inventory": "Longsword\nShield\nChain mail\nThe book (\"A Squire's Guide to Proper Questing\")",
+    "notes": "",
+    "backstory": "",
+    "owner": 9,
+    "updated_at": "2026-09-22T17:10:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 21,
+  "fields": {
+    "name": "Varric Sable",
+    "concept": "A failed actor who made a pact for one perfect performance.",
+    "character_class": "warlock",
+    "ancestry": "human",
+    "level": 5,
+    "strength": 9,
+    "dexterity": 14,
+    "constitution": 13,
+    "intelligence": 12,
+    "wisdom": 10,
+    "charisma": 18,
+    "max_hit_points": 33,
+    "hit_points": 33,
+    "armor_class": 13,
+    "speed": 30,
+    "abilities": "Pact Magic\nPact of the Chain\nEldritch Invocations: Mask of Many Faces, Agonizing Blast\nEldritch Blast\nCharm Person\nSuggestion\nMajor Image",
+    "inventory": "Imp familiar (Applause)\nStage dagger\nCostume trunk\nMakeup kit",
+    "notes": "",
+    "backstory": "",
+    "owner": 5,
+    "updated_at": "2026-09-19T16:40:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 22,
+  "fields": {
+    "name": "Hester Crowfoot",
+    "concept": "A bounty hunter who has never lost a trail and never kept a friend.",
+    "character_class": "ranger",
+    "ancestry": "human",
+    "level": 7,
+    "strength": 13,
+    "dexterity": 18,
+    "constitution": 14,
+    "intelligence": 11,
+    "wisdom": 15,
+    "charisma": 8,
+    "max_hit_points": 59,
+    "hit_points": 59,
+    "armor_class": 16,
+    "speed": 30,
+    "abilities": "Favored Enemy: humanoids, constructs\nNatural Explorer: mountains\nFighting Style: Archery\nGloom Stalker: Dread Ambusher\nUmbral Sight\nExtra Attack\nIron Mind",
+    "inventory": "Heavy crossbow\nShortsword\nManacles\nBundle of wanted posters\nRaven (Ink)",
+    "notes": "",
+    "backstory": "Hester took the contract on the Clockwork King because nobody else would. She took the next one, on a smuggler crew, because the pay was good - and then the crew offered better.",
+    "owner": 5,
+    "updated_at": "2026-09-18T20:10:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 23,
+  "fields": {
+    "name": "Old Barnaby",
+    "concept": "A grumpy beekeeper who would rather be a badger, and frequently is.",
+    "character_class": "druid",
+    "ancestry": "gnome",
+    "level": 2,
+    "strength": 8,
+    "dexterity": 12,
+    "constitution": 14,
+    "intelligence": 12,
+    "wisdom": 16,
+    "charisma": 10,
+    "max_hit_points": 15,
+    "hit_points": 15,
+    "armor_class": 13,
+    "speed": 25,
+    "abilities": "Druidic\nWild Shape\nCircle of the Moon\nSpeak with Animals\nGoodberry\nThorn Whip",
+    "inventory": "Sickle\nBeekeeper's veil\nJar of honey\nA very patient badger",
+    "notes": "",
+    "backstory": "",
+    "owner": 5,
+    "updated_at": "2026-09-10T19:20:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 24,
+  "fields": {
+    "name": "Fenwick Lark",
+    "concept": "A travelling storyteller who is slowly becoming the hero of his own tall tales.",
+    "character_class": "bard",
+    "ancestry": "halfling",
+    "level": 5,
+    "strength": 8,
+    "dexterity": 16,
+    "constitution": 12,
+    "intelligence": 13,
+    "wisdom": 10,
+    "charisma": 18,
+    "max_hit_points": 33,
+    "hit_points": 28,
+    "armor_class": 14,
+    "speed": 25,
+    "abilities": "Bardic Inspiration (d8)\nJack of All Trades\nSong of Rest\nCollege of Valor\nFont of Inspiration\nLucky\nBrave\nVicious Mockery\nFaerie Fire\nShatter",
+    "inventory": "Shortsword\nFiddle\nLeather armor\nJournal of exaggerated adventures\nLucky copper coin\nSecond shard of the Emerald Crown (allegedly)",
+    "notes": "",
+    "backstory": "Fenwick stopped the mainspring of the Clockwork King with a song. In the ballad there were three kings and he fought them alone. Greywater is his chance at a second verse.",
+    "owner": 6,
+    "updated_at": "2026-09-13T07:30:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 25,
+  "fields": {
+    "name": "Tuck",
+    "concept": "My first own character: a dwarf who punches goblins.",
+    "character_class": "monk",
+    "ancestry": "dwarf",
+    "level": 1,
+    "strength": 12,
+    "dexterity": 15,
+    "constitution": 13,
+    "intelligence": 10,
+    "wisdom": 14,
+    "charisma": 8,
+    "max_hit_points": 9,
+    "hit_points": 9,
+    "armor_class": 14,
+    "speed": 25,
+    "abilities": "Unarmored Defense\nMartial Arts (d4)",
+    "inventory": "",
+    "notes": "",
+    "backstory": "",
+    "owner": 6,
+    "updated_at": "2026-10-01T15:25:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 26,
+  "fields": {
+    "name": "Wren Halloway",
+    "concept": "A skyship mechanic who talks to engines and is sure they answer.",
+    "character_class": "artificer",
+    "ancestry": "half-elf",
+    "level": 6,
+    "strength": 10,
+    "dexterity": 14,
+    "constitution": 14,
+    "intelligence": 18,
+    "wisdom": 12,
+    "charisma": 12,
+    "max_hit_points": 45,
+    "hit_points": 45,
+    "armor_class": 17,
+    "speed": 30,
+    "abilities": "Magical Tinkering\nInfuse Item\nArtillerist: Eldritch Cannon\nArcane Firearm\nTool Expertise\nMending\nShield\nScorching Ray",
+    "inventory": "Wrench the size of a forearm\nTinker's tools\nGoggles\nOil-stained flight jacket\nPocket full of bolts",
+    "notes": "The cloud-ray thinks I am its mother. I have decided not to argue.",
+    "backstory": "Wren left Greywater on the first ship that would take her and has not touched the ground for longer than a day since.",
+    "owner": 7,
+    "updated_at": "2026-09-18T20:00:00Z"
+  }
+},
+{
+  "model": "d20.character",
+  "pk": 27,
+  "fields": {
+    "name": "Sable",
+    "concept": "A runaway temple acolyte who moves like smoke.",
+    "character_class": "monk",
+    "ancestry": "tiefling",
+    "level": 3,
+    "strength": 10,
+    "dexterity": 17,
+    "constitution": 13,
+    "intelligence": 12,
+    "wisdom": 15,
+    "charisma": 10,
+    "max_hit_points": 21,
+    "hit_points": 21,
+    "armor_class": 15,
+    "speed": 40,
+    "abilities": "Martial Arts (d4)\nKi (3 points)\nWay of Shadow: Shadow Arts\nDeflect Missiles\nHellish Resistance",
+    "inventory": "Shortsword\nDark hooded robe\nTemple token (stolen)\nOne brass heart. It ticks.",
+    "notes": "",
+    "backstory": "",
+    "owner": 7,
+    "updated_at": "2026-05-10T17:15:00Z"
+  }
+},
+{
+  "model": "d20.campaign",
+  "pk": 1,
+  "fields": {
+    "title": "Tomb of the Clockwork King",
+    "description": "A five-session dungeon crawl for a small party. Somewhere under the old observatory, a king who replaced his heart with a mainspring is still counting the seconds.\n\nClassic exploration: traps, riddles, limited torches and one very patient boss. We finished in May - the notes stay here as a keepsake.",
+    "status": "completed",
+    "game_master": 2,
+    "created_at": "2026-03-08T10:00:00Z"
+  }
+},
+{
+  "model": "d20.campaign",
+  "pk": 2,
+  "fields": {
+    "title": "Curse of the Emerald Crown",
+    "description": "A gothic mystery for heroes of levels 3-8. The town of Greywater has been without a ruler for thirty years, and the crown that was broken to end the last one is trying to put itself back together.\n\nExpect investigation, uneasy alliances and choices that come back later. We play every second Saturday evening, mostly online, with an in-person game once a season.\n\nNew players are welcome: join, choose a character of level 5 and say hello in the notes.",
+    "status": "active",
+    "game_master": 2,
+    "created_at": "2026-04-04T08:00:00Z"
+  }
+},
+{
+  "model": "d20.campaign",
+  "pk": 3,
+  "fields": {
+    "title": "Ashes of the Dragon Coast",
+    "description": "Pirates, volcanoes and a dragon who collects debts instead of gold. A swashbuckling sandbox on a chain of smoking islands.\n\nThursday evenings online. Sessions are short, about two and a half hours, so please answer each session in advance: we play with three players or more.",
+    "status": "active",
+    "game_master": 3,
+    "created_at": "2026-06-10T16:00:00Z"
+  }
+},
+{
+  "model": "d20.campaign",
+  "pk": 4,
+  "fields": {
+    "title": "Skyship Smugglers",
+    "description": "The crew of the Marigold moves cargo that the Sky Guild would rather not know about. Episodic jobs, a shared ship sheet and a running tab in every port.\n\nFriday nights online. There is one free bunk on the ship: join as a player and bring a hero of level 6.",
+    "status": "active",
+    "game_master": 8,
+    "created_at": "2026-07-18T17:30:00Z"
+  }
+},
+{
+  "model": "d20.campaign",
+  "pk": 5,
+  "fields": {
+    "title": "Lanterns Over Blackmoor",
+    "description": "Folk horror in a fog-bound village where the lanterns must never go out. Low magic, high tension, and a map that changes when nobody is looking.\n\nSundays at the club. Bring a character of level 3.",
+    "status": "active",
+    "game_master": 5,
+    "created_at": "2026-08-22T15:30:00Z"
+  }
+},
+{
+  "model": "d20.campaign",
+  "pk": 6,
+  "fields": {
+    "title": "The Harvest Moon Heist",
+    "description": "A one-shot in two parts: one night, one vault and one harvest festival to hide in. Careful plans, improvised disasters.",
+    "status": "completed",
+    "game_master": 4,
+    "created_at": "2026-09-05T10:00:00Z"
+  }
+},
+{
+  "model": "d20.campaign",
+  "pk": 7,
+  "fields": {
+    "title": "The Sunken Library of Aram",
+    "description": "An expedition into a flooded archive where every book remembers its last reader. I am still gathering the party: three or four players who enjoy puzzles and slow exploration.\n\nWe start with a session zero in November.",
+    "status": "planning",
+    "game_master": 2,
+    "created_at": "2026-09-20T10:30:00Z"
+  }
+},
+{
+  "model": "d20.campaign",
+  "pk": 8,
+  "fields": {
+    "title": "Beginner's Table: Goblin Trouble",
+    "description": "Never played before? This table is for you. A short, friendly adventure that teaches the rules as we go: no preparation is needed, dice and ready-made heroes are provided.",
+    "status": "planning",
+    "game_master": 3,
+    "created_at": "2026-09-30T14:00:00Z"
+  }
+},
+{
+  "model": "d20.campaign",
+  "pk": 9,
+  "fields": {
+    "title": "The Dragon's Tithe",
+    "description": "",
+    "status": "planning",
+    "game_master": 9,
+    "created_at": "2026-10-03T19:00:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 1,
+  "fields": {
+    "campaign": 1,
+    "player": 5,
+    "character": 22,
+    "joined_at": "2026-03-08T16:00:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 2,
+  "fields": {
+    "campaign": 1,
+    "player": 6,
+    "character": 24,
+    "joined_at": "2026-03-09T08:15:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 3,
+  "fields": {
+    "campaign": 1,
+    "player": 7,
+    "character": 27,
+    "joined_at": "2026-03-10T19:30:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 4,
+  "fields": {
+    "campaign": 2,
+    "player": 3,
+    "character": 11,
+    "joined_at": "2026-04-04T16:20:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 5,
+  "fields": {
+    "campaign": 2,
+    "player": 4,
+    "character": 13,
+    "joined_at": "2026-04-05T06:00:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 6,
+  "fields": {
+    "campaign": 2,
+    "player": 8,
+    "character": 16,
+    "joined_at": "2026-04-05T11:10:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 7,
+  "fields": {
+    "campaign": 2,
+    "player": 9,
+    "character": 18,
+    "joined_at": "2026-04-06T17:45:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 8,
+  "fields": {
+    "campaign": 2,
+    "player": 6,
+    "character": 24,
+    "joined_at": "2026-04-08T10:00:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 9,
+  "fields": {
+    "campaign": 3,
+    "player": 2,
+    "character": 1,
+    "joined_at": "2026-06-11T05:30:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 10,
+  "fields": {
+    "campaign": 3,
+    "player": 4,
+    "character": 15,
+    "joined_at": "2026-06-11T09:00:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 11,
+  "fields": {
+    "campaign": 3,
+    "player": 9,
+    "character": 19,
+    "joined_at": "2026-06-14T18:10:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 12,
+  "fields": {
+    "campaign": 4,
+    "player": 7,
+    "character": 26,
+    "joined_at": "2026-07-19T06:40:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 13,
+  "fields": {
+    "campaign": 4,
+    "player": 6,
+    "character": null,
+    "joined_at": "2026-07-20T15:05:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 14,
+  "fields": {
+    "campaign": 4,
+    "player": 5,
+    "character": 22,
+    "joined_at": "2026-08-01T19:00:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 15,
+  "fields": {
+    "campaign": 5,
+    "player": 8,
+    "character": 17,
+    "joined_at": "2026-08-23T07:00:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 16,
+  "fields": {
+    "campaign": 5,
+    "player": 3,
+    "character": 12,
+    "joined_at": "2026-08-25T18:20:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 17,
+  "fields": {
+    "campaign": 3,
+    "player": 5,
+    "character": 23,
+    "joined_at": "2026-08-30T14:45:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 18,
+  "fields": {
+    "campaign": 6,
+    "player": 2,
+    "character": 2,
+    "joined_at": "2026-09-06T06:10:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 19,
+  "fields": {
+    "campaign": 6,
+    "player": 3,
+    "character": 12,
+    "joined_at": "2026-09-06T08:30:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 20,
+  "fields": {
+    "campaign": 6,
+    "player": 5,
+    "character": 21,
+    "joined_at": "2026-09-08T16:00:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 21,
+  "fields": {
+    "campaign": 7,
+    "player": 9,
+    "character": 20,
+    "joined_at": "2026-09-22T17:15:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 22,
+  "fields": {
+    "campaign": 7,
+    "player": 5,
+    "character": null,
+    "joined_at": "2026-09-25T05:40:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 23,
+  "fields": {
+    "campaign": 2,
+    "player": 10,
+    "character": null,
+    "joined_at": "2026-09-28T20:15:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 24,
+  "fields": {
+    "campaign": 8,
+    "player": 6,
+    "character": 25,
+    "joined_at": "2026-10-01T15:30:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 25,
+  "fields": {
+    "campaign": 5,
+    "player": 2,
+    "character": null,
+    "joined_at": "2026-10-02T17:50:00Z"
+  }
+},
+{
+  "model": "d20.campaignmembership",
+  "pk": 26,
+  "fields": {
+    "campaign": 8,
+    "player": 10,
+    "character": null,
+    "joined_at": "2026-10-02T19:35:00Z"
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 1,
+  "fields": {
+    "campaign": 1,
+    "title": "Session 1: The Brass Door",
+    "scheduled_at": "2026-03-15T15:00:00Z",
+    "play_location": "Critical Hit board game cafe",
+    "status": "completed",
+    "agenda": "Meet at the ruins of the old observatory.\nThe riddle of the brass door.\nFirst level: the winding galleries.",
+    "summary": "The party talked their way past the caretaker automaton by posing as royal clock inspectors. Hester found the hidden key inside the sundial; Fenwick set off exactly one trap, loudly.\n\nWe stopped at the top of the great stair with two torches left."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 2,
+  "fields": {
+    "campaign": 1,
+    "title": "Session 2: Gears and Ghosts",
+    "scheduled_at": "2026-03-29T14:00:00Z",
+    "play_location": "Critical Hit board game cafe",
+    "status": "completed",
+    "agenda": "The great stair and the gallery of stopped clocks.\nFirst meeting with the ghost of the royal clockmaker.\nA chance to rest - if they find the winding room.",
+    "summary": "Sam could not make it, so Fenwick spent the session 'guarding the rear'. The clockmaker's ghost offered a deal: wind every clock in the gallery and she opens the lower door.\n\nSable wound the wrong clock first. A fight with four brass hounds; everybody is alive, nobody is happy."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 3,
+  "fields": {
+    "campaign": 2,
+    "title": "Session 0: Characters and expectations",
+    "scheduled_at": "2026-04-11T15:00:00Z",
+    "play_location": "https://meet.example.com/emerald-crown",
+    "status": "completed",
+    "agenda": "Tone, safety tools and house rules.\nBuild the party together: why do you travel as a group?\nA short prologue on the road.",
+    "summary": "Five heroes, one shared secret: each of them received the same unsigned letter. We agreed on a gothic tone with room for jokes, and on every second Saturday."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 4,
+  "fields": {
+    "campaign": 1,
+    "title": "Session 3: The Winding Stair",
+    "scheduled_at": "2026-04-12T14:00:00Z",
+    "play_location": "Critical Hit board game cafe",
+    "status": "cancelled",
+    "agenda": "Descent to the second level.\nThe pendulum bridge.",
+    "summary": ""
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 5,
+  "fields": {
+    "campaign": 2,
+    "title": "Session 1: The Road to Greywater",
+    "scheduled_at": "2026-04-25T15:00:00Z",
+    "play_location": "https://meet.example.com/emerald-crown",
+    "status": "completed",
+    "agenda": "Ambush at the toll bridge.\nArrival in Greywater.\nThe ferryman's warning.",
+    "summary": "The 'guards' of the toll bridge turned out to be starving farmers; Thessaly talked them down and Durgan paid the toll anyway. In Greywater nobody says the word 'crown' out loud.\n\nOld Tobias ferried the party across for free and told them not to stay after dark."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 6,
+  "fields": {
+    "campaign": 1,
+    "title": "Session 3: The Winding Stair (take two)",
+    "scheduled_at": "2026-04-26T14:00:00Z",
+    "play_location": "Critical Hit board game cafe",
+    "status": "completed",
+    "agenda": "Descent to the second level.\nThe pendulum bridge.\nThe vault of spare hearts.",
+    "summary": "The pendulum bridge took most of the evening and one of Hester's crossbows. In the vault the party found seven brass hearts and one empty stand.\n\nCliffhanger: something downstairs started ticking faster."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 7,
+  "fields": {
+    "campaign": 1,
+    "title": "Finale: The Clockwork King",
+    "scheduled_at": "2026-05-10T13:00:00Z",
+    "play_location": "https://meet.example.com/clockwork-finale",
+    "status": "completed",
+    "agenda": "The throne room.\nThe king's offer.\nEpilogues for every hero.",
+    "summary": "Played online because of the long weekend. The king offered each hero more time - literally. Sable said yes, then changed her mind at the worst possible moment.\n\nFenwick's last song stopped the mainspring for one round, and Hester did not miss. The tomb is silent now. The epilogues are in the campaign notes."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 8,
+  "fields": {
+    "campaign": 2,
+    "title": "Session 2: The Drowned Chapel",
+    "scheduled_at": "2026-05-16T15:00:00Z",
+    "play_location": "https://meet.example.com/emerald-crown",
+    "status": "completed",
+    "agenda": "Explore the flooded chapel.\nThe first shard.",
+    "summary": "Kiri crossed the nave without touching the water. Everybody else touched the water. The first shard of the crown was inside the font, guarded by something that used to be the priest.\n\nMaelis laid it to rest. The party has the shard, and the shard knows it."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 9,
+  "fields": {
+    "campaign": 2,
+    "title": "Session 3: A Bargain at the Hanging Tree",
+    "scheduled_at": "2026-06-06T15:00:00Z",
+    "play_location": "https://meet.example.com/emerald-crown",
+    "status": "completed",
+    "agenda": "The night market under the hanging tree.\nWho else is looking for the shards?",
+    "summary": "Fenwick traded a true story for a false map and considers it a fair deal. Durgan's creditors caught up with him - see his quest note.\n\nA masked woman bought the party a drink and knew all their names."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 10,
+  "fields": {
+    "campaign": 3,
+    "title": "Session 1: Smoke on the Water",
+    "scheduled_at": "2026-06-18T16:30:00Z",
+    "play_location": "https://vtt.example.com/join/dragon-coast",
+    "status": "completed",
+    "agenda": "Arrival at Cinder Bay.\nA job offer from the harbour master.",
+    "summary": "The ship that brought the heroes burned at anchor on the first night - not their fault, for once. Seraphine recognised the arsonist's song. Nim acquired a harbour pass that is almost genuine."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 11,
+  "fields": {
+    "campaign": 2,
+    "title": "Session 4: Masquerade at Castle Verrin",
+    "scheduled_at": "2026-06-27T14:00:00Z",
+    "play_location": "Dice & Dragons club, table 4",
+    "status": "completed",
+    "agenda": "An in-person game at the club - bring a mask if you have one.\nThe regent's masquerade.\nSteal the second shard, or win it.",
+    "summary": "Our first game around a real table. Lady Verrin danced with every hero in turn and learned something from each of them.\n\nThe second shard is in the party's hands, the regent's mask is cracked, and Greywater now has a reason to remember their faces."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 12,
+  "fields": {
+    "campaign": 3,
+    "title": "Session 2: The Salt Market",
+    "scheduled_at": "2026-07-02T16:30:00Z",
+    "play_location": "https://vtt.example.com/join/dragon-coast",
+    "status": "completed",
+    "agenda": "Follow the song.\nThe auction of impounded cargo.",
+    "summary": "A bidding war against a masked agent of the Red Admiral. The party won a crate they could not afford and paid with a promise.\n\nInside the crate: a sleeping dragon wyrmling."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 13,
+  "fields": {
+    "campaign": 2,
+    "title": "Midsummer game",
+    "scheduled_at": "2026-07-18T15:00:00Z",
+    "play_location": "",
+    "status": "cancelled",
+    "agenda": "",
+    "summary": ""
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 14,
+  "fields": {
+    "campaign": 3,
+    "title": "Session 3: Wyrmling's Hoard",
+    "scheduled_at": "2026-07-23T16:30:00Z",
+    "play_location": "https://vtt.example.com/join/dragon-coast",
+    "status": "completed",
+    "agenda": "What do you feed a wyrmling?\nThe smugglers' caves.",
+    "summary": "Played without Seraphine, who was 'gathering information' in town. Quill taught the wyrmling to fetch. The caves hold the first real clue about the missing mentor."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 15,
+  "fields": {
+    "campaign": 4,
+    "title": "Job 1: The Cloudport Run",
+    "scheduled_at": "2026-08-07T17:00:00Z",
+    "play_location": "https://vtt.example.com/join/marigold",
+    "status": "completed",
+    "agenda": "Meet the crew of the Marigold.\nA simple delivery.",
+    "summary": "It was not a simple delivery. Wren kept the engine alive with a wrench and a lullaby; Hester came aboard as the bounty hunter sent to catch the crew and left as a member of it."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 16,
+  "fields": {
+    "campaign": 3,
+    "title": "Session 4: Fire Season",
+    "scheduled_at": "2026-08-13T16:30:00Z",
+    "play_location": "https://vtt.example.com/join/dragon-coast",
+    "status": "completed",
+    "agenda": "The volcano wakes.\nEvacuate the lower town or chase the arsonist.",
+    "summary": "The party split up and it almost worked. Seraphine caught the arsonist on the rooftops; Nim and Quill got forty people onto boats.\n\nThe arsonist was paid in the Red Admiral's coin."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 17,
+  "fields": {
+    "campaign": 2,
+    "title": "Session 5: Into the Thornwood",
+    "scheduled_at": "2026-08-22T15:00:00Z",
+    "play_location": "https://meet.example.com/emerald-crown",
+    "status": "completed",
+    "agenda": "Back from the summer break: a short recap first.\nThe path that moves.\nThe hermit of the Thornwood.",
+    "summary": "The forest does not like metal, and it told Durgan so. Thessaly negotiated safe passage in exchange for a promise she has not explained to the others yet.\n\nThe third shard is not in the Thornwood. It was moved - recently."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 18,
+  "fields": {
+    "campaign": 4,
+    "title": "Job 2: Customs, Bribes and Other Inconveniences of Honest Smuggling",
+    "scheduled_at": "2026-08-28T17:00:00Z",
+    "play_location": "https://vtt.example.com/join/marigold",
+    "status": "completed",
+    "agenda": "Inspection at the Skygate.\nHide the cargo. Hide the other cargo.",
+    "summary": "The inspector found nothing, mostly because the cargo had hatched and left on its own. The crew is two crates short and one very loyal cloud-ray richer."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 19,
+  "fields": {
+    "campaign": 5,
+    "title": "Session 1: The Fog Comes In",
+    "scheduled_at": "2026-09-06T13:00:00Z",
+    "play_location": "Dice & Dragons club, table 2",
+    "status": "completed",
+    "agenda": "Arrive in Blackmoor before dusk.\nMeet the lamplighter.",
+    "summary": "The road ended at a village that is not on any map. Ember lit a lantern with her own fire and the whole square went quiet. Captain Marr counted the lanterns twice and got two different numbers."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 20,
+  "fields": {
+    "campaign": 3,
+    "title": "Session 5: The Ember Court",
+    "scheduled_at": "2026-09-10T16:30:00Z",
+    "play_location": "https://vtt.example.com/join/dragon-coast",
+    "status": "completed",
+    "agenda": "An invitation that cannot be refused.\nOld Barnaby joins the party.",
+    "summary": "Welcome, Oleh! Barnaby arrived as a badger and stayed that way for most of the audience. The dragon of the Ember Court does not want gold - she wants debts, and now the party owes her one."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 21,
+  "fields": {
+    "campaign": 2,
+    "title": "Session 6: The Emerald Vault",
+    "scheduled_at": "2026-09-12T15:00:00Z",
+    "play_location": "https://meet.example.com/emerald-crown",
+    "status": "completed",
+    "agenda": "Under Castle Verrin.\nThree locks, three keepers.",
+    "summary": "A proper dungeon night. Two of the three keepers were bargained with; the third had to be fought on a staircase that kept rearranging itself.\n\nInside the vault: an empty cushion and a fresh set of footprints leading out."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 22,
+  "fields": {
+    "campaign": 4,
+    "title": "Job 3: Storm Front",
+    "scheduled_at": "2026-09-18T17:00:00Z",
+    "play_location": "https://vtt.example.com/join/marigold",
+    "status": "completed",
+    "agenda": "Outrun the storm or fly through it.",
+    "summary": "They flew through it. The Marigold needs a new mast, and the Sky Guild now has a very good description of the ship."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 23,
+  "fields": {
+    "campaign": 6,
+    "title": "Part one: Casing the vault",
+    "scheduled_at": "2026-09-19T12:00:00Z",
+    "play_location": "Meeple Corner cafe, back room",
+    "status": "completed",
+    "agenda": "Pick the roles: face, muscle, eyes.\nThe festival grounds.\nPlan the job.",
+    "summary": "Three hours of planning, twenty minutes of action. Brakka got hired as a guard of the very vault the crew is robbing. Captain Marr charmed the blueprints out of the architect."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 24,
+  "fields": {
+    "campaign": 5,
+    "title": "Session 2: The Lamplighter's Debt",
+    "scheduled_at": "2026-09-20T13:00:00Z",
+    "play_location": "Dice & Dragons club, table 2",
+    "status": "completed",
+    "agenda": "One lantern went out last night.\nAsk around - carefully.",
+    "summary": "Three villagers, three versions of the same night. The lamplighter owes something to the bog, and the payment is due at the next new moon."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 25,
+  "fields": {
+    "campaign": 2,
+    "title": "Session 7: What the Crown Remembers",
+    "scheduled_at": "2026-09-26T15:00:00Z",
+    "play_location": "https://meet.example.com/emerald-crown",
+    "status": "completed",
+    "agenda": "The vision in the vault.\nThe herald of the Hollow King.",
+    "summary": ""
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 26,
+  "fields": {
+    "campaign": 6,
+    "title": "Part two: The getaway",
+    "scheduled_at": "2026-09-27T12:00:00Z",
+    "play_location": "Meeple Corner cafe, back room",
+    "status": "completed",
+    "agenda": "Midnight. The vault. Everything that can go wrong.",
+    "summary": "Oleh could not come, so Varric 'ran the distraction' off-screen. The vault was already empty - somebody got there first. Brakka carried the whole door out as a consolation prize.\n\nA perfect ending for a one-shot: no gold, one door and a harvest festival that nobody will forget."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 27,
+  "fields": {
+    "campaign": 3,
+    "title": "Session 6: Ash and Tide",
+    "scheduled_at": "2026-10-01T16:30:00Z",
+    "play_location": "https://vtt.example.com/join/dragon-coast",
+    "status": "completed",
+    "agenda": "Sail for the outer islands.\nA storm, a wreck and a rescue.",
+    "summary": "The crossing went wrong in the best way. The party pulled six sailors out of the water, and one of them wears the ring of Seraphine's mentor."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 28,
+  "fields": {
+    "campaign": 5,
+    "title": "Session 3: Bog Lights",
+    "scheduled_at": "2026-10-04T13:00:00Z",
+    "play_location": "https://meet.example.com/blackmoor",
+    "status": "completed",
+    "agenda": "Online this week: the club is closed for a tournament.\nFollow the lights into the bog.",
+    "summary": "A short session with one player. Ember followed the lights alone, which was exactly what they wanted. She came back with wet boots and a bell clapper that should not exist."
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 29,
+  "fields": {
+    "campaign": 2,
+    "title": "Session 8: The Siege of Greywater",
+    "scheduled_at": "2026-10-10T15:00:00Z",
+    "play_location": "https://meet.example.com/emerald-crown",
+    "status": "scheduled",
+    "agenda": "Maelis starts at 0 hit points: the round goes on from where we stopped.\nThe herald's ultimatum.\nDefend the ferry or the castle - the party cannot hold both.",
+    "summary": ""
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 30,
+  "fields": {
+    "campaign": 3,
+    "title": "Session 7: The Lighthouse Burns",
+    "scheduled_at": "2026-10-15T16:30:00Z",
+    "play_location": "https://vtt.example.com/join/dragon-coast",
+    "status": "scheduled",
+    "agenda": "The sailor's story.\nThe lighthouse on Gull Rock.",
+    "summary": ""
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 31,
+  "fields": {
+    "campaign": 4,
+    "title": "Job 4: The Glass Archipelago",
+    "scheduled_at": "2026-10-16T17:00:00Z",
+    "play_location": "https://vtt.example.com/join/marigold",
+    "status": "scheduled",
+    "agenda": "A buyer for the cloud-ray.\nNobody mentions the Guild.",
+    "summary": ""
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 32,
+  "fields": {
+    "campaign": 8,
+    "title": "First game: learn by playing",
+    "scheduled_at": "2026-10-17T09:00:00Z",
+    "play_location": "Dice & Dragons club, beginners' table",
+    "status": "scheduled",
+    "agenda": "No preparation is needed.\nHow a turn works.\nA goblin problem at the mill.",
+    "summary": ""
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 33,
+  "fields": {
+    "campaign": 5,
+    "title": "Session 4: The Drowned Bell",
+    "scheduled_at": "2026-10-18T13:00:00Z",
+    "play_location": "Dice & Dragons club, table 2",
+    "status": "scheduled",
+    "agenda": "A third hero arrives in Blackmoor - welcome, Alex!\nThe bell under the water.",
+    "summary": ""
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 34,
+  "fields": {
+    "campaign": 2,
+    "title": "Session 9: Beneath the Old Keep",
+    "scheduled_at": "2026-10-24T15:00:00Z",
+    "play_location": "https://meet.example.com/emerald-crown",
+    "status": "scheduled",
+    "agenda": "Depends on how the siege ends. Either way: the tunnels.",
+    "summary": ""
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 35,
+  "fields": {
+    "campaign": 3,
+    "title": "Session 8: Parley with the Red Admiral",
+    "scheduled_at": "2026-10-29T17:30:00Z",
+    "play_location": "https://vtt.example.com/join/dragon-coast",
+    "status": "scheduled",
+    "agenda": "A meeting under a white flag. Think about what your character wants from the Admiral.",
+    "summary": ""
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 36,
+  "fields": {
+    "campaign": 5,
+    "title": "Session 5: Hollow Night",
+    "scheduled_at": "2026-11-01T14:00:00Z",
+    "play_location": "Dice & Dragons club, table 2",
+    "status": "scheduled",
+    "agenda": "New moon. The debt is due.",
+    "summary": ""
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 37,
+  "fields": {
+    "campaign": 2,
+    "title": "Session 10: The Hollow King",
+    "scheduled_at": "2026-11-07T16:00:00Z",
+    "play_location": "https://meet.example.com/emerald-crown",
+    "status": "scheduled",
+    "agenda": "",
+    "summary": ""
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 38,
+  "fields": {
+    "campaign": 3,
+    "title": "Session 9: Dragonfall",
+    "scheduled_at": "2026-11-12T17:30:00Z",
+    "play_location": "https://vtt.example.com/join/dragon-coast",
+    "status": "scheduled",
+    "agenda": "",
+    "summary": ""
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 39,
+  "fields": {
+    "campaign": 7,
+    "title": "Session zero: characters and house rules",
+    "scheduled_at": "2026-11-14T10:00:00Z",
+    "play_location": "",
+    "status": "scheduled",
+    "agenda": "Tone and expectations.\nBuild the characters together: level 1, any class.\nPick a regular day.",
+    "summary": ""
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 40,
+  "fields": {
+    "campaign": 4,
+    "title": "Job 5: The Long Night Run",
+    "scheduled_at": "2026-11-20T18:00:00Z",
+    "play_location": "https://vtt.example.com/join/marigold",
+    "status": "scheduled",
+    "agenda": "",
+    "summary": ""
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 41,
+  "fields": {
+    "campaign": 3,
+    "title": "Session 10: What the Tide Returns",
+    "scheduled_at": "2026-11-26T17:30:00Z",
+    "play_location": "https://vtt.example.com/join/dragon-coast",
+    "status": "scheduled",
+    "agenda": "",
+    "summary": ""
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 42,
+  "fields": {
+    "campaign": 2,
+    "title": "Season finale: The Crown Breaks",
+    "scheduled_at": "2026-12-19T14:00:00Z",
+    "play_location": "Dice & Dragons club, the big table",
+    "status": "scheduled",
+    "agenda": "In person and long: we start two hours early and order pizza.\nNo spoilers here.",
+    "summary": ""
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 43,
+  "fields": {
+    "campaign": 3,
+    "title": "Winter special: The Frozen Wake",
+    "scheduled_at": "2027-01-14T17:30:00Z",
+    "play_location": "",
+    "status": "scheduled",
+    "agenda": "A standalone holiday adventure. Details later.",
+    "summary": ""
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 44,
+  "fields": {
+    "campaign": 5,
+    "title": "Midwinter vigil",
+    "scheduled_at": "2027-02-07T14:00:00Z",
+    "play_location": "Dice & Dragons club, table 2",
+    "status": "scheduled",
+    "agenda": "",
+    "summary": ""
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 45,
+  "fields": {
+    "campaign": 2,
+    "title": "Season two: A Town Without a Crown",
+    "scheduled_at": "2027-02-13T16:00:00Z",
+    "play_location": "",
+    "status": "scheduled",
+    "agenda": "",
+    "summary": ""
+  }
+},
+{
+  "model": "d20.gamesession",
+  "pk": 46,
+  "fields": {
+    "campaign": 3,
+    "title": "Spring arc: Storm over Cinder Bay",
+    "scheduled_at": "2027-04-08T16:30:00Z",
+    "play_location": "https://vtt.example.com/join/dragon-coast",
+    "status": "scheduled",
+    "agenda": "",
+    "summary": ""
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 1,
+  "fields": {
+    "game_session": 1,
+    "membership": 1,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 2,
+  "fields": {
+    "game_session": 1,
+    "membership": 2,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 3,
+  "fields": {
+    "game_session": 1,
+    "membership": 3,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 4,
+  "fields": {
+    "game_session": 2,
+    "membership": 1,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 5,
+  "fields": {
+    "game_session": 2,
+    "membership": 2,
+    "attendance_status": "declined"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 6,
+  "fields": {
+    "game_session": 2,
+    "membership": 3,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 7,
+  "fields": {
+    "game_session": 3,
+    "membership": 4,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 8,
+  "fields": {
+    "game_session": 3,
+    "membership": 5,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 9,
+  "fields": {
+    "game_session": 3,
+    "membership": 6,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 10,
+  "fields": {
+    "game_session": 3,
+    "membership": 7,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 11,
+  "fields": {
+    "game_session": 3,
+    "membership": 8,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 12,
+  "fields": {
+    "game_session": 4,
+    "membership": 1,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 13,
+  "fields": {
+    "game_session": 4,
+    "membership": 2,
+    "attendance_status": "declined"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 14,
+  "fields": {
+    "game_session": 4,
+    "membership": 3,
+    "attendance_status": "declined"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 15,
+  "fields": {
+    "game_session": 5,
+    "membership": 4,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 16,
+  "fields": {
+    "game_session": 5,
+    "membership": 5,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 17,
+  "fields": {
+    "game_session": 5,
+    "membership": 6,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 18,
+  "fields": {
+    "game_session": 5,
+    "membership": 7,
+    "attendance_status": "declined"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 19,
+  "fields": {
+    "game_session": 5,
+    "membership": 8,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 20,
+  "fields": {
+    "game_session": 6,
+    "membership": 1,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 21,
+  "fields": {
+    "game_session": 6,
+    "membership": 2,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 22,
+  "fields": {
+    "game_session": 6,
+    "membership": 3,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 23,
+  "fields": {
+    "game_session": 7,
+    "membership": 1,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 24,
+  "fields": {
+    "game_session": 7,
+    "membership": 2,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 25,
+  "fields": {
+    "game_session": 7,
+    "membership": 3,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 26,
+  "fields": {
+    "game_session": 8,
+    "membership": 4,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 27,
+  "fields": {
+    "game_session": 8,
+    "membership": 5,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 28,
+  "fields": {
+    "game_session": 8,
+    "membership": 6,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 29,
+  "fields": {
+    "game_session": 8,
+    "membership": 7,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 30,
+  "fields": {
+    "game_session": 8,
+    "membership": 8,
+    "attendance_status": "declined"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 31,
+  "fields": {
+    "game_session": 9,
+    "membership": 4,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 32,
+  "fields": {
+    "game_session": 9,
+    "membership": 5,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 33,
+  "fields": {
+    "game_session": 9,
+    "membership": 6,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 34,
+  "fields": {
+    "game_session": 9,
+    "membership": 7,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 35,
+  "fields": {
+    "game_session": 9,
+    "membership": 8,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 36,
+  "fields": {
+    "game_session": 10,
+    "membership": 9,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 37,
+  "fields": {
+    "game_session": 10,
+    "membership": 10,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 38,
+  "fields": {
+    "game_session": 10,
+    "membership": 11,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 39,
+  "fields": {
+    "game_session": 11,
+    "membership": 4,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 40,
+  "fields": {
+    "game_session": 11,
+    "membership": 5,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 41,
+  "fields": {
+    "game_session": 11,
+    "membership": 6,
+    "attendance_status": "declined"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 42,
+  "fields": {
+    "game_session": 11,
+    "membership": 7,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 43,
+  "fields": {
+    "game_session": 11,
+    "membership": 8,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 44,
+  "fields": {
+    "game_session": 12,
+    "membership": 9,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 45,
+  "fields": {
+    "game_session": 12,
+    "membership": 10,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 46,
+  "fields": {
+    "game_session": 12,
+    "membership": 11,
+    "attendance_status": "declined"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 47,
+  "fields": {
+    "game_session": 13,
+    "membership": 4,
+    "attendance_status": "declined"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 48,
+  "fields": {
+    "game_session": 13,
+    "membership": 5,
+    "attendance_status": "declined"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 49,
+  "fields": {
+    "game_session": 13,
+    "membership": 7,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 50,
+  "fields": {
+    "game_session": 14,
+    "membership": 9,
+    "attendance_status": "declined"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 51,
+  "fields": {
+    "game_session": 14,
+    "membership": 10,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 52,
+  "fields": {
+    "game_session": 14,
+    "membership": 11,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 53,
+  "fields": {
+    "game_session": 15,
+    "membership": 12,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 54,
+  "fields": {
+    "game_session": 15,
+    "membership": 13,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 55,
+  "fields": {
+    "game_session": 15,
+    "membership": 14,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 56,
+  "fields": {
+    "game_session": 16,
+    "membership": 9,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 57,
+  "fields": {
+    "game_session": 16,
+    "membership": 10,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 58,
+  "fields": {
+    "game_session": 16,
+    "membership": 11,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 59,
+  "fields": {
+    "game_session": 17,
+    "membership": 4,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 60,
+  "fields": {
+    "game_session": 17,
+    "membership": 5,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 61,
+  "fields": {
+    "game_session": 17,
+    "membership": 6,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 62,
+  "fields": {
+    "game_session": 17,
+    "membership": 7,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 63,
+  "fields": {
+    "game_session": 17,
+    "membership": 8,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 64,
+  "fields": {
+    "game_session": 18,
+    "membership": 12,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 65,
+  "fields": {
+    "game_session": 18,
+    "membership": 13,
+    "attendance_status": "declined"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 66,
+  "fields": {
+    "game_session": 18,
+    "membership": 14,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 67,
+  "fields": {
+    "game_session": 19,
+    "membership": 15,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 68,
+  "fields": {
+    "game_session": 19,
+    "membership": 16,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 69,
+  "fields": {
+    "game_session": 20,
+    "membership": 9,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 70,
+  "fields": {
+    "game_session": 20,
+    "membership": 10,
+    "attendance_status": "declined"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 71,
+  "fields": {
+    "game_session": 20,
+    "membership": 11,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 72,
+  "fields": {
+    "game_session": 20,
+    "membership": 17,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 73,
+  "fields": {
+    "game_session": 21,
+    "membership": 4,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 74,
+  "fields": {
+    "game_session": 21,
+    "membership": 5,
+    "attendance_status": "declined"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 75,
+  "fields": {
+    "game_session": 21,
+    "membership": 6,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 76,
+  "fields": {
+    "game_session": 21,
+    "membership": 7,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 77,
+  "fields": {
+    "game_session": 21,
+    "membership": 8,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 78,
+  "fields": {
+    "game_session": 22,
+    "membership": 12,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 79,
+  "fields": {
+    "game_session": 22,
+    "membership": 13,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 80,
+  "fields": {
+    "game_session": 22,
+    "membership": 14,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 81,
+  "fields": {
+    "game_session": 23,
+    "membership": 18,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 82,
+  "fields": {
+    "game_session": 23,
+    "membership": 19,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 83,
+  "fields": {
+    "game_session": 23,
+    "membership": 20,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 84,
+  "fields": {
+    "game_session": 24,
+    "membership": 15,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 85,
+  "fields": {
+    "game_session": 24,
+    "membership": 16,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 86,
+  "fields": {
+    "game_session": 25,
+    "membership": 4,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 87,
+  "fields": {
+    "game_session": 25,
+    "membership": 5,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 88,
+  "fields": {
+    "game_session": 25,
+    "membership": 6,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 89,
+  "fields": {
+    "game_session": 25,
+    "membership": 7,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 90,
+  "fields": {
+    "game_session": 25,
+    "membership": 8,
+    "attendance_status": "declined"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 91,
+  "fields": {
+    "game_session": 26,
+    "membership": 18,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 92,
+  "fields": {
+    "game_session": 26,
+    "membership": 19,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 93,
+  "fields": {
+    "game_session": 26,
+    "membership": 20,
+    "attendance_status": "declined"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 94,
+  "fields": {
+    "game_session": 27,
+    "membership": 9,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 95,
+  "fields": {
+    "game_session": 27,
+    "membership": 10,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 96,
+  "fields": {
+    "game_session": 27,
+    "membership": 11,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 97,
+  "fields": {
+    "game_session": 27,
+    "membership": 17,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 98,
+  "fields": {
+    "game_session": 28,
+    "membership": 15,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 99,
+  "fields": {
+    "game_session": 28,
+    "membership": 16,
+    "attendance_status": "declined"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 100,
+  "fields": {
+    "game_session": 29,
+    "membership": 4,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 101,
+  "fields": {
+    "game_session": 29,
+    "membership": 5,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 102,
+  "fields": {
+    "game_session": 29,
+    "membership": 6,
+    "attendance_status": "declined"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 103,
+  "fields": {
+    "game_session": 29,
+    "membership": 7,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 104,
+  "fields": {
+    "game_session": 29,
+    "membership": 23,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 105,
+  "fields": {
+    "game_session": 30,
+    "membership": 9,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 106,
+  "fields": {
+    "game_session": 30,
+    "membership": 10,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 107,
+  "fields": {
+    "game_session": 30,
+    "membership": 17,
+    "attendance_status": "declined"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 108,
+  "fields": {
+    "game_session": 31,
+    "membership": 12,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 109,
+  "fields": {
+    "game_session": 31,
+    "membership": 14,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 110,
+  "fields": {
+    "game_session": 32,
+    "membership": 24,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 111,
+  "fields": {
+    "game_session": 33,
+    "membership": 15,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 112,
+  "fields": {
+    "game_session": 33,
+    "membership": 16,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 113,
+  "fields": {
+    "game_session": 34,
+    "membership": 4,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 114,
+  "fields": {
+    "game_session": 35,
+    "membership": 10,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 115,
+  "fields": {
+    "game_session": 36,
+    "membership": 25,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 116,
+  "fields": {
+    "game_session": 36,
+    "membership": 15,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 117,
+  "fields": {
+    "game_session": 38,
+    "membership": 9,
+    "attendance_status": "declined"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 118,
+  "fields": {
+    "game_session": 38,
+    "membership": 11,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 119,
+  "fields": {
+    "game_session": 39,
+    "membership": 21,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 120,
+  "fields": {
+    "game_session": 41,
+    "membership": 9,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 121,
+  "fields": {
+    "game_session": 42,
+    "membership": 4,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 122,
+  "fields": {
+    "game_session": 42,
+    "membership": 7,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 123,
+  "fields": {
+    "game_session": 46,
+    "membership": 9,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.sessionparticipation",
+  "pk": 124,
+  "fields": {
+    "game_session": 46,
+    "membership": 11,
+    "attendance_status": "confirmed"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 1,
+  "fields": {
+    "campaign": 1,
+    "author": 2,
+    "title": "The Clockwork King",
+    "kind": "npc",
+    "content": "He replaced his heart with a mainspring so that he would never run out of time. He has been winding down for two hundred years.\n\nNot cruel, only afraid. He offers every visitor the same bargain: a little of their time for a little of his treasure.",
+    "updated_at": "2026-03-09T13:00:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 2,
+  "fields": {
+    "campaign": 2,
+    "author": 2,
+    "title": "Campaign pitch and tone",
+    "kind": "general",
+    "content": "Greywater is a town that agreed to forget. Thirty years ago its last ruler was overthrown and the Emerald Crown was broken into three shards, so that nobody could wear it again.\n\nTone: a gothic mystery with warm characters. Horror stays off-screen more often than not. Jokes at the table are welcome; jokes that break another player's scene are not.\n\nWhat I expect: a hero who has a reason to stay in Greywater and a reason to trust at least one other hero.",
+    "updated_at": "2026-04-04T09:10:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 3,
+  "fields": {
+    "campaign": 2,
+    "author": 2,
+    "title": "House rules",
+    "kind": "general",
+    "content": "1. Flanking gives +2 to hit, not advantage.\n2. A potion of healing is a bonus action for yourself and an action for somebody else.\n3. Players give inspiration to each other, once per session.\n4. If you miss a session, your hero is 'busy in town' and gains the same experience.\n5. Critical hits: maximum damage on the first set of dice, then roll the second.",
+    "updated_at": "2026-04-11T18:30:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 4,
+  "fields": {
+    "campaign": 2,
+    "author": 3,
+    "title": "Old Tobias, the ferryman",
+    "kind": "npc",
+    "content": "Ferried us across for free in session 1 and told us not to stay after dark. Knows more than he says.\n\nThessaly's impression: the river likes him. That counts for something.\n\nTo ask next time: who paid him to wait for us at the crossing?",
+    "updated_at": "2026-04-26T06:40:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 5,
+  "fields": {
+    "campaign": 1,
+    "author": 2,
+    "title": "The tomb, level by level",
+    "kind": "location",
+    "content": "Level 1 - the winding galleries: caretaker automata, the brass door, the sundial key.\nLevel 2 - the gallery of stopped clocks and the pendulum bridge.\nLevel 3 - the vault of spare hearts.\nLevel 4 - the throne room.\n\nEvery level is one hour 'later' than the one above it. Torches burn accordingly.",
+    "updated_at": "2026-04-27T07:00:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 6,
+  "fields": {
+    "campaign": 2,
+    "author": 2,
+    "title": "Greywater",
+    "kind": "location",
+    "content": "A river town of about two thousand people, built on both banks and on the pilings between them.\n\nThe Ferry Quarter - cheap rooms, loud taverns, Tobias's landing.\nChapel Hill - the drowned chapel sits at its foot.\nCastle Verrin - closed to visitors except on festival nights.\nThe Hanging Tree - a night market grows around it every new moon.\n\nNobody in Greywater says the word 'crown'. They say 'the old hat'.",
+    "updated_at": "2026-05-02T15:00:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 7,
+  "fields": {
+    "campaign": 2,
+    "author": 7,
+    "title": "Rumours from the Ferry Quarter",
+    "kind": "general",
+    "content": "Collected by Wren before she left town:\n\nThe regent has not aged in thirty years.\nThe chapel flooded on the night the crown broke.\nThere were four shards, not three.\n\nGood luck, everyone - I will miss this table!",
+    "updated_at": "2026-05-03T17:10:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 8,
+  "fields": {
+    "campaign": 1,
+    "author": 2,
+    "title": "Epilogues: where the heroes ended up",
+    "kind": "general",
+    "content": "Hester Crowfoot collected the bounty on the Clockwork King and took another contract the same evening. She was last seen boarding a skyship.\n\nFenwick Lark turned the whole thing into a ballad. In his version there were three kings.\n\nSable kept one brass heart. She says it is a souvenir. It ticks.",
+    "updated_at": "2026-05-11T08:00:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 9,
+  "fields": {
+    "campaign": 2,
+    "author": 2,
+    "title": "The Emerald Crown (broken)",
+    "kind": "item",
+    "content": "Wondrous item, legendary, in three pieces.\n\nEach shard hums when another shard is within a mile. A hero who sleeps next to a shard dreams of a throne room they have never seen.\n\nOne shard: advantage on Insight checks against the people of Greywater.\nTwo shards: the bearer may ask the crown one question per week. It answers truthfully and unkindly.\nThree shards: unknown.",
+    "updated_at": "2026-05-17T07:30:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 10,
+  "fields": {
+    "campaign": 2,
+    "author": 4,
+    "title": "Durgan's debt to the Ironvein clan",
+    "kind": "quest",
+    "content": "Durgan owes the clan 300 gold pieces and one formal apology. The collectors found him at the Hanging Tree.\n\nPaid so far: 120 gp.\nDeadline: the first snow.\n\nIf anyone finds dwarven masonry work in Greywater, I am interested.",
+    "updated_at": "2026-06-07T10:20:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 11,
+  "fields": {
+    "campaign": 3,
+    "author": 3,
+    "title": "Welcome to the Dragon Coast",
+    "kind": "general",
+    "content": "Short sessions, big swings. The Dragon Coast rewards bold plans and punishes long debates.\n\nPlease answer every session at least two days ahead. With fewer than three confirmed players I move the game.\n\nHeroes level up at milestones - roughly every three sessions.",
+    "updated_at": "2026-06-10T17:00:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 12,
+  "fields": {
+    "campaign": 3,
+    "author": 3,
+    "title": "Cinder Bay",
+    "kind": "location",
+    "content": "The only deep harbour on the coast, built inside a drowned crater.\n\nUpper town: merchants, the harbour master, clean streets.\nLower town: everything else. Half of it was evacuated in session 4.\nThe Salt Market: opens at low tide, closes when the water reaches the stalls.",
+    "updated_at": "2026-06-19T07:00:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 13,
+  "fields": {
+    "campaign": 2,
+    "author": 2,
+    "title": "Lady Verrin, the Masked Regent",
+    "kind": "npc",
+    "content": "Regent of Greywater in everything but name. Never seen without a porcelain mask; since the masquerade the mask has a crack across the left cheek.\n\nWants: the crown kept broken. Fears: what the heroes will do with two shards in one bag.\n\nShe is polite, patient and has not lied to the party yet - which worries them more than a lie would.",
+    "updated_at": "2026-06-28T07:15:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 14,
+  "fields": {
+    "campaign": 3,
+    "author": 2,
+    "title": "Sea shanty playlist",
+    "kind": "resource",
+    "content": "Background music for the table: https://music.example.com/playlists/dragon-coast\n\nTracks 1-8 for sailing, 9-14 for taverns, 15 onwards for when the volcano does something.",
+    "updated_at": "2026-07-03T15:40:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 15,
+  "fields": {
+    "campaign": 4,
+    "author": 8,
+    "title": "Crew charter of the Marigold",
+    "kind": "general",
+    "content": "Equal shares. The ship gets a share too.\nNo job that puts passengers in danger.\nWhoever breaks it, fixes it. Whoever cannot fix it, tells Wren.\n\nSigned by the whole crew in session 1.",
+    "updated_at": "2026-07-18T18:00:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 16,
+  "fields": {
+    "campaign": 4,
+    "author": 8,
+    "title": "Skyship rules cheat sheet",
+    "kind": "resource",
+    "content": "Ship actions on your turn: steer, repair, brace, lookout.\nA repair check takes an action and tinker's tools.\nFalling off the ship is survivable exactly once per character.\n\nFull rules: https://files.example.com/marigold/skyship-rules.pdf",
+    "updated_at": "2026-08-08T09:00:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 17,
+  "fields": {
+    "campaign": 3,
+    "author": 3,
+    "title": "The Red Admiral",
+    "kind": "npc",
+    "content": "Commands the largest free fleet on the coast. Nobody the party has met can describe her face.\n\nPays in red-gold coins stamped with a burning ship. The arsonist from session 4 carried a purse of them.",
+    "updated_at": "2026-08-14T06:30:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 18,
+  "fields": {
+    "campaign": 5,
+    "author": 5,
+    "title": "Blackmoor village",
+    "kind": "location",
+    "content": "Forty houses, one square, one chapel without a bell. A ring of lanterns marks the edge of the village; beyond it is the bog.\n\nRules that everybody here knows:\nThe lanterns are lit before dusk.\nNobody counts them out loud.\nIf a light moves, it is not a lantern.",
+    "updated_at": "2026-08-22T16:00:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 19,
+  "fields": {
+    "campaign": 2,
+    "author": 8,
+    "title": "The Thornwood",
+    "kind": "location",
+    "content": "What we learned in session 5:\n\nThe paths move, but only when nobody is looking at them. Kiri walked backwards for an hour and it worked.\nThe forest dislikes metal. Leave the armor in the cart.\nThe hermit trades in promises. Thessaly made one. We still do not know what it was.",
+    "updated_at": "2026-08-23T08:05:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 20,
+  "fields": {
+    "campaign": 6,
+    "author": 4,
+    "title": "Marks and guards",
+    "kind": "npc",
+    "content": "Reeve Aldermoss - keeps the vault key on a chain, loves pie.\nSergeant Pell - honest, tired, two days from retirement.\nThe architect - proud of the vault and happy to explain why it cannot be robbed.",
+    "updated_at": "2026-09-06T11:00:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 21,
+  "fields": {
+    "campaign": 3,
+    "author": 4,
+    "title": "Things we should not have stolen",
+    "kind": "item",
+    "content": "A harbour pass that is almost genuine.\nOne dragon wyrmling (technically bought, not stolen).\nThe harbour master's second-best hat.\nA red-gold coin that feels warm on the night before something burns.\n\nNim would like the record to show that the hat was a gift.",
+    "updated_at": "2026-09-11T19:15:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 22,
+  "fields": {
+    "campaign": 2,
+    "author": 2,
+    "title": "Maps and handouts",
+    "kind": "resource",
+    "content": "Town map of Greywater: https://files.example.com/emerald-crown/greywater-map.png\nThe unsigned letter (handout from session 0): https://files.example.com/emerald-crown/letter.pdf\nFamily tree of the Verrin line: https://files.example.com/emerald-crown/verrin-tree.pdf\n\nI update the town map after every session. The fog of war is on purpose.",
+    "updated_at": "2026-09-12T13:20:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 23,
+  "fields": {
+    "campaign": 2,
+    "author": 2,
+    "title": "The three shards of the crown",
+    "kind": "quest",
+    "content": "First shard - found in the drowned chapel (session 2). Carried by Maelis.\nSecond shard - won at the masquerade (session 4). Carried by Fenwick, allegedly.\nThird shard - lay in the Emerald Vault until very recently. Somebody took it before the party arrived.\n\nOpen question: the shards pull towards each other. What happens when all three are in one room?",
+    "updated_at": "2026-09-13T06:00:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 24,
+  "fields": {
+    "campaign": 4,
+    "author": 7,
+    "title": "Cargo manifest",
+    "kind": "item",
+    "content": "Official: 40 crates of dried plums.\nActual: 38 crates of dried plums, 1 crate of unstamped sky-silk, 1 empty crate with claw marks.\n\nAlso on board: a cloud-ray that thinks Wren is its mother.",
+    "updated_at": "2026-09-19T05:30:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 25,
+  "fields": {
+    "campaign": 7,
+    "author": 2,
+    "title": "What I am planning",
+    "kind": "general",
+    "content": "A slow exploration game: one flooded floor of the library per session, with puzzles that reward notes and patience.\n\nCharacters start at level 1. Scholars, divers and treasure hunters all fit.\n\nIf the idea sounds good, join the campaign and answer the session zero.",
+    "updated_at": "2026-09-20T11:00:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 26,
+  "fields": {
+    "campaign": 5,
+    "author": 5,
+    "title": "Who is putting out the lanterns?",
+    "kind": "quest",
+    "content": "One lantern has gone dark every week since the heroes arrived.\n\nSuspects: the lamplighter (in debt), the miller's daughter (seen near the bog), something from the bog itself.\n\nDeadline: the next new moon - session 5.",
+    "updated_at": "2026-09-21T06:10:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 27,
+  "fields": {
+    "campaign": 2,
+    "author": 9,
+    "title": "Party loot ledger",
+    "kind": "item",
+    "content": "Shared purse: 412 gp, 30 sp.\n\n3 potions of healing (Maelis)\n1 potion of water breathing (Kiri)\nSilver hand mirror from Castle Verrin (unidentified)\nFalse map of the Thornwood (Fenwick insists it is useful)\n\nOwed to Durgan from the shared purse: 20 gp for the toll bridge.",
+    "updated_at": "2026-09-27T09:45:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 28,
+  "fields": {
+    "campaign": 6,
+    "author": 2,
+    "title": "The plan (it did not survive)",
+    "kind": "general",
+    "content": "Step 1: Brakka gets hired as a vault guard.\nStep 2: Captain Marr gets the blueprints.\nStep 3: Varric causes a distraction at the pie contest.\nStep 4: walk out with the gold during the fireworks.\n\nUpdate after part two: there was no gold. We have a door.",
+    "updated_at": "2026-09-27T16:30:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 29,
+  "fields": {
+    "campaign": 7,
+    "author": 2,
+    "title": "Inspiration and mood board",
+    "kind": "resource",
+    "content": "Mood board: https://files.example.com/sunken-library/moodboard\n\nThink of flooded reading rooms, lantern light on water and index cards that rearrange themselves.\n\nNo homework - this is only for those who like to read ahead.",
+    "updated_at": "2026-09-28T14:30:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 30,
+  "fields": {
+    "campaign": 8,
+    "author": 3,
+    "title": "What to bring to your first game",
+    "kind": "general",
+    "content": "Nothing! Dice, pencils and ready-made heroes are waiting at the table.\n\nIf you want your own character, create a hero of level 1 on this site and choose it on the campaign page.\n\nWe start at noon and finish by four.",
+    "updated_at": "2026-09-30T15:00:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 31,
+  "fields": {
+    "campaign": 3,
+    "author": 2,
+    "title": "Seraphine's missing mentor",
+    "kind": "quest",
+    "content": "Maestro Oriel Vance vanished from the Ember Court two years ago. Clues so far:\n\nHis song was the arsonist's signal (session 1).\nSmugglers' caves: a music box that plays the same melody (session 3).\nA rescued sailor wears his ring (session 6).\n\nNext step: get the sailor talking before the Admiral's people do.",
+    "updated_at": "2026-10-02T05:50:00Z"
+  }
+},
+{
+  "model": "d20.preparationnote",
+  "pk": 32,
+  "fields": {
+    "campaign": 5,
+    "author": 8,
+    "title": "People of Blackmoor",
+    "kind": "npc",
+    "content": "The lamplighter, Josef - friendly, exhausted, lying about something.\nWidow Harrow - sells candles, knows the secrets of every family.\nThe miller's daughter, Anka - not afraid of the bog, which is suspicious on its own.\n\nEmber trusts Anka. Captain Marr does not trust anyone, so that tells us nothing.",
+    "updated_at": "2026-10-05T07:25:00Z"
+  }
+}
+]
