@@ -46,9 +46,7 @@ class ReturnUrlMixin:
         if self.request.method == "POST":
             return_url = self.request.POST.get("next", "")
         else:
-            return_url = self.request.GET.get("next") or self.request.META.get(
-                "HTTP_REFERER", ""
-            )
+            return_url = self.request.GET.get("next", "")
 
         if (
             url_has_allowed_host_and_scheme(
