@@ -1,6 +1,31 @@
-.venv/
-.idea/
+# Python
 __pycache__/
 *.py[cod]
-db.sqlite3
+
+# Virtual environments
+.venv/
+venv/
+
+# Secrets and local overrides
 .env
+local_settings.py
+
+# Django
+db.sqlite3
+db.sqlite3-journal
+*.log
+*.mo
+/media/
+
+# Tests and coverage
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+
+# Tool caches
+.mypy_cache/
+.ruff_cache/
+
+# PyCharm
+.idea/
