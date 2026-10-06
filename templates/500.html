@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Server error{% endblock %}
+
+{# Django renders this page without a context, so the menu cannot know who is logged in. #}
+{% block header_controls %}{% endblock %}
+
+{% block content %}
+  <div class="error-page">
+    <img class="error-die" src="{% static 'd20/img/dice/1.webp' %}" alt="A twenty-sided die showing 1" width="150" height="150">
+    <p class="eyebrow">Critical failure</p>
+    <p class="error-code">500</p>
+    <h1>The table flipped over</h1>
+    <p class="muted">Something broke on the server. Try again in a minute.</p>
+    <a class="btn btn-primary" href="{% url 'd20:index' %}">Back to the home page</a>
+  </div>
+{% endblock %}
