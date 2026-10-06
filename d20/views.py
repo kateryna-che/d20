@@ -124,8 +124,13 @@ def update_campaign_membership(request, pk):
 @login_required
 @require_POST
 def respond_to_session(request, pk):
-    """Save the answer of a campaign player: confirmed or declined."""
-    game_session = get_object_or_404(GameSession, pk=pk)
+    """Save the answer of a campaign player: confirmed or declined.
+
+    Only a scheduled session accepts answers.
+    """
+    game_session = get_object_or_404(
+        GameSession, pk=pk, status=GameSession.Status.SCHEDULED
+    )
     membership = get_object_or_404(
         CampaignMembership,
         campaign=game_session.campaign_id,
