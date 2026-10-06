@@ -15,7 +15,7 @@
         <a href="{% url 'd20:campaign-list' %}">Campaigns</a>
         <a href="{% url 'd20:session-list' %}">My sessions</a>
         <a href="{% url 'd20:character-list' %}">My characters</a>
-        <span class="account-name">{{ user.display_name }}</span>
+        <a class="account-name" href="{% url 'd20:user-detail' user.pk %}">{{ user.display_name }}</a>
         <form method="post" action="{% url 'logout' %}">
           {% csrf_token %}
           <button class="button secondary" type="submit">Log out</button>

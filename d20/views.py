@@ -1,5 +1,6 @@
 from urllib.parse import urlsplit
 
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Count, Q
@@ -8,7 +9,7 @@ from django.urls import reverse, reverse_lazy
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.views import generic
 
-from d20.forms import CampaignForm, GameSessionForm, CharacterForm
+from d20.forms import CampaignForm, GameSessionForm, CharacterForm, ProfileForm
 from d20.models import Campaign, GameSession, Character
 
 
@@ -56,6 +57,30 @@ class ReturnUrlMixin:
 def get_user_campaigns(user):
     """Campaigns that the user runs or plays in."""
     return Campaign.objects.filter(Q(game_master=user) | Q(players=user)).distinct()
+
+
+class UserDetailView(LoginRequiredMixin, generic.DetailView):
+    queryset = get_user_model().objects.prefetch_related(
+        "characters",
+        "mastered_campaigns",
+        "memberships__campaign__game_master",
+        "memberships__character",
+    )
+    context_object_name = "profile"
+
+
+class ProfileUpdateView(
+    LoginRequiredMixin, SuccessMessageMixin, generic.UpdateView
+):
+    form_class = ProfileForm
+    template_name = "d20/user_form.html"
+    success_message = "Your profile was updated."
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_success_url(self):
+        return reverse("d20:user-detail", kwargs={"pk": self.object.pk})
 
 
 class CampaignListView(LoginRequiredMixin, generic.ListView):

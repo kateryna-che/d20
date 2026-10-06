@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}{{ profile.display_name }} | D20{% endblock %}
+
+{% block content %}
+  <a class="back-link" href="{% url 'd20:campaign-list' %}">&larr; All campaigns</a>
+  <div class="page-heading">
+    <div>
+      <h1>{{ profile.display_name }}</h1>
+      <p class="muted">@{{ profile.username }}</p>
+      {% if profile.pk == user.pk and profile.email %}<p>Email: {{ profile.email }}</p>{% endif %}
+    </div>
+    {% if profile.pk == user.pk %}
+      <a class="button" href="{% url 'd20:profile-update' %}">Edit profile</a>
+    {% endif %}
+  </div>
+  <section class="card">
+    <h2>About the player</h2>
+    {% if profile.bio %}
+      {{ profile.bio|linebreaks }}
+    {% else %}
+      <p class="muted">No bio yet.</p>
+    {% endif %}
+  </section>
+  <section class="card">
+    <h2>Characters</h2>
+    <ul class="entry-list">
+      {% for character in profile.characters.all %}
+        <li>
+          <h3><a href="{% url 'd20:character-detail' character.pk %}">{{ character.name }}</a></h3>
+          <p>Level {{ character.level }} {{ character.get_ancestry_display }} {{ character.get_character_class_display }}</p>
+          {% if character.concept %}<p>{{ character.concept }}</p>{% endif %}
+        </li>
+      {% empty %}
+        <li class="muted">No characters yet.</li>
+      {% endfor %}
+    </ul>
+    {% if profile.pk == user.pk %}
+      <p><a class="button secondary" href="{% url 'd20:character-create' %}">Create character</a></p>
+    {% endif %}
+  </section>
+  <div class="detail-grid">
+    <section class="card">
+      <h2>Campaigns as game master</h2>
+      <ul class="entry-list">
+        {% for campaign in profile.mastered_campaigns.all %}
+          <li>
+            <h3><a href="{% url 'd20:campaign-detail' campaign.pk %}">{{ campaign.title }}</a></h3>
+            <p>{{ campaign.get_status_display }}</p>
+          </li>
+        {% empty %}
+          <li class="muted">No campaigns as game master yet.</li>
+        {% endfor %}
+      </ul>
+    </section>
+    <section class="card">
+      <h2>Campaigns as player</h2>
+      <ul class="entry-list">
+        {% for membership in profile.memberships.all %}
+          <li>
+            <h3><a href="{% url 'd20:campaign-detail' membership.campaign_id %}">{{ membership.campaign.title }}</a></h3>
+            <p>Game master: <a href="{% url 'd20:user-detail' membership.campaign.game_master_id %}">{{ membership.campaign.game_master.display_name }}</a></p>
+            {% if membership.character %}
+              <p>Character: <a href="{% url 'd20:character-detail' membership.character_id %}">{{ membership.character.name }}</a></p>
+            {% else %}
+              <p class="muted">No character selected yet.</p>
+            {% endif %}
+          </li>
+        {% empty %}
+          <li class="muted">No campaigns as player yet.</li>
+        {% endfor %}
+      </ul>
+    </section>
+  </div>
+{% endblock %}

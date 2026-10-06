@@ -10,7 +10,7 @@
       <h1>{{ gamesession.title }}</h1>
       <p>{{ gamesession.scheduled_at|date:"j M Y, H:i" }}</p>
       {% if gamesession.play_location %}<p>{{ gamesession.play_location }}</p>{% endif %}
-      <p class="muted">Game master: {{ gamesession.campaign.game_master.display_name }}</p>
+      <p class="muted">Game master: <a href="{% url 'd20:user-detail' gamesession.campaign.game_master_id %}">{{ gamesession.campaign.game_master.display_name }}</a></p>
     </div>
     {% if is_game_master %}
       <div class="actions">
@@ -39,7 +39,7 @@
     <ul class="entry-list">
       {% for participation in gamesession.participations.all %}
         <li>
-          <strong>{{ participation.membership.player.display_name }}</strong>
+          <strong><a href="{% url 'd20:user-detail' participation.membership.player_id %}">{{ participation.membership.player.display_name }}</a></strong>
           &middot; {{ participation.get_attendance_status_display }}
           {% if participation.membership.character %}<p><a href="{% url 'd20:character-detail' participation.membership.character_id %}">{{ participation.membership.character.name }}</a></p>{% endif %}
         </li>

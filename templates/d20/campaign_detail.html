@@ -8,7 +8,7 @@
     <div>
       <span class="badge">{{ campaign.get_status_display }}</span>
       <h1>{{ campaign.title }}</h1>
-      <p class="muted">Game master: {{ campaign.game_master.display_name }}</p>
+      <p class="muted">Game master: <a href="{% url 'd20:user-detail' campaign.game_master_id %}">{{ campaign.game_master.display_name }}</a></p>
     </div>
     {% if is_game_master %}
       <div class="actions">
@@ -29,7 +29,7 @@
       <ul class="entry-list">
         {% for membership in campaign.memberships.all %}
           <li>
-            <strong>{{ membership.player.display_name }}</strong>
+            <strong><a href="{% url 'd20:user-detail' membership.player_id %}">{{ membership.player.display_name }}</a></strong>
             {% if membership.character %}
               <p><a href="{% url 'd20:character-detail' membership.character_id %}">{{ membership.character.name }}</a> &middot; Level {{ membership.character.level }} {{ membership.character.get_character_class_display }}</p>
             {% else %}

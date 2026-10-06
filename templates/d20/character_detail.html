@@ -10,7 +10,7 @@
       <h1>{{ character.name }}</h1>
       <p>{{ character.get_ancestry_display }} &middot; {{ character.get_character_class_display }}</p>
       {% if character.concept %}<p>{{ character.concept }}</p>{% endif %}
-      <p class="muted">Player: {{ character.owner.display_name }}</p>
+      <p class="muted">Player: <a href="{% url 'd20:user-detail' character.owner_id %}">{{ character.owner.display_name }}</a></p>
     </div>
     {% if character.owner_id == user.pk %}
       <div class="actions">

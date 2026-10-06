@@ -1,6 +1,17 @@
 from django import forms
+from django.contrib.auth import get_user_model
 
 from d20.models import Campaign, GameSession, Character
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = get_user_model()
+        fields = ("first_name", "last_name", "email", "bio")
+        widgets = {"bio": forms.Textarea(attrs={"rows": 5})}
+        help_texts = {
+            "bio": "Favourite roles, experience, the time that suits you.",
+        }
 
 
 class CampaignForm(forms.ModelForm):
