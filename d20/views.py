@@ -255,9 +255,6 @@ class ProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, generic.UpdateV
     def get_object(self, queryset=None):
         return get_user_model().objects.get(pk=self.request.user.pk)
 
-    def get_success_url(self):
-        return reverse("d20:user-detail", kwargs={"pk": self.object.pk})
-
 
 class CampaignListView(LoginRequiredMixin, SearchMixin, generic.ListView):
     queryset = (
