@@ -195,6 +195,7 @@ class CampaignMembership(models.Model):
     def get_absolute_url(self):
         return reverse("d20:campaign-detail", kwargs={"pk": self.campaign_id})
 
+
 class GameSession(models.Model):
     class Status(models.TextChoices):
         SCHEDULED = "scheduled", "Scheduled"
@@ -227,6 +228,7 @@ class GameSession(models.Model):
 
     def get_absolute_url(self):
         return reverse("d20:session-detail", kwargs={"pk": self.pk})
+
 
 class SessionParticipation(models.Model):
     """The answer of a campaign player to one game session."""

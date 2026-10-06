@@ -22,7 +22,14 @@ from d20.forms import (
     ParticipationForm,
     SearchForm,
 )
-from d20.models import Campaign, GameSession, Character, CampaignMembership, PreparationNote, SessionParticipation
+from d20.models import (
+    Campaign,
+    GameSession,
+    Character,
+    CampaignMembership,
+    PreparationNote,
+    SessionParticipation,
+)
 
 
 class OwnerRequiredMixin(LoginRequiredMixin):
@@ -150,9 +157,7 @@ class UserDetailView(LoginRequiredMixin, generic.DetailView):
     context_object_name = "profile"
 
 
-class ProfileUpdateView(
-    LoginRequiredMixin, SuccessMessageMixin, generic.UpdateView
-):
+class ProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, generic.UpdateView):
     form_class = ProfileForm
     template_name = "d20/user_form.html"
     success_message = "Your profile was updated."
@@ -219,9 +224,7 @@ class CampaignDeleteView(OwnerRequiredMixin, SuccessMessageMixin, generic.Delete
     success_message = "The campaign was deleted."
 
 
-class MembershipUpdateView(
-    OwnerRequiredMixin, SuccessMessageMixin, generic.UpdateView
-):
+class MembershipUpdateView(OwnerRequiredMixin, SuccessMessageMixin, generic.UpdateView):
     """A player chooses the character for the campaign."""
 
     model = CampaignMembership
@@ -279,9 +282,7 @@ class CharacterUpdateView(
         return reverse("d20:character-detail", kwargs={"pk": self.object.pk})
 
 
-class CharacterDeleteView(
-    OwnerRequiredMixin, SuccessMessageMixin, generic.DeleteView
-):
+class CharacterDeleteView(OwnerRequiredMixin, SuccessMessageMixin, generic.DeleteView):
     model = Character
     owner_field = "owner"
     success_url = reverse_lazy("d20:character-list")

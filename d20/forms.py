@@ -1,7 +1,14 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
-from d20.models import Campaign, GameSession, Character, CampaignMembership, PreparationNote, SessionParticipation
+from d20.models import (
+    Campaign,
+    GameSession,
+    Character,
+    CampaignMembership,
+    PreparationNote,
+    SessionParticipation,
+)
 
 
 class ProfileForm(forms.ModelForm):
@@ -98,7 +105,5 @@ class SearchForm(forms.Form):
     search = forms.CharField(
         max_length=255,
         required=False,
-        widget=forms.TextInput(
-            attrs={"placeholder": "Search", "type": "search"}
-        ),
+        widget=forms.TextInput(attrs={"placeholder": "Search", "type": "search"}),
     )

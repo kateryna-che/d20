@@ -31,9 +31,7 @@ app_name = "d20"
 
 urlpatterns = [
     path("players/<int:pk>/", UserDetailView.as_view(), name="user-detail"),
-    path(
-        "profile/update/", ProfileUpdateView.as_view(), name="profile-update"
-    ),
+    path("profile/update/", ProfileUpdateView.as_view(), name="profile-update"),
     path("campaigns/", CampaignListView.as_view(), name="campaign-list"),
     path(
         "campaigns/create/",
