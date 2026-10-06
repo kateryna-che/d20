@@ -35,6 +35,8 @@ p { margin: 10px 0; overflow-wrap: anywhere; }
 .button.danger { background: #a62a38; }
 .button.danger:hover { background: #82212c; }
 .actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+.search-form { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+.search-field { flex: 1 1 240px; min-width: 0; }
 .back-link { display: inline-block; margin-bottom: 20px; }
 .form-card { max-width: 640px; margin: 0 auto; }
 form p { margin-bottom: 20px; }

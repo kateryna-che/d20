@@ -92,3 +92,13 @@ class ParticipationForm(forms.ModelForm):
     class Meta:
         model = SessionParticipation
         fields = ("attendance_status",)
+
+
+class SearchForm(forms.Form):
+    search = forms.CharField(
+        max_length=255,
+        required=False,
+        widget=forms.TextInput(
+            attrs={"placeholder": "Search", "type": "search"}
+        ),
+    )

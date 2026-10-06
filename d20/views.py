@@ -12,8 +12,16 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from django.views import generic
 from django.views.decorators.http import require_POST
 
-from d20.forms import CampaignForm, GameSessionForm, CharacterForm, ProfileForm, MembershipForm, PreparationNoteForm, \
-    ParticipationForm
+from d20.forms import (
+    CampaignForm,
+    GameSessionForm,
+    CharacterForm,
+    ProfileForm,
+    MembershipForm,
+    PreparationNoteForm,
+    ParticipationForm,
+    SearchForm,
+)
 from d20.models import Campaign, GameSession, Character, CampaignMembership, PreparationNote, SessionParticipation
 
 
@@ -56,6 +64,30 @@ class ReturnUrlMixin:
 
     def get_success_url(self):
         return self.get_return_url()
+
+
+class SearchMixin:
+    """Filter a list by a validated search term and keep its form in context."""
+
+    search_field = "title"
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.search_form = SearchForm(self.request.GET)
+        self.search_query = ""
+        if self.search_form.is_valid():
+            self.search_query = self.search_form.cleaned_data["search"]
+            if self.search_query:
+                queryset = queryset.filter(
+                    **{f"{self.search_field}__icontains": self.search_query}
+                )
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["search_form"] = self.search_form
+        context["search_query"] = self.search_query
+        return context
 
 
 def get_user_campaigns(user):
@@ -132,7 +164,7 @@ class ProfileUpdateView(
         return reverse("d20:user-detail", kwargs={"pk": self.object.pk})
 
 
-class CampaignListView(LoginRequiredMixin, generic.ListView):
+class CampaignListView(LoginRequiredMixin, SearchMixin, generic.ListView):
     queryset = (
         Campaign.objects.select_related("game_master")
         .prefetch_related("players")
@@ -201,7 +233,7 @@ class MembershipUpdateView(
         return self.object.campaign.get_absolute_url()
 
 
-class CharacterListView(LoginRequiredMixin, generic.ListView):
+class CharacterListView(LoginRequiredMixin, SearchMixin, generic.ListView):
     """The characters of the logged-in user.
 
     Characters of other players are opened from campaign pages.
@@ -256,7 +288,7 @@ class CharacterDeleteView(
     success_message = "The character was deleted."
 
 
-class GameSessionListView(LoginRequiredMixin, generic.ListView):
+class GameSessionListView(LoginRequiredMixin, SearchMixin, generic.ListView):
     """Sessions of the campaigns that the user runs or plays in.
 
     Sessions of other campaigns are opened from campaign pages.

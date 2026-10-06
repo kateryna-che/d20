@@ -10,6 +10,7 @@
     </div>
     <a class="button secondary" href="{% url 'd20:campaign-list' %}">Browse campaigns</a>
   </div>
+  {% include "d20/includes/search_form.html" %}
   <div class="campaign-grid">
     {% for session in gamesession_list %}
       <article class="card">
@@ -28,19 +29,24 @@
       </article>
     {% empty %}
       <div class="card empty-state">
-        <h2>No sessions yet</h2>
-        <p>Open a campaign you run to plan a session.</p>
+        {% if search_query %}
+          <h2>No sessions found</h2>
+          <p>Try another title or clear the search.</p>
+        {% else %}
+          <h2>No sessions yet</h2>
+          <p>Open a campaign you run to plan a session.</p>
+        {% endif %}
       </div>
     {% endfor %}
   </div>
   {% if is_paginated %}
     <nav class="pagination" aria-label="Session pages">
       {% if page_obj.has_previous %}
-        <a class="button secondary" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        <a class="button secondary" href="{% querystring page=page_obj.previous_page_number %}">Previous</a>
       {% endif %}
       <span>Page {{ page_obj.number }} of {{ paginator.num_pages }}</span>
       {% if page_obj.has_next %}
-        <a class="button secondary" href="?page={{ page_obj.next_page_number }}">Next</a>
+        <a class="button secondary" href="{% querystring page=page_obj.next_page_number %}">Next</a>
       {% endif %}
     </nav>
   {% endif %}

@@ -10,6 +10,7 @@
     </div>
     <a class="button" href="{% url 'd20:character-create' %}?next={{ request.get_full_path|urlencode }}">Create character</a>
   </div>
+  {% include "d20/includes/search_form.html" %}
   <div class="campaign-grid">
     {% for character in character_list %}
       <article class="card">
@@ -25,19 +26,24 @@
       </article>
     {% empty %}
       <div class="card empty-state">
-        <h2>No characters yet</h2>
-        <p>Create a character to start your adventure.</p>
+        {% if search_query %}
+          <h2>No characters found</h2>
+          <p>Try another name or clear the search.</p>
+        {% else %}
+          <h2>No characters yet</h2>
+          <p>Create a character to start your adventure.</p>
+        {% endif %}
       </div>
     {% endfor %}
   </div>
   {% if is_paginated %}
     <nav class="pagination" aria-label="Character pages">
       {% if page_obj.has_previous %}
-        <a class="button secondary" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        <a class="button secondary" href="{% querystring page=page_obj.previous_page_number %}">Previous</a>
       {% endif %}
       <span>Page {{ page_obj.number }} of {{ paginator.num_pages }}</span>
       {% if page_obj.has_next %}
-        <a class="button secondary" href="?page={{ page_obj.next_page_number }}">Next</a>
+        <a class="button secondary" href="{% querystring page=page_obj.next_page_number %}">Next</a>
       {% endif %}
     </nav>
   {% endif %}

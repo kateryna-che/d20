@@ -1,0 +1,13 @@
+<form class="search-form" method="get" role="search">
+  <div class="search-field">
+    {{ search_form.search.label_tag }}
+    {{ search_form.search }}
+    {{ search_form.search.errors }}
+  </div>
+  <div class="actions">
+    <button class="button" type="submit">Search</button>
+    {% if search_form.search.value %}
+      <a class="button secondary" href="{{ request.path }}">Clear search</a>
+    {% endif %}
+  </div>
+</form>
