@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}{{ preparationnote.title }} | D20{% endblock %}
+
+{% block content %}
+  <a class="back-link" href="{% url 'd20:campaign-detail' preparationnote.campaign_id %}">&larr; {{ preparationnote.campaign.title }}</a>
+  <div class="page-heading">
+    <div>
+      <span class="badge">{{ preparationnote.get_kind_display }}</span>
+      <h1>{{ preparationnote.title }}</h1>
+      <p class="muted">Author: <a href="{% url 'd20:user-detail' preparationnote.author_id %}">{{ preparationnote.author.display_name }}</a></p>
+    </div>
+    {% if preparationnote.author_id == user.pk %}
+      <div class="actions">
+        <a class="button" href="{% url 'd20:note-update' preparationnote.pk %}?next={{ request.get_full_path|urlencode }}">Edit note</a>
+        <a class="button danger" href="{% url 'd20:note-delete' preparationnote.pk %}">Delete note</a>
+      </div>
+    {% endif %}
+  </div>
+  <section class="card">
+    {{ preparationnote.content|linebreaks }}
+  </section>
+  <p class="muted">Last updated: {{ preparationnote.updated_at|date:"j M Y, H:i" }}</p>
+{% endblock %}

@@ -8,7 +8,7 @@
       <h1>My characters</h1>
       <p class="muted">Your heroes and their character sheets.</p>
     </div>
-    <a class="button" href="{% url 'd20:character-create' %}">Create character</a>
+    <a class="button" href="{% url 'd20:character-create' %}?next={{ request.get_full_path|urlencode }}">Create character</a>
   </div>
   <div class="campaign-grid">
     {% for character in character_list %}
@@ -19,7 +19,7 @@
         {% if character.concept %}<p>{{ character.concept }}</p>{% endif %}
         <p class="muted">Hit points: {{ character.hit_points }} / {{ character.max_hit_points }}</p>
         <div class="actions">
-          <a class="button secondary" href="{% url 'd20:character-update' character.pk %}">Edit character</a>
+          <a class="button secondary" href="{% url 'd20:character-update' character.pk %}?next={{ request.get_full_path|urlencode }}">Edit character</a>
           <a class="button danger" href="{% url 'd20:character-delete' character.pk %}">Delete character</a>
         </div>
       </article>

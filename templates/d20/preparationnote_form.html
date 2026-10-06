@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}{% if object %}Edit note{% else %}Add note{% endif %} | D20{% endblock %}
+
+{% block content %}
+  <section class="card form-card">
+    <h1>{% if object %}Edit note{% else %}Add note{% endif %}</h1>
+    <p>Campaign: {% if object %}<a href="{% url 'd20:campaign-detail' object.campaign_id %}">{{ object.campaign.title }}</a>{% else %}<a href="{% url 'd20:campaign-detail' campaign.pk %}">{{ campaign.title }}</a>{% endif %}</p>
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}">
+      {{ form.as_p }}
+      <div class="actions">
+        <button class="button" type="submit">{% if object %}Save changes{% else %}Add note{% endif %}</button>
+        <a class="button secondary" href="{{ next }}">Cancel</a>
+      </div>
+    </form>
+  </section>
+{% endblock %}

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
-from d20.models import Campaign, GameSession, Character, CampaignMembership
+from d20.models import Campaign, GameSession, Character, CampaignMembership, PreparationNote
 
 
 class ProfileForm(forms.ModelForm):
@@ -80,3 +80,9 @@ class GameSessionForm(forms.ModelForm):
             "agenda": forms.Textarea(attrs={"rows": 6}),
             "summary": forms.Textarea(attrs={"rows": 6}),
         }
+
+
+class PreparationNoteForm(forms.ModelForm):
+    class Meta:
+        model = PreparationNote
+        fields = ("title", "kind", "content")

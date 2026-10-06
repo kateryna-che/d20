@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Delete note | D20{% endblock %}
+
+{% block content %}
+  <section class="card form-card">
+    <h1>Delete note</h1>
+    <p>Delete <strong>{{ preparationnote.title }}</strong> from {{ preparationnote.campaign.title }}?</p>
+    <form method="post">
+      {% csrf_token %}
+      <div class="actions">
+        <button class="button danger" type="submit">Delete note</button>
+        <a class="button secondary" href="{% url 'd20:note-detail' preparationnote.pk %}">Cancel</a>
+      </div>
+    </form>
+  </section>
+{% endblock %}

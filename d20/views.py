@@ -9,8 +9,8 @@ from django.urls import reverse, reverse_lazy
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.views import generic
 
-from d20.forms import CampaignForm, GameSessionForm, CharacterForm, ProfileForm, MembershipForm
-from d20.models import Campaign, GameSession, Character, CampaignMembership
+from d20.forms import CampaignForm, GameSessionForm, CharacterForm, ProfileForm, MembershipForm, PreparationNoteForm
+from d20.models import Campaign, GameSession, Character, CampaignMembership, PreparationNote
 
 
 class OwnerRequiredMixin(LoginRequiredMixin):
@@ -170,10 +170,11 @@ class CharacterDetailView(LoginRequiredMixin, generic.DetailView):
 
 
 class CharacterCreateView(
-    LoginRequiredMixin, SuccessMessageMixin, generic.CreateView
+    LoginRequiredMixin, ReturnUrlMixin, SuccessMessageMixin, generic.CreateView
 ):
     model = Character
     form_class = CharacterForm
+    success_url = reverse_lazy("d20:character-list")
     success_message = "The character was created."
 
     def form_valid(self, form):
@@ -182,12 +183,15 @@ class CharacterCreateView(
 
 
 class CharacterUpdateView(
-    OwnerRequiredMixin, SuccessMessageMixin, generic.UpdateView
+    OwnerRequiredMixin, ReturnUrlMixin, SuccessMessageMixin, generic.UpdateView
 ):
     model = Character
     form_class = CharacterForm
     owner_field = "owner"
     success_message = "The character sheet was saved."
+
+    def get_default_return_url(self):
+        return reverse("d20:character-detail", kwargs={"pk": self.object.pk})
 
 
 class CharacterDeleteView(
@@ -282,3 +286,57 @@ class GameSessionDeleteView(
     owner_field = "campaign__game_master"
     success_url = reverse_lazy("d20:session-list")
     success_message = "The session was deleted."
+
+
+
+class PreparationNoteDetailView(LoginRequiredMixin, generic.DetailView):
+    queryset = PreparationNote.objects.select_related("campaign", "author")
+
+
+class PreparationNoteCreateView(
+    LoginRequiredMixin, ReturnUrlMixin, SuccessMessageMixin, generic.CreateView
+):
+    """Any user adds a note to the campaign from the URL."""
+
+    model = PreparationNote
+    form_class = PreparationNoteForm
+    success_message = "The note was added."
+
+    def get_campaign(self):
+        return get_object_or_404(Campaign, pk=self.kwargs["pk"])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["campaign"] = self.get_campaign()
+        return context
+
+    def form_valid(self, form):
+        form.instance.campaign = self.get_campaign()
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get_default_return_url(self):
+        return reverse("d20:campaign-detail", kwargs={"pk": self.kwargs["pk"]})
+
+
+class PreparationNoteUpdateView(
+    OwnerRequiredMixin, ReturnUrlMixin, SuccessMessageMixin, generic.UpdateView
+):
+    model = PreparationNote
+    form_class = PreparationNoteForm
+    owner_field = "author"
+    success_message = "The note was saved."
+
+    def get_default_return_url(self):
+        return reverse("d20:note-detail", kwargs={"pk": self.object.pk})
+
+
+class PreparationNoteDeleteView(
+    OwnerRequiredMixin, SuccessMessageMixin, generic.DeleteView
+):
+    model = PreparationNote
+    owner_field = "author"
+    success_message = "The note was deleted."
+
+    def get_success_url(self):
+        return self.object.campaign.get_absolute_url()

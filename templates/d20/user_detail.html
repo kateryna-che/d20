@@ -36,7 +36,7 @@
       {% endfor %}
     </ul>
     {% if profile.pk == user.pk %}
-      <p><a class="button secondary" href="{% url 'd20:character-create' %}">Create character</a></p>
+      <p><a class="button secondary" href="{% url 'd20:character-create' %}?next={{ request.get_full_path|urlencode }}">Create character</a></p>
     {% endif %}
   </section>
   <div class="detail-grid">

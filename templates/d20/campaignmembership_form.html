@@ -15,6 +15,6 @@
         <a class="button secondary" href="{% url 'd20:campaign-detail' object.campaign_id %}">Cancel</a>
       </div>
     </form>
-    <p><a href="{% url 'd20:character-create' %}">Create a new character</a></p>
+    <p><a href="{% url 'd20:character-create' %}?next={{ request.get_full_path|urlencode }}">Create a new character</a></p>
   </section>
 {% endblock %}

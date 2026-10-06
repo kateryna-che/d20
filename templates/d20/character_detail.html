@@ -14,7 +14,7 @@
     </div>
     {% if character.owner_id == user.pk %}
       <div class="actions">
-        <a class="button" href="{% url 'd20:character-update' character.pk %}">Edit character</a>
+        <a class="button" href="{% url 'd20:character-update' character.pk %}?next={{ request.get_full_path|urlencode }}">Edit character</a>
         <a class="button danger" href="{% url 'd20:character-delete' character.pk %}">Delete character</a>
       </div>
     {% endif %}

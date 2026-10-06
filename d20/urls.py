@@ -17,6 +17,10 @@ from d20.views import (
     GameSessionDetailView,
     GameSessionListView,
     GameSessionUpdateView,
+    PreparationNoteCreateView,
+    PreparationNoteDeleteView,
+    PreparationNoteDetailView,
+    PreparationNoteUpdateView,
     ProfileUpdateView,
     UserDetailView,
 )
@@ -95,5 +99,25 @@ urlpatterns = [
         "sessions/<int:pk>/delete/",
         GameSessionDeleteView.as_view(),
         name="session-delete",
+    ),
+    path(
+        "campaigns/<int:pk>/notes/create/",
+        PreparationNoteCreateView.as_view(),
+        name="note-create",
+    ),
+    path(
+        "notes/<int:pk>/",
+        PreparationNoteDetailView.as_view(),
+        name="note-detail",
+    ),
+    path(
+        "notes/<int:pk>/update/",
+        PreparationNoteUpdateView.as_view(),
+        name="note-update",
+    ),
+    path(
+        "notes/<int:pk>/delete/",
+        PreparationNoteDeleteView.as_view(),
+        name="note-delete",
     ),
 ]
