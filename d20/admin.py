@@ -53,5 +53,16 @@ class PreparationNoteAdmin(admin.ModelAdmin):
     search_fields = ("title",)
 
 
-admin.site.register(CampaignMembership)
-admin.site.register(SessionParticipation)
+@admin.register(CampaignMembership)
+class CampaignMembershipAdmin(admin.ModelAdmin):
+    list_display = ("player", "campaign", "character")
+
+
+@admin.register(SessionParticipation)
+class SessionParticipationAdmin(admin.ModelAdmin):
+    list_display = ("membership", "game_session", "attendance_status")
+    list_select_related = (
+        "membership__player",
+        "membership__campaign",
+        "game_session",
+    )
