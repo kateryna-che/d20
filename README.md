@@ -31,25 +31,80 @@ other accounts are in [Demo data](#demo-data).
 - SQLite for development, PostgreSQL in production
 - WhiteNoise for static files, Gunicorn as the WSGI server
 
-## Running locally
+## Getting Started
+
+These instructions get a copy of the project running on your machine for
+development and testing. See [Deployment](#deployment) for the notes on a
+live server.
+
+### Prerequisites
+
+- [Python](https://www.python.org/downloads/) 3.14: `.python-version` pins
+  3.14.3.
+- [Git](https://git-scm.com/downloads) to clone the repository.
+
+Development needs nothing else: the database is an SQLite file. PostgreSQL
+is needed only by the [production settings](#settings).
+
+Check the version of Python before you start:
+
+```shell
+python --version
+```
+
+### Installing
+
+Clone the repository and go to its folder:
 
 ```shell
 git clone https://github.com/kateryna-che/d20.git
 cd d20
+```
+
+Create a virtual environment and activate it:
+
+```shell
 python -m venv .venv
 .venv\Scripts\activate        # source .venv/bin/activate on macOS and Linux
+```
+
+Install the requirements. `requirements-dev.txt` takes the packages of the
+production server from `requirements.txt` and adds Black to them:
+
+```shell
 pip install -r requirements-dev.txt
+```
+
+Create the database. `manage.py` works with the development settings, which
+need no environment variables: the database is the `db.sqlite3` file.
+
+```shell
 python manage.py migrate
+```
+
+The database starts empty. Load the [demo data](#demo-data) to see the site
+with ready campaigns, sessions and characters:
+
+```shell
+python manage.py loaddata demo
+```
+
+For an empty site skip the fixture and create an account of your own:
+
+```shell
 python manage.py createsuperuser
+```
+
+Start the development server:
+
+```shell
 python manage.py runserver
 ```
 
-The site opens at http://127.0.0.1:8000/. `manage.py` works with the
-development settings, which need no environment variables: the database is
-the `db.sqlite3` file.
-
-The database starts empty. To see the site with ready campaigns, sessions and
-characters, load the [demo data](#demo-data) instead of creating a superuser.
+The site opens at http://127.0.0.1:8000/. Log in as `demo` with the password
+`roll-for-initiative`: the home page shows the next session, the numbers of
+your campaigns, sessions and characters, and the sessions that wait for your
+answer.
 
 ## Running the tests
 
