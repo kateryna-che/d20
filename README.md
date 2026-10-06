@@ -9,6 +9,9 @@ answer the invitations and share notes with the table.
 The site is live at https://d20-f3y6.onrender.com/. The server is free and
 falls asleep without visitors, so the first page can take about a minute.
 
+Log in as `demo` with the password `roll-for-initiative` to look around; the
+other accounts are in [Demo data](#demo-data).
+
 ## Features
 
 - Registration, login and player profiles.
