@@ -179,7 +179,21 @@ class CampaignMembership(models.Model):
 
     def clean(self):
         super().clean()
-        if self.character_id is None or self.player_id is None:
+        if self.player_id is None:
+            return
+
+        if self.campaign_id is not None:
+            try:
+                campaign = self.campaign
+            except Campaign.DoesNotExist:
+                return
+
+            if campaign.game_master_id == self.player_id:
+                raise ValidationError(
+                    "The game master runs the campaign and cannot be its player."
+                )
+
+        if self.character_id is None:
             return
 
         try:
