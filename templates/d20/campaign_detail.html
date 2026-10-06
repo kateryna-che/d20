@@ -35,6 +35,9 @@
             {% else %}
               <p class="muted">No character selected yet.</p>
             {% endif %}
+            {% if membership.player_id == user.pk %}
+              <p><a class="button secondary" href="{% url 'd20:membership-update' membership.pk %}">{% if membership.character_id %}Change character{% else %}Choose character{% endif %}</a></p>
+            {% endif %}
           </li>
         {% empty %}
           <li class="muted">No players have joined yet.</li>

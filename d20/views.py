@@ -9,8 +9,8 @@ from django.urls import reverse, reverse_lazy
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.views import generic
 
-from d20.forms import CampaignForm, GameSessionForm, CharacterForm, ProfileForm
-from d20.models import Campaign, GameSession, Character
+from d20.forms import CampaignForm, GameSessionForm, CharacterForm, ProfileForm, MembershipForm
+from d20.models import Campaign, GameSession, Character, CampaignMembership
 
 
 class OwnerRequiredMixin(LoginRequiredMixin):
@@ -133,6 +133,19 @@ class CampaignDeleteView(OwnerRequiredMixin, SuccessMessageMixin, generic.Delete
     success_url = reverse_lazy("d20:campaign-list")
     success_message = "The campaign was deleted."
 
+
+class MembershipUpdateView(
+    OwnerRequiredMixin, SuccessMessageMixin, generic.UpdateView
+):
+    """A player chooses the character for the campaign."""
+
+    model = CampaignMembership
+    form_class = MembershipForm
+    owner_field = "player"
+    success_message = "Your character of the campaign was saved."
+
+    def get_success_url(self):
+        return self.object.campaign.get_absolute_url()
 
 
 class CharacterListView(LoginRequiredMixin, generic.ListView):

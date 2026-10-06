@@ -6,6 +6,7 @@ from d20.views import (
     CampaignDetailView,
     CampaignListView,
     CampaignUpdateView,
+    MembershipUpdateView,
     CharacterCreateView,
     CharacterDeleteView,
     CharacterDetailView,
@@ -47,6 +48,11 @@ urlpatterns = [
         "campaigns/<int:pk>/delete/",
         CampaignDeleteView.as_view(),
         name="campaign-delete",
+    ),
+    path(
+        "memberships/<int:pk>/update/",
+        MembershipUpdateView.as_view(),
+        name="membership-update",
     ),
     path(
         "campaigns/<int:pk>/sessions/create/",

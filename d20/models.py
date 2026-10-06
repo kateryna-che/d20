@@ -192,6 +192,8 @@ class CampaignMembership(models.Model):
                 {"character": "The character must belong to the campaign player."}
             )
 
+    def get_absolute_url(self):
+        return reverse("d20:campaign-detail", kwargs={"pk": self.campaign_id})
 
 class GameSession(models.Model):
     class Status(models.TextChoices):

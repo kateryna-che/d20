@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
-from d20.models import Campaign, GameSession, Character
+from d20.models import Campaign, GameSession, Character, CampaignMembership
 
 
 class ProfileForm(forms.ModelForm):
@@ -19,6 +19,20 @@ class CampaignForm(forms.ModelForm):
         model = Campaign
         fields = ("title", "description", "status")
         widgets = {"description": forms.Textarea(attrs={"rows": 6})}
+
+
+class MembershipForm(forms.ModelForm):
+    """A player chooses one of the own characters for the campaign."""
+
+    class Meta:
+        model = CampaignMembership
+        fields = ("character",)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["character"].queryset = Character.objects.filter(
+            owner=self.instance.player
+        )
 
 
 class CharacterForm(forms.ModelForm):

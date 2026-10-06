@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Choose a character | D20{% endblock %}
+
+{% block content %}
+  <section class="card form-card">
+    <h1>Choose a character</h1>
+    <p>Campaign: <a href="{% url 'd20:campaign-detail' object.campaign_id %}">{{ object.campaign.title }}</a></p>
+    <p class="muted">Choose one of your characters for this campaign. Leave the selection empty to remove the current character.</p>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="actions">
+        <button class="button" type="submit">Save character</button>
+        <a class="button secondary" href="{% url 'd20:campaign-detail' object.campaign_id %}">Cancel</a>
+      </div>
+    </form>
+    <p><a href="{% url 'd20:character-create' %}">Create a new character</a></p>
+  </section>
+{% endblock %}
