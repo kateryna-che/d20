@@ -1,13 +1,13 @@
-<form class="search-form" method="get" role="search">
-  <div class="search-field">
-    {{ search_form.search.label_tag }}
+<form method="get" action="" class="filters">
+  <div class="filter filter-search">
+    <label for="{{ search_form.search.id_for_label }}">{{ search_form.search.label }}</label>
     {{ search_form.search }}
     {{ search_form.search.errors }}
   </div>
-  <div class="actions">
-    <button class="button" type="submit">Search</button>
-    {% if search_form.search.value %}
-      <a class="button secondary" href="{{ request.path }}">Clear search</a>
+  <div class="filter-actions">
+    <button type="submit" class="btn btn-primary">Search</button>
+    {% if search_query %}
+      <a class="btn btn-ghost" href="{{ request.path }}">Reset</a>
     {% endif %}
   </div>
 </form>

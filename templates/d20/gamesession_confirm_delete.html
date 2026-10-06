@@ -1,18 +1,23 @@
 {% extends "base.html" %}
 
-{% block title %}Delete session | D20{% endblock %}
+{% block title %}Delete session{% endblock %}
 
 {% block content %}
-  <section class="card form-card">
-    <h1>Delete session</h1>
-    <p>Delete <strong>{{ gamesession.title }}</strong> from {{ gamesession.campaign.title }}?</p>
-    <p>This also deletes the attendance responses for this session.</p>
-    <form method="post">
-      {% csrf_token %}
-      <div class="actions">
-        <button class="button danger" type="submit">Delete session</button>
-        <a class="button secondary" href="{% url 'd20:session-detail' gamesession.pk %}">Cancel</a>
-      </div>
-    </form>
-  </section>
+  <div class="narrow">
+    <p class="breadcrumb">
+      <a href="{{ gamesession.campaign.get_absolute_url }}">{{ gamesession.campaign.title }}</a> /
+      <a href="{{ gamesession.get_absolute_url }}">{{ gamesession.title }}</a>
+    </p>
+    <h1>Delete session?</h1>
+    <div class="card">
+      <p>The session <strong>{{ gamesession.title }}</strong> will be deleted together with the responses of the players.</p>
+      <form method="post" action="">
+        {% csrf_token %}
+        <div class="form-actions">
+          <button type="submit" class="btn btn-danger">Yes, delete</button>
+          <a class="btn btn-ghost" href="{{ gamesession.get_absolute_url }}">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
 {% endblock %}

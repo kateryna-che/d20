@@ -1,19 +1,41 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}Sign up | D20{% endblock %}
+{% block title %}Sign up{% endblock %}
 
 {% block content %}
-  <section class="card form-card">
-    <p class="eyebrow">New at the table</p>
-    <h1>Sign up</h1>
-    <p class="muted">An account lets you run campaigns as a game master and join other campaigns as a player.</p>
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <div class="actions">
-        <button class="button" type="submit">Sign up</button>
-        <a class="button secondary" href="{% url 'login' %}">I already have an account</a>
-      </div>
-    </form>
-  </section>
+  {% include "d20/includes/drift.html" with page=True %}
+  <div class="auth">
+    <div class="auth-hero">
+      <img src="{% static 'd20/img/logo.webp' %}" alt="d20" width="360" height="140">
+      <h1>Create an account</h1>
+      <p class="muted">An account lets you run campaigns as a game master and join other campaigns as a player.</p>
+      <ol class="steps">
+        <li>
+          <span class="token" aria-hidden="true">1</span>
+          <div><strong>Create an account</strong><span>A username and a password are enough.</span></div>
+        </li>
+        <li>
+          <span class="token" aria-hidden="true">2</span>
+          <div><strong>Join a campaign</strong><span>Or start your own as the game master.</span></div>
+        </li>
+        <li>
+          <span class="token" aria-hidden="true">3</span>
+          <div><strong>Choose a character</strong><span>Bring one of your heroes to the table.</span></div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2>Sign up</h2>
+      <form method="post" action="" novalidate>
+        {% csrf_token %}
+        {% include "d20/includes/form.html" %}
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Sign up</button>
+          <a class="btn btn-ghost" href="{% url 'login' %}">I already have an account</a>
+        </div>
+      </form>
+    </div>
+  </div>
 {% endblock %}

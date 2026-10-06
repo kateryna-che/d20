@@ -1,19 +1,96 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}{% if object %}Edit character{% else %}Create character{% endif %} | D20{% endblock %}
+{% block title %}{{ object|yesno:"Edit character,New character" }}{% endblock %}
 
 {% block content %}
-  <section class="card form-card">
-    <h1>{% if object %}Edit character{% else %}Create character{% endif %}</h1>
-    <p class="muted">{% if object %}Update your character sheet.{% else %}Create a hero for your next adventure.{% endif %}</p>
-    <form method="post">
-      {% csrf_token %}
-      <input type="hidden" name="next" value="{{ next }}">
-      {{ form.as_p }}
-      <div class="actions">
-        <button class="button" type="submit">{% if object %}Save changes{% else %}Create character{% endif %}</button>
-        <a class="button secondary" href="{{ next }}">Cancel</a>
+  <p class="breadcrumb">
+    {% if object %}
+      <a href="{{ object.get_absolute_url }}">{{ object.name }}</a>
+    {% else %}
+      <a href="{% url 'd20:character-list' %}">Characters</a>
+    {% endif %}
+  </p>
+  <div class="page-title">
+    <span class="token token-large" data-token-preview aria-hidden="true" hidden></span>
+    <h1>{{ object|yesno:"Edit character,New character" }}</h1>
+  </div>
+
+  <form method="post" action="" novalidate>
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}">
+    {% if form.errors %}
+      <div class="message message-error">
+        Please correct the highlighted fields.
+        {{ form.non_field_errors }}
       </div>
-    </form>
-  </section>
+    {% endif %}
+
+    <div class="stack">
+      <div class="card">
+        <fieldset class="form-section">
+          <legend>Who is the hero</legend>
+          <div class="field-grid field-grid-wide">
+            {% include "d20/includes/form_field.html" with field=form.name %}
+            {% include "d20/includes/form_field.html" with field=form.concept %}
+          </div>
+          <div class="field-grid">
+            {% include "d20/includes/form_field.html" with field=form.character_class %}
+            {% include "d20/includes/form_field.html" with field=form.ancestry %}
+            {% include "d20/includes/form_field.html" with field=form.level %}
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="card">
+        <fieldset class="form-section">
+          <legend>Ability scores</legend>
+          <div class="field-grid" data-ability-scores>
+            {% include "d20/includes/form_field.html" with field=form.strength %}
+            {% include "d20/includes/form_field.html" with field=form.dexterity %}
+            {% include "d20/includes/form_field.html" with field=form.constitution %}
+            {% include "d20/includes/form_field.html" with field=form.intelligence %}
+            {% include "d20/includes/form_field.html" with field=form.wisdom %}
+            {% include "d20/includes/form_field.html" with field=form.charisma %}
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="card">
+        <fieldset class="form-section">
+          <legend>Combat</legend>
+          <div class="field-grid">
+            {% include "d20/includes/form_field.html" with field=form.max_hit_points %}
+            {% include "d20/includes/form_field.html" with field=form.hit_points %}
+            {% include "d20/includes/form_field.html" with field=form.armor_class %}
+            {% include "d20/includes/form_field.html" with field=form.speed %}
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="card">
+        <fieldset class="form-section">
+          <legend>Abilities and inventory</legend>
+          <div class="field-grid field-grid-wide">
+            {% include "d20/includes/form_field.html" with field=form.abilities %}
+            {% include "d20/includes/form_field.html" with field=form.inventory %}
+          </div>
+          {% include "d20/includes/form_field.html" with field=form.notes %}
+        </fieldset>
+      </div>
+
+      <div class="card">
+        <fieldset class="form-section">
+          <legend>Backstory</legend>
+          {% include "d20/includes/form_field.html" with field=form.backstory %}
+        </fieldset>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save character</button>
+        <a class="btn btn-ghost" href="{{ next }}">Cancel</a>
+      </div>
+    </div>
+  </form>
+  <script src="{% static 'd20/js/sheet.js' %}" defer></script>
 {% endblock %}

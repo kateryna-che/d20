@@ -1,59 +1,164 @@
 {% extends "base.html" %}
 
-{% block title %}{{ gamesession.title }} | D20{% endblock %}
+{% block title %}{{ gamesession.title }}{% endblock %}
 
 {% block content %}
-  <a class="back-link" href="{% url 'd20:campaign-detail' gamesession.campaign_id %}">&larr; {{ gamesession.campaign.title }}</a>
-  <div class="page-heading">
-    <div>
-      <span class="badge">{{ gamesession.get_status_display }}</span>
-      <h1>{{ gamesession.title }}</h1>
-      <p>{{ gamesession.scheduled_at|date:"j M Y, H:i" }}</p>
-      {% if gamesession.play_location %}<p>{{ gamesession.play_location }}</p>{% endif %}
-      <p class="muted">Game master: <a href="{% url 'd20:user-detail' gamesession.campaign.game_master_id %}">{{ gamesession.campaign.game_master.display_name }}</a></p>
-    </div>
-    {% if is_game_master %}
-      <div class="actions">
-        <a class="button" href="{% url 'd20:session-create' gamesession.campaign_id %}?next={{ request.get_full_path|urlencode }}">Plan a session</a>
-        <a class="button" href="{% url 'd20:session-update' gamesession.pk %}?next={{ request.get_full_path|urlencode }}">Edit session</a>
-        <a class="button danger" href="{% url 'd20:session-delete' gamesession.pk %}">Delete session</a>
+  {% with campaign=gamesession.campaign participations=gamesession.participations.all %}
+    <p class="breadcrumb">
+      <a href="{% url 'd20:campaign-list' %}">Campaigns</a> /
+      <a href="{{ campaign.get_absolute_url }}">{{ campaign.title }}</a>
+    </p>
+    <div class="page-head">
+      <div class="page-title">
+        {% include "d20/includes/date_tile.html" with game_session=gamesession size="large" %}
+        <div>
+          <h1>{{ gamesession.title }}</h1>
+          <p class="meta">
+            <span class="badge badge-{{ gamesession.status }}">{{ gamesession.get_status_display }}</span>
+            <span>{{ gamesession.scheduled_at|date:"l, j F Y, H:i" }}</span>
+            {% if gamesession.location_is_link %}
+              <span><a href="{{ gamesession.play_location }}" rel="noopener noreferrer" target="_blank">Open the game room</a></span>
+            {% elif gamesession.play_location %}
+              <span>{{ gamesession.play_location }}</span>
+            {% endif %}
+            <span>Game master: <a href="{{ campaign.game_master.get_absolute_url }}">{{ campaign.game_master.display_name }}</a></span>
+          </p>
+        </div>
       </div>
-    {% endif %}
-  </div>
-  {% if gamesession.agenda %}
-    <section class="card">
-      <h2>Agenda</h2>
-      {{ gamesession.agenda|linebreaks }}
+      {% if is_game_master %}
+        <div class="actions">
+          <a class="btn" href="{% url 'd20:session-update' pk=gamesession.pk %}?next={{ request.get_full_path|urlencode }}">Edit</a>
+          <a class="btn btn-danger" href="{% url 'd20:session-delete' pk=gamesession.pk %}">Delete</a>
+        </div>
+      {% endif %}
+    </div>
+
+    <section class="card response-bar{% if gamesession.status == "scheduled" and is_player and not my_participation %} card-attention{% endif %}">
+      <div>
+        <h2>Your response</h2>
+        {% if is_game_master %}
+          <p class="meta"><span class="badge badge-master">Game master</span></p>
+        {% elif my_participation %}
+          <p class="meta">
+            <span class="badge badge-{{ my_participation.attendance_status }}">{{ my_participation.get_attendance_status_display }}</span>
+          </p>
+        {% elif gamesession.status == "scheduled" and is_player %}
+          <p class="meta"><span class="badge badge-unanswered">No answer yet</span></p>
+        {% endif %}
+      </div>
+      <div>
+        {% if is_game_master %}
+          <p class="muted">You run this session as the game master. Responses belong to the players.</p>
+        {% elif is_player and gamesession.status == "scheduled" %}
+          <form method="post" action="{% url 'd20:session-respond' pk=gamesession.pk %}" class="response-form">
+            {% csrf_token %}
+            <div class="form-actions">
+              <button type="submit" name="attendance_status" value="confirmed" class="btn btn-primary">Confirm</button>
+              <button type="submit" name="attendance_status" value="declined" class="btn btn-danger">Decline</button>
+            </div>
+          </form>
+          <p class="muted">You play the character you chose for the campaign. <a href="{{ campaign.get_absolute_url }}#characters">Choose my character</a></p>
+        {% elif is_player %}
+          <p class="muted">Only a scheduled session accepts answers.</p>
+        {% else %}
+          <p class="muted">Only the players of the campaign answer its sessions.</p>
+          <a class="btn btn-primary" href="{{ campaign.get_absolute_url }}">Open the campaign</a>
+        {% endif %}
+      </div>
     </section>
-  {% endif %}
-  {% if gamesession.summary %}
-    <section class="card">
-      <h2>Summary</h2>
-      {{ gamesession.summary|linebreaks }}
-    </section>
-  {% endif %}
-  <section class="card">
-    <h2>Attendance</h2>
-    {% if my_participation %}
-      <p>Your response: {{ my_participation.get_attendance_status_display }}</p>
-    {% endif %}
-    {% if is_player and gamesession.status == gamesession.Status.SCHEDULED %}
-      <form class="actions" method="post" action="{% url 'd20:session-respond' gamesession.pk %}">
-        {% csrf_token %}
-        <button class="button" type="submit" name="attendance_status" value="confirmed">Confirm attendance</button>
-        <button class="button secondary" type="submit" name="attendance_status" value="declined">Decline attendance</button>
-      </form>
-    {% endif %}
-    <ul class="entry-list">
-      {% for participation in gamesession.participations.all %}
-        <li>
-          <strong><a href="{% url 'd20:user-detail' participation.membership.player_id %}">{{ participation.membership.player.display_name }}</a></strong>
-          &middot; {{ participation.get_attendance_status_display }}
-          {% if participation.membership.character %}<p><a href="{% url 'd20:character-detail' participation.membership.character_id %}">{{ participation.membership.character.name }}</a></p>{% endif %}
-        </li>
-      {% empty %}
-        <li class="muted">No attendance responses yet.</li>
-      {% endfor %}
-    </ul>
-  </section>
+
+    <div class="split">
+      <div class="stack">
+        <section class="card">
+          <h2>Agenda</h2>
+          {% if gamesession.agenda %}
+            <div class="prose">{{ gamesession.agenda|linebreaks }}</div>
+          {% else %}
+            <p class="muted">The plan for this session is not written yet.</p>
+          {% endif %}
+        </section>
+
+        <section class="card">
+          <h2>Summary</h2>
+          {% if gamesession.summary %}
+            <div class="prose">{{ gamesession.summary|linebreaks }}</div>
+          {% else %}
+            <p class="muted">The game master adds the summary after the game.</p>
+          {% endif %}
+        </section>
+
+        <section class="card">
+          <div class="card-head">
+            <h2>Players and responses</h2>
+            <span class="muted">{{ participations|length }}</span>
+          </div>
+          {% if participations %}
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Player</th>
+                    <th scope="col">Character</th>
+                    <th scope="col">Response</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for participation in participations %}
+                    <tr>
+                      <td>
+                        <span class="cell-lead">
+                          <span class="avatar avatar-small" aria-hidden="true">{{ participation.membership.player.display_name|first|upper }}</span>
+                          <a href="{{ participation.membership.player.get_absolute_url }}">{{ participation.membership.player.display_name }}</a>
+                        </span>
+                      </td>
+                      <td>
+                        {% if participation.membership.character %}
+                          <span class="cell-lead">
+                            {% include "d20/includes/token.html" with character=participation.membership.character size="small" %}
+                            <a href="{{ participation.membership.character.get_absolute_url }}">{{ participation.membership.character.name }}</a>
+                          </span>
+                        {% else %}
+                          <span class="muted">Not chosen</span>
+                        {% endif %}
+                      </td>
+                      <td><span class="badge badge-{{ participation.attendance_status }}">{{ participation.get_attendance_status_display }}</span></td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% else %}
+            <div class="empty">
+              <p>Nobody has answered yet.</p>
+            </div>
+          {% endif %}
+        </section>
+      </div>
+
+      <aside class="stack">
+        <section class="card">
+          <div class="card-head">
+            <h2>Characters of the session</h2>
+          </div>
+          <p class="muted">Characters of the players who confirmed.</p>
+          <ul class="list">
+            {% for participation in participations %}
+              {% if participation.attendance_status == "confirmed" and participation.membership.character %}
+                <li class="lead">
+                  {% include "d20/includes/token.html" with character=participation.membership.character %}
+                  <a class="row-title" href="{{ participation.membership.character.get_absolute_url }}">{{ participation.membership.character.name }}</a>
+                  <p class="meta">
+                    <span>{{ participation.membership.character.summary }}</span>
+                  </p>
+                  <p class="meta">
+                    <span>Player: {{ participation.membership.player.display_name }}</span>
+                  </p>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </section>
+      </aside>
+    </div>
+  {% endwith %}
 {% endblock %}

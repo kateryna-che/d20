@@ -1,0 +1,11 @@
+<article class="card card-link note-card note-{{ note.kind }}">
+  <p class="meta">
+    <span class="badge badge-{{ note.kind }}">{{ note.get_kind_display }}</span>
+  </p>
+  <h2 class="card-title"><a href="{{ note.get_absolute_url }}">{{ note.title }}</a></h2>
+  <p class="clamp">{{ note.content }}</p>
+  <p class="meta card-foot">
+    <span>{{ note.author.display_name }}</span>
+    <span>Updated {{ note.updated_at|date:"j M Y" }}</span>
+  </p>
+</article>

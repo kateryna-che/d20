@@ -1,19 +1,30 @@
 {% extends "base.html" %}
 
-{% block title %}{% if object %}Edit campaign{% else %}Create campaign{% endif %} | D20{% endblock %}
+{% block title %}{{ object|yesno:"Edit campaign,New campaign" }}{% endblock %}
 
 {% block content %}
-  <section class="card form-card">
-    <h1>{% if object %}Edit campaign{% else %}Create campaign{% endif %}</h1>
-    <p class="muted">{% if object %}Update the details of your adventure.{% else %}You will be the game master of this campaign.{% endif %}</p>
-    <form method="post">
-      {% csrf_token %}
-      <input type="hidden" name="next" value="{{ next }}">
-      {{ form.as_p }}
-      <div class="actions">
-        <button class="button" type="submit">{% if object %}Save changes{% else %}Create campaign{% endif %}</button>
-        <a class="button secondary" href="{{ next }}">Cancel</a>
-      </div>
-    </form>
-  </section>
+  <div class="narrow">
+    <p class="breadcrumb">
+      {% if object %}
+        <a href="{{ object.get_absolute_url }}">{{ object.title }}</a>
+      {% else %}
+        <a href="{% url 'd20:campaign-list' %}">Campaigns</a>
+      {% endif %}
+    </p>
+    <h1>{{ object|yesno:"Edit campaign,New campaign" }}</h1>
+    {% if not object %}
+      <p class="muted">You will be the game master. A one-shot is a campaign with a single session.</p>
+    {% endif %}
+    <div class="card">
+      <form method="post" action="" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        {% include "d20/includes/form.html" %}
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <a class="btn btn-ghost" href="{{ next }}">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
 {% endblock %}

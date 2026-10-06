@@ -1,97 +1,200 @@
 {% extends "base.html" %}
 
-{% block title %}{{ campaign.title }} | D20{% endblock %}
+{% block title %}{{ campaign.title }}{% endblock %}
 
 {% block content %}
-  <a class="back-link" href="{% url 'd20:campaign-list' %}">&larr; All campaigns</a>
-  <div class="page-heading">
+  <p class="breadcrumb"><a href="{% url 'd20:campaign-list' %}">Campaigns</a></p>
+  <div class="page-head">
     <div>
-      <span class="badge">{{ campaign.get_status_display }}</span>
       <h1>{{ campaign.title }}</h1>
-      <p class="muted">Game master: <a href="{% url 'd20:user-detail' campaign.game_master_id %}">{{ campaign.game_master.display_name }}</a></p>
+      <p class="meta">
+        <span class="badge badge-{{ campaign.status }}">{{ campaign.get_status_display }}</span>
+        <span class="cell-lead">
+          <span class="avatar avatar-small" aria-hidden="true">{{ campaign.game_master.display_name|first|upper }}</span>
+          <span>Game master: <a href="{{ campaign.game_master.get_absolute_url }}">{{ campaign.game_master.display_name }}</a></span>
+        </span>
+        <span>Created {{ campaign.created_at|date:"j M Y" }}</span>
+      </p>
     </div>
-    {% if is_game_master %}
-      <div class="actions">
-        <a class="button" href="{% url 'd20:campaign-update' campaign.pk %}?next={{ request.get_full_path|urlencode }}">Edit campaign</a>
-        <a class="button danger" href="{% url 'd20:campaign-delete' campaign.pk %}">Delete campaign</a>
-      </div>
-    {% else %}
-      <form class="actions" method="post" action="{% url 'd20:campaign-membership' campaign.pk %}">
-        {% csrf_token %}
-        {% if is_player %}
-          <button class="button danger" type="submit" name="action" value="leave">Leave campaign</button>
-        {% else %}
-          <button class="button" type="submit" name="action" value="join">Join campaign</button>
-        {% endif %}
-      </form>
-    {% endif %}
-  </div>
-  {% if campaign.description %}
-    <section class="card">
-      <h2>About the campaign</h2>
-      {{ campaign.description|linebreaks }}
-    </section>
-  {% endif %}
-  <div class="detail-grid">
-    <section class="card">
-      <h2>Players</h2>
-      <ul class="entry-list">
-        {% for membership in campaign.memberships.all %}
-          <li>
-            <strong><a href="{% url 'd20:user-detail' membership.player_id %}">{{ membership.player.display_name }}</a></strong>
-            {% if membership.character %}
-              <p><a href="{% url 'd20:character-detail' membership.character_id %}">{{ membership.character.name }}</a> &middot; Level {{ membership.character.level }} {{ membership.character.get_character_class_display }}</p>
-            {% else %}
-              <p class="muted">No character selected yet.</p>
-            {% endif %}
-            {% if membership.player_id == user.pk %}
-              <p><a class="button secondary" href="{% url 'd20:membership-update' membership.pk %}">{% if membership.character_id %}Change character{% else %}Choose character{% endif %}</a></p>
-            {% endif %}
-          </li>
-        {% empty %}
-          <li class="muted">No players have joined yet.</li>
-        {% endfor %}
-      </ul>
-    </section>
-    <section class="card">
-      <h2>Game sessions</h2>
+    <div class="actions">
       {% if is_game_master %}
-        <p><a class="button" href="{% url 'd20:session-create' campaign.pk %}?next={{ request.get_full_path|urlencode }}">Plan a session</a></p>
+        <a class="btn" href="{% url 'd20:campaign-update' pk=campaign.pk %}?next={{ request.get_full_path|urlencode }}">Edit</a>
+        <a class="btn btn-danger" href="{% url 'd20:campaign-delete' pk=campaign.pk %}">Delete</a>
+      {% else %}
+        <form method="post" action="{% url 'd20:campaign-membership' pk=campaign.pk %}" class="inline-form">
+          {% csrf_token %}
+          {% if is_player %}
+            <button type="submit" name="action" value="leave" class="btn btn-danger">Leave the campaign</button>
+          {% else %}
+            <button type="submit" name="action" value="join" class="btn btn-primary">Join the campaign</button>
+          {% endif %}
+        </form>
       {% endif %}
-      <ul class="entry-list">
-        {% for session in campaign.game_sessions.all %}
-          <li>
-            <h3><a href="{% url 'd20:session-detail' session.pk %}">{{ session.title }}</a></h3>
-            <p>{{ session.scheduled_at|date:"j M Y, H:i" }} &middot; {{ session.get_status_display }}</p>
-            {% if session.play_location %}<p>{{ session.play_location }}</p>{% endif %}
-            {% if session.agenda %}{{ session.agenda|linebreaks }}{% endif %}
-            {% if session.summary %}{{ session.summary|linebreaks }}{% endif %}
-            {% if is_game_master %}
-              <div class="actions">
-                <a class="button secondary" href="{% url 'd20:session-update' session.pk %}?next={{ request.get_full_path|urlencode }}">Edit session</a>
-                <a class="button danger" href="{% url 'd20:session-delete' session.pk %}">Delete session</a>
-              </div>
-            {% endif %}
-          </li>
-        {% empty %}
-          <li class="muted">No game sessions scheduled yet.</li>
-        {% endfor %}
-      </ul>
-    </section>
+    </div>
   </div>
-  {% if is_game_master or is_player %}
-    <section class="card">
-      <h2>Preparation notes</h2>
-      <p><a class="button" href="{% url 'd20:note-create' campaign.pk %}?next={{ request.get_full_path|urlencode }}">Create preparation note</a></p>
-      <ul class="entry-list">
-        {% for note in campaign.notes.all %}
-          <li>
-            <h3><a href="{% url 'd20:note-detail' note.pk %}">{{ note.title }}</a></h3>
-          </li>
-        {% empty %}
-          <li class="muted">No preparation notes yet.</li>
-        {% endfor %}
-      </ul>
-    </section>
-  {% endif %}
+
+  {# "notes" is in the context only for the game master and the players. #}
+  {% with game_sessions=campaign.game_sessions.all notes_count=notes|length players_count=campaign.memberships.all|length %}
+  <ul class="hub-stats">
+    <li><a class="hub-stat" href="#sessions"><b>{{ game_sessions|length }}</b><span>Session{{ game_sessions|length|pluralize }}</span></a></li>
+    {% if is_game_master or is_player %}
+      <li><a class="hub-stat" href="#notes"><b>{{ notes_count }}</b><span>Note{{ notes_count|pluralize }}</span></a></li>
+    {% endif %}
+    <li><a class="hub-stat" href="#players"><b>{{ players_count }}</b><span>Player{{ players_count|pluralize }}</span></a></li>
+  </ul>
+
+  <nav class="section-nav" aria-label="Sections of the campaign">
+    <a href="#sessions">Sessions</a>
+    {% if is_game_master or is_player %}
+      <a href="#notes">Notes</a>
+    {% endif %}
+    <a href="#players">Players</a>
+    <a href="#characters">Characters</a>
+  </nav>
+
+  <div class="split">
+    <div class="stack">
+      <section class="card">
+        <h2>About the campaign</h2>
+        {% if campaign.description %}
+          <div class="prose">{{ campaign.description|linebreaks }}</div>
+        {% else %}
+          <p class="muted">The game master has not added a description yet.</p>
+        {% endif %}
+      </section>
+
+      <section class="card" id="sessions">
+        <div class="card-head">
+          <h2>Sessions</h2>
+          {% if is_game_master %}
+            <a class="btn btn-small btn-primary" href="{% url 'd20:session-create' pk=campaign.pk %}?next={{ request.get_full_path|urlencode }}">Plan a session</a>
+          {% endif %}
+        </div>
+        {% if game_sessions %}
+          {# Scheduled, completed, cancelled: the statuses in reverse alphabetical order. #}
+          {% regroup game_sessions|dictsortreversed:"status" by get_status_display as status_groups %}
+          {% for group in status_groups %}
+            <h3>{{ group.grouper }}</h3>
+            <ul class="list">
+              {# The nearest scheduled session comes first, played ones start from the latest. #}
+              {% if group.grouper == "Scheduled" %}
+                {% for game_session in group.list|dictsort:"scheduled_at" %}
+                  <li>{% include "d20/includes/session_item.html" %}</li>
+                {% endfor %}
+              {% else %}
+                {% for game_session in group.list %}
+                  <li>{% include "d20/includes/session_item.html" %}</li>
+                {% endfor %}
+              {% endif %}
+            </ul>
+          {% endfor %}
+        {% else %}
+          <div class="empty">
+            <p>No sessions are planned yet.</p>
+          </div>
+        {% endif %}
+      </section>
+
+      {% if is_game_master or is_player %}
+        <section id="notes">
+          <div class="card-head">
+            <h2>Campaign notes</h2>
+            <a class="btn btn-small btn-primary" href="{% url 'd20:note-create' pk=campaign.pk %}?next={{ request.get_full_path|urlencode }}">Add a note</a>
+          </div>
+          {% if notes %}
+            <div class="card-grid">
+              {% for note in notes %}
+                {% include "d20/includes/note_card.html" %}
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="empty">
+              <p>No notes yet: NPCs, locations, quests, items and resources will appear here.</p>
+            </div>
+          {% endif %}
+        </section>
+      {% endif %}
+    </div>
+
+    <aside class="stack">
+      {% with memberships=campaign.memberships.all %}
+        <section class="card" id="players">
+          <div class="card-head">
+            <h2>Players</h2>
+            <span class="muted">{{ memberships|length }}</span>
+          </div>
+          {% if memberships %}
+            <ul class="list">
+              {% for membership in memberships %}
+                <li class="lead">
+                  <span class="avatar" aria-hidden="true">{{ membership.player.display_name|first|upper }}</span>
+                  <div class="row">
+                    <a class="row-title" href="{{ membership.player.get_absolute_url }}">{{ membership.player.display_name }}</a>
+                    {% if membership.player_id == user.id %}<span class="badge badge-player">You</span>{% endif %}
+                  </div>
+                  <p class="meta">
+                    <span>Joined {{ membership.joined_at|date:"j M Y" }}</span>
+                  </p>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <div class="empty">
+              <p>There are no players yet.</p>
+            </div>
+          {% endif %}
+        </section>
+
+        <section class="card" id="characters">
+          <div class="card-head">
+            <h2>Characters of the campaign</h2>
+          </div>
+          {% if memberships %}
+            <ul class="list">
+              {% for membership in memberships %}
+                <li class="lead">
+                  {% if membership.character %}
+                    {% include "d20/includes/token.html" with character=membership.character %}
+                    <div class="row">
+                      <a class="row-title" href="{{ membership.character.get_absolute_url }}">{{ membership.character.name }}</a>
+                      {% if membership.player_id == user.id %}
+                        <a class="btn btn-small" href="{% url 'd20:membership-update' pk=membership.pk %}">Change</a>
+                      {% endif %}
+                    </div>
+                    <p class="meta">
+                      <span>{{ membership.character.summary }}</span>
+                    </p>
+                    <p class="meta">
+                      <span>Player: {{ membership.player.display_name }}</span>
+                      {% if membership.player_id == user.id %}<span class="badge badge-player">Yours</span>{% endif %}
+                    </p>
+                  {% else %}
+                    <span class="avatar" aria-hidden="true">?</span>
+                    <div class="row">
+                      <span class="muted">{{ membership.player.display_name }} has not chosen a character yet.</span>
+                      {% if membership.player_id == user.id %}
+                        <a class="btn btn-small btn-primary" href="{% url 'd20:membership-update' pk=membership.pk %}">Choose</a>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <div class="empty">
+              <p>No characters take part yet. A player joins the campaign and chooses one of the own characters.</p>
+            </div>
+          {% endif %}
+        </section>
+      {% endwith %}
+
+      {% if is_game_master %}
+        <section class="card">
+          <h2>You are the game master</h2>
+          <p class="muted">You plan sessions and manage the campaign. Players join on their own and choose their characters. The game master is not on the player list and does not answer sessions.</p>
+        </section>
+      {% endif %}
+    </aside>
+  </div>
+  {% endwith %}
 {% endblock %}

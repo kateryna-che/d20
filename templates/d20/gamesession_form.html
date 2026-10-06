@@ -1,19 +1,28 @@
 {% extends "base.html" %}
 
-{% block title %}{% if object %}Edit session{% else %}Plan a session{% endif %} | D20{% endblock %}
+{% block title %}{{ object|yesno:"Edit session,Plan a session" }}{% endblock %}
 
 {% block content %}
-  <section class="card form-card">
-    <h1>{% if object %}Edit session{% else %}Plan a session{% endif %}</h1>
-    <p class="muted">Campaign: {% if object %}{{ object.campaign.title }}{% else %}{{ campaign.title }}{% endif %}</p>
-    <form method="post">
-      {% csrf_token %}
-      <input type="hidden" name="next" value="{{ next }}">
-      {{ form.as_p }}
-      <div class="actions">
-        <button class="button" type="submit">{% if object %}Save changes{% else %}Plan session{% endif %}</button>
-        <a class="button secondary" href="{{ next }}">Cancel</a>
-      </div>
-    </form>
-  </section>
+  <div class="narrow">
+    <p class="breadcrumb">
+      {% if object %}
+        <a href="{{ object.campaign.get_absolute_url }}">{{ object.campaign.title }}</a> /
+        <a href="{{ object.get_absolute_url }}">{{ object.title }}</a>
+      {% else %}
+        <a href="{{ campaign.get_absolute_url }}">{{ campaign.title }}</a>
+      {% endif %}
+    </p>
+    <h1>{{ object|yesno:"Edit session,Plan a session" }}</h1>
+    <div class="card">
+      <form method="post" action="" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        {% include "d20/includes/form.html" %}
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <a class="btn btn-ghost" href="{{ next }}">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
 {% endblock %}

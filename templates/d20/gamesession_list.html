@@ -1,53 +1,39 @@
 {% extends "base.html" %}
 
-{% block title %}My sessions | D20{% endblock %}
+{% block title %}Sessions{% endblock %}
 
 {% block content %}
-  <div class="page-heading">
+  <div class="page-head">
     <div>
-      <h1>My sessions</h1>
-      <p class="muted">Sessions of campaigns you run or play in.</p>
+      <h1>Sessions</h1>
+      <p class="meta">
+        <span>Game meetings of the campaigns you run or play in. A game master plans a session from the campaign page.</span>
+      </p>
     </div>
-    <a class="button secondary" href="{% url 'd20:campaign-list' %}">Browse campaigns</a>
   </div>
+
   {% include "d20/includes/search_form.html" %}
-  <div class="campaign-grid">
-    {% for session in gamesession_list %}
-      <article class="card">
-        <span class="badge">{{ session.get_status_display }}</span>
-        <h2><a href="{% url 'd20:session-detail' session.pk %}">{{ session.title }}</a></h2>
-        <p>Campaign: <a href="{% url 'd20:campaign-detail' session.campaign_id %}">{{ session.campaign.title }}</a></p>
-        <p>{{ session.scheduled_at|date:"j M Y, H:i" }}</p>
-        {% if session.play_location %}<p>{{ session.play_location }}</p>{% endif %}
-        <p class="muted">{{ session.answers_count }} attendance response{{ session.answers_count|pluralize }}</p>
-        {% if session.campaign.game_master_id == user.pk %}
-          <div class="actions">
-            <a class="button secondary" href="{% url 'd20:session-update' session.pk %}?next={{ request.get_full_path|urlencode }}">Edit session</a>
-            <a class="button danger" href="{% url 'd20:session-delete' session.pk %}">Delete session</a>
-          </div>
-        {% endif %}
-      </article>
-    {% empty %}
-      <div class="card empty-state">
-        {% if search_query %}
-          <h2>No sessions found</h2>
-          <p>Try another title or clear the search.</p>
-        {% else %}
-          <h2>No sessions yet</h2>
-          <p>Open a campaign you run to plan a session.</p>
-        {% endif %}
-      </div>
-    {% endfor %}
-  </div>
-  {% if is_paginated %}
-    <nav class="pagination" aria-label="Session pages">
-      {% if page_obj.has_previous %}
-        <a class="button secondary" href="{% querystring page=page_obj.previous_page_number %}">Previous</a>
+
+  {% if gamesession_list %}
+    <div class="card">
+      <ul class="list">
+        {% for game_session in gamesession_list %}
+          <li>
+            {% include "d20/includes/session_item.html" with show_campaign=True %}
+            <p class="meta">
+              <span>Responses: {{ game_session.answers_count }}</span>
+            </p>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% else %}
+    <div class="empty">
+      {% if search_query %}
+        <p>No sessions match your search.</p>
+      {% else %}
+        <p>There are no sessions in your campaigns yet. Open a campaign you run and plan the first one, or join a campaign as a player.</p>
       {% endif %}
-      <span>Page {{ page_obj.number }} of {{ paginator.num_pages }}</span>
-      {% if page_obj.has_next %}
-        <a class="button secondary" href="{% querystring page=page_obj.next_page_number %}">Next</a>
-      {% endif %}
-    </nav>
+    </div>
   {% endif %}
 {% endblock %}

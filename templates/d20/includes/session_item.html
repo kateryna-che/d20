@@ -1,0 +1,20 @@
+<div class="session session-link">
+  {% include "d20/includes/date_tile.html" %}
+  <div class="row">
+    <div class="row-main">
+      <a class="row-title" href="{{ game_session.get_absolute_url }}">{{ game_session.title }}</a>
+      <p class="meta">
+        {% if show_campaign %}
+          <a href="{{ game_session.campaign.get_absolute_url }}">{{ game_session.campaign.title }}</a>
+        {% endif %}
+        <span>{{ game_session.scheduled_at|date:"D, j M Y, H:i" }}</span>
+        {% if game_session.location_is_link %}
+          <span>Online</span>
+        {% elif game_session.play_location %}
+          <span>{{ game_session.play_location }}</span>
+        {% endif %}
+      </p>
+    </div>
+    <span class="badge badge-{{ game_session.status }}">{{ game_session.get_status_display }}</span>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<article class="card card-link">
+  <p class="meta">
+    <span class="badge badge-{{ campaign.status }}">{{ campaign.get_status_display }}</span>
+    {% if campaign.game_master_id == user.id %}
+      <span class="badge badge-master">You are the game master</span>
+    {% elif campaign.is_player %}
+      <span class="badge badge-player">You are a player</span>
+    {% endif %}
+  </p>
+  <h2 class="card-title"><a href="{{ campaign.get_absolute_url }}">{{ campaign.title }}</a></h2>
+  <p class="meta">
+    <span>Game master: <a href="{{ campaign.game_master.get_absolute_url }}">{{ campaign.game_master.display_name }}</a></span>
+  </p>
+  {% if campaign.description %}
+    <p class="clamp">{{ campaign.description }}</p>
+  {% endif %}
+  <p class="meta card-foot">
+    <span>Players: {{ campaign.players_count }}</span>
+    <span>Sessions: {{ campaign.sessions_count }}</span>
+  </p>
+</article>

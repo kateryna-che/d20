@@ -1,20 +1,24 @@
 {% extends "base.html" %}
 
-{% block title %}Choose a character | D20{% endblock %}
+{% block title %}Choose a character{% endblock %}
 
 {% block content %}
-  <section class="card form-card">
+  <div class="narrow">
+    <p class="breadcrumb"><a href="{{ object.campaign.get_absolute_url }}">{{ object.campaign.title }}</a></p>
     <h1>Choose a character</h1>
-    <p>Campaign: <a href="{% url 'd20:campaign-detail' object.campaign_id %}">{{ object.campaign.title }}</a></p>
-    <p class="muted">Choose one of your characters for this campaign. Leave the selection empty to remove the current character.</p>
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <div class="actions">
-        <button class="button" type="submit">Save character</button>
-        <a class="button secondary" href="{% url 'd20:campaign-detail' object.campaign_id %}">Cancel</a>
-      </div>
-    </form>
-    <p><a href="{% url 'd20:character-create' %}?next={{ request.get_full_path|urlencode }}">Create a new character</a></p>
-  </section>
+    <p class="muted">The hero you play in this campaign. You choose from your own characters.</p>
+    <div class="card">
+      <form method="post" action="" novalidate>
+        {% csrf_token %}
+        {% include "d20/includes/form.html" %}
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <a class="btn btn-ghost" href="{{ object.campaign.get_absolute_url }}">Cancel</a>
+        </div>
+      </form>
+      {% if not form.fields.character.queryset.exists %}
+        <p class="muted">You have no characters yet. <a href="{% url 'd20:character-create' %}?next={{ request.get_full_path|urlencode }}">Create a character</a></p>
+      {% endif %}
+    </div>
+  </div>
 {% endblock %}

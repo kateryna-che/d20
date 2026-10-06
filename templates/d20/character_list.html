@@ -1,50 +1,36 @@
 {% extends "base.html" %}
 
-{% block title %}My characters | D20{% endblock %}
+{% block title %}My characters{% endblock %}
 
 {% block content %}
-  <div class="page-heading">
+  <div class="page-head">
     <div>
       <h1>My characters</h1>
-      <p class="muted">Your heroes and their character sheets.</p>
+      <p class="meta">
+        <span>Your heroes and their sheets. Characters of other players are on the pages of campaigns and sessions.</span>
+      </p>
     </div>
-    <a class="button" href="{% url 'd20:character-create' %}?next={{ request.get_full_path|urlencode }}">Create character</a>
+    <div class="actions">
+      <a class="btn btn-primary" href="{% url 'd20:character-create' %}?next={{ request.get_full_path|urlencode }}">New character</a>
+    </div>
   </div>
+
   {% include "d20/includes/search_form.html" %}
-  <div class="campaign-grid">
-    {% for character in character_list %}
-      <article class="card">
-        <span class="badge">Level {{ character.level }}</span>
-        <h2><a href="{% url 'd20:character-detail' character.pk %}">{{ character.name }}</a></h2>
-        <p>{{ character.get_ancestry_display }} &middot; {{ character.get_character_class_display }}</p>
-        {% if character.concept %}<p>{{ character.concept }}</p>{% endif %}
-        <p class="muted">Hit points: {{ character.hit_points }} / {{ character.max_hit_points }}</p>
-        <div class="actions">
-          <a class="button secondary" href="{% url 'd20:character-update' character.pk %}?next={{ request.get_full_path|urlencode }}">Edit character</a>
-          <a class="button danger" href="{% url 'd20:character-delete' character.pk %}">Delete character</a>
-        </div>
-      </article>
-    {% empty %}
-      <div class="card empty-state">
-        {% if search_query %}
-          <h2>No characters found</h2>
-          <p>Try another name or clear the search.</p>
-        {% else %}
-          <h2>No characters yet</h2>
-          <p>Create a character to start your adventure.</p>
-        {% endif %}
-      </div>
-    {% endfor %}
-  </div>
-  {% if is_paginated %}
-    <nav class="pagination" aria-label="Character pages">
-      {% if page_obj.has_previous %}
-        <a class="button secondary" href="{% querystring page=page_obj.previous_page_number %}">Previous</a>
+
+  {% if character_list %}
+    <div class="card-grid">
+      {% for character in character_list %}
+        {% include "d20/includes/character_card.html" %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty">
+      {% if search_query %}
+        <p>None of your characters match the search.</p>
+      {% else %}
+        <p>You have no characters yet.</p>
+        <p><a class="btn btn-primary" href="{% url 'd20:character-create' %}?next={{ request.get_full_path|urlencode }}">Create your first hero</a></p>
       {% endif %}
-      <span>Page {{ page_obj.number }} of {{ paginator.num_pages }}</span>
-      {% if page_obj.has_next %}
-        <a class="button secondary" href="{% querystring page=page_obj.next_page_number %}">Next</a>
-      {% endif %}
-    </nav>
+    </div>
   {% endif %}
 {% endblock %}

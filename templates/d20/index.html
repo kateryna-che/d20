@@ -1,112 +1,211 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}Home | D20{% endblock %}
+{% block title %}Home{% endblock %}
+
+{% block masthead %}
+  <section class="masthead">
+    {% include "d20/includes/drift.html" %}
+    <div class="container masthead-inner">
+      <div>
+        <p class="eyebrow">Your campaign table</p>
+        <h1>Welcome back, {{ user.display_name }}</h1>
+        <p class="masthead-lead">Your table for campaigns, sessions, characters and preparation notes.</p>
+        <div class="actions">
+          <a class="btn btn-gold" href="{% url 'd20:campaign-create' %}?next={{ request.get_full_path|urlencode }}">New campaign</a>
+          <a class="btn btn-light" href="{% url 'd20:character-create' %}?next={{ request.get_full_path|urlencode }}">New character</a>
+        </div>
+      </div>
+      {% if next_session %}
+        <aside class="next-session" aria-labelledby="next-session-title">
+          <button type="button" class="die-button next-session-die" data-roll aria-label="Roll the d20">
+            <img src="{% static 'd20/img/d20.webp' %}" alt="" width="84" height="84">
+          </button>
+          <p class="eyebrow">
+            <span>Next session</span>
+            <span class="next-session-in">{% if starts_in %}in {{ starts_in }}{% else %}already started{% endif %}</span>
+          </p>
+          <div class="session">
+            {% include "d20/includes/date_tile.html" with game_session=next_session %}
+            <div>
+              <a class="next-session-title" id="next-session-title" href="{{ next_session.get_absolute_url }}">{{ next_session.title }}</a>
+              <p class="meta">
+                <a href="{{ next_session.campaign.get_absolute_url }}">{{ next_session.campaign.title }}</a>
+                <span>{{ next_session.scheduled_at|date:"l, H:i" }}</span>
+                {% if next_session.location_is_link %}
+                  <span>Online</span>
+                {% elif next_session.play_location %}
+                  <span>{{ next_session.play_location }}</span>
+                {% endif %}
+              </p>
+            </div>
+          </div>
+          <div class="next-session-foot">
+            {% if next_session.campaign.game_master_id == user.id %}
+              <p class="meta"><span class="badge badge-master">You run it</span></p>
+            {% else %}
+              <p class="meta"><span class="badge badge-player">You play in it</span></p>
+            {% endif %}
+            <a class="btn btn-light btn-small" href="{{ next_session.get_absolute_url }}">Open the session</a>
+          </div>
+        </aside>
+      {% else %}
+        <button type="button" class="die-button masthead-die" data-roll aria-label="Roll the d20">
+          <img src="{% static 'd20/img/d20.webp' %}" alt="" width="190" height="190">
+        </button>
+      {% endif %}
+      <div class="counters">
+        <a class="counter" href="{% url 'd20:campaign-list' %}">
+          <span class="counter-number">{{ num_campaigns }}</span>
+          <span class="counter-label">My campaigns</span>
+        </a>
+        <a class="counter" href="{% url 'd20:session-list' %}">
+          <span class="counter-number">{{ num_sessions }}</span>
+          <span class="counter-label">Sessions</span>
+        </a>
+        <a class="counter" href="{% url 'd20:character-list' %}">
+          <span class="counter-number">{{ num_characters }}</span>
+          <span class="counter-label">My characters</span>
+        </a>
+      </div>
+    </div>
+  </section>
+{% endblock %}
 
 {% block content %}
-  <div class="page-heading">
-    <div>
-      <p class="eyebrow">Home</p>
-      <h1>Welcome, {{ user.display_name }}</h1>
-      <p class="muted">Your campaigns, sessions and characters at a glance.</p>
+  <div class="split">
+    <div class="stack">
+      {% if unanswered_sessions %}
+        <section class="card card-attention">
+          <div class="card-head">
+            <h2>Awaiting your response</h2>
+            <span class="badge badge-unanswered">{{ unanswered_sessions|length }}</span>
+          </div>
+          <ul class="list">
+            {% for game_session in unanswered_sessions %}
+              <li>
+                <div class="session">
+                  {% include "d20/includes/date_tile.html" %}
+                  <div class="row">
+                    <div class="row-main">
+                      <a class="row-title" href="{{ game_session.get_absolute_url }}">{{ game_session.title }}</a>
+                      <p class="meta">
+                        <span>{{ game_session.campaign.title }}</span>
+                        <span>{{ game_session.scheduled_at|date:"D, j M Y, H:i" }}</span>
+                      </p>
+                    </div>
+                    <form method="post" action="{% url 'd20:session-respond' pk=game_session.pk %}" class="actions" aria-label="Respond to {{ game_session.title }}">
+                      {% csrf_token %}
+                      <button type="submit" name="attendance_status" value="confirmed" class="btn btn-small btn-primary">Confirm</button>
+                      <button type="submit" name="attendance_status" value="declined" class="btn btn-small btn-danger">Decline</button>
+                    </form>
+                  </div>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        </section>
+      {% endif %}
+
+      <section class="card">
+        <div class="card-head">
+          <h2>Upcoming sessions</h2>
+          <a href="{% url 'd20:session-list' %}">All sessions</a>
+        </div>
+        {% if upcoming_sessions %}
+          <ul class="list">
+            {% for game_session in upcoming_sessions %}
+              <li>
+                {% include "d20/includes/session_item.html" with show_campaign=True %}
+                {% if game_session.campaign.game_master_id == user.id %}
+                  <p class="meta">
+                    <span class="badge badge-master">You run it</span>
+                  </p>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <div class="empty">
+            <p>No scheduled sessions in your campaigns yet.</p>
+          </div>
+        {% endif %}
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>My campaigns</h2>
+          <a href="{% url 'd20:campaign-list' %}">All campaigns</a>
+        </div>
+        {% if my_campaigns %}
+          <ul class="list">
+            {% for campaign in my_campaigns %}
+              <li class="row">
+                <div class="row-main">
+                  <a class="row-title" href="{{ campaign.get_absolute_url }}">{{ campaign.title }}</a>
+                  <p class="meta">
+                    <span>Game master: {{ campaign.game_master.display_name }}</span>
+                  </p>
+                </div>
+                <span>
+                  {% if campaign.game_master_id == user.id %}
+                    <span class="badge badge-master">Game master</span>
+                  {% else %}
+                    <span class="badge badge-player">Player</span>
+                  {% endif %}
+                  <span class="badge badge-{{ campaign.status }}">{{ campaign.get_status_display }}</span>
+                </span>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <div class="empty">
+            <p>You are not in any campaign yet.</p>
+            <p><a href="{% url 'd20:campaign-create' %}?next={{ request.get_full_path|urlencode }}">Start your own</a>, or <a href="{% url 'd20:campaign-list' %}">join a campaign</a> as a player.</p>
+          </div>
+        {% endif %}
+      </section>
     </div>
-    <a class="button" href="{% url 'd20:campaign-create' %}?next={{ request.get_full_path|urlencode }}">Create campaign</a>
-  </div>
-  <div class="stat-grid">
-    <div class="card">
-      <p class="stat-value">{{ num_campaigns }}</p>
-      <p>Campaign{{ num_campaigns|pluralize }} you run or play in</p>
+
+    <div class="stack">
+      <section class="card">
+        <div class="card-head">
+          <h2>My characters</h2>
+          <a href="{% url 'd20:character-list' %}">All my characters</a>
+        </div>
+        {% if my_characters %}
+          <ul class="list">
+            {% for character in my_characters %}
+              <li class="row">
+                {% include "d20/includes/token.html" %}
+                <div class="row-main">
+                  <a class="row-title" href="{{ character.get_absolute_url }}">{{ character.name }}</a>
+                  <p class="meta">
+                    <span>{{ character.summary }}</span>
+                  </p>
+                </div>
+                <a class="btn btn-small" href="{% url 'd20:character-update' pk=character.pk %}?next={{ request.get_full_path|urlencode }}">Edit</a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <div class="empty">
+            <p>You have no characters yet.</p>
+            <p><a href="{% url 'd20:character-create' %}?next={{ request.get_full_path|urlencode }}">Create your first hero</a></p>
+          </div>
+        {% endif %}
+      </section>
+
+      {% if not unanswered_sessions %}
+        <section class="card">
+          <div class="card-head">
+            <h2>Awaiting your response</h2>
+          </div>
+          <div class="empty">
+            <p>No sessions are waiting for your answer.</p>
+          </div>
+        </section>
+      {% endif %}
     </div>
-    <div class="card">
-      <p class="stat-value">{{ num_sessions }}</p>
-      <p>Session{{ num_sessions|pluralize }} of these campaigns</p>
-      <p class="muted">Past and cancelled ones are counted too.</p>
-    </div>
-    <div class="card">
-      <p class="stat-value">{{ num_characters }}</p>
-      <p>Character{{ num_characters|pluralize }} of yours</p>
-    </div>
-  </div>
-  <section class="card">
-    <h2>Next session</h2>
-    {% if next_session %}
-      <span class="badge">{% if starts_in %}Starts in {{ starts_in }}{% else %}Already started{% endif %}</span>
-      <h3><a href="{% url 'd20:session-detail' next_session.pk %}">{{ next_session.title }}</a></h3>
-      <p>Campaign: <a href="{% url 'd20:campaign-detail' next_session.campaign_id %}">{{ next_session.campaign.title }}</a></p>
-      <p>{{ next_session.scheduled_at|date:"j M Y, H:i" }}</p>
-      {% if next_session.play_location %}<p>{{ next_session.play_location }}</p>{% endif %}
-    {% else %}
-      <p class="muted">No sessions are planned.</p>
-    {% endif %}
-  </section>
-  <div class="detail-grid">
-    <section class="card">
-      <h2>Upcoming sessions</h2>
-      <ul class="entry-list">
-        {% for session in upcoming_sessions %}
-          <li>
-            <h3><a href="{% url 'd20:session-detail' session.pk %}">{{ session.title }}</a></h3>
-            <p>Campaign: <a href="{% url 'd20:campaign-detail' session.campaign_id %}">{{ session.campaign.title }}</a></p>
-            <p>{{ session.scheduled_at|date:"j M Y, H:i" }}</p>
-          </li>
-        {% empty %}
-          <li class="muted">No sessions are planned.</li>
-        {% endfor %}
-      </ul>
-      <p><a class="button secondary" href="{% url 'd20:session-list' %}">All my sessions</a></p>
-    </section>
-    <section class="card">
-      <h2>Waiting for your answer</h2>
-      <ul class="entry-list">
-        {% for session in unanswered_sessions %}
-          <li>
-            <h3><a href="{% url 'd20:session-detail' session.pk %}">{{ session.title }}</a></h3>
-            <p>Campaign: <a href="{% url 'd20:campaign-detail' session.campaign_id %}">{{ session.campaign.title }}</a></p>
-            <p>{{ session.scheduled_at|date:"j M Y, H:i" }}</p>
-            <form class="actions" method="post" action="{% url 'd20:session-respond' session.pk %}">
-              {% csrf_token %}
-              <button class="button" type="submit" name="attendance_status" value="confirmed">Confirm attendance</button>
-              <button class="button secondary" type="submit" name="attendance_status" value="declined">Decline attendance</button>
-            </form>
-          </li>
-        {% empty %}
-          <li class="muted">You have answered every planned session.</li>
-        {% endfor %}
-      </ul>
-    </section>
-  </div>
-  <div class="detail-grid">
-    <section class="card">
-      <h2>My campaigns</h2>
-      <ul class="entry-list">
-        {% for campaign in my_campaigns %}
-          <li>
-            <span class="badge">{{ campaign.get_status_display }}</span>
-            <h3><a href="{% url 'd20:campaign-detail' campaign.pk %}">{{ campaign.title }}</a></h3>
-            {% if campaign.game_master_id == user.pk %}
-              <p class="muted">You are the game master.</p>
-            {% else %}
-              <p class="muted">Game master: <a href="{% url 'd20:user-detail' campaign.game_master_id %}">{{ campaign.game_master.display_name }}</a></p>
-            {% endif %}
-          </li>
-        {% empty %}
-          <li class="muted">You do not run or play in any campaign yet.</li>
-        {% endfor %}
-      </ul>
-      <p><a class="button secondary" href="{% url 'd20:campaign-list' %}">Browse campaigns</a></p>
-    </section>
-    <section class="card">
-      <h2>My characters</h2>
-      <ul class="entry-list">
-        {% for character in my_characters %}
-          <li>
-            <h3><a href="{% url 'd20:character-detail' character.pk %}">{{ character.name }}</a></h3>
-            <p>Level {{ character.level }} {{ character.get_ancestry_display }} {{ character.get_character_class_display }}</p>
-          </li>
-        {% empty %}
-          <li class="muted">No characters yet.</li>
-        {% endfor %}
-      </ul>
-      <p><a class="button secondary" href="{% url 'd20:character-list' %}">All my characters</a></p>
-    </section>
   </div>
 {% endblock %}

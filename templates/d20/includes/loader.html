@@ -1,0 +1,12 @@
+{% load static %}
+<div class="page-loader" id="page-loader" role="status" aria-live="polite" hidden>
+  <div class="loader-die">
+    <video muted loop playsinline preload="auto" aria-hidden="true">
+      <source src="{% static 'd20/video/dice-roll.webm' %}" type="video/webm">
+      <source src="{% static 'd20/video/dice-roll.mp4' %}" type="video/mp4">
+    </video>
+    <img src="{% static 'd20/img/d20-logo.png' %}" alt="" width="96" height="96">
+  </div>
+  <p class="loader-text">Rolling the dice&hellip;</p>
+</div>
+<script src="{% static 'd20/js/loader.js' %}" defer></script>

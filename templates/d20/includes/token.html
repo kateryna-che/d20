@@ -1,0 +1,2 @@
+{# A die-shaped token of a character; its colour comes from the class. #}
+<span class="token{% if size %} token-{{ size }}{% endif %} token-{{ character.character_class }}" aria-hidden="true">{{ character.name|first|upper }}</span>

@@ -1,19 +1,29 @@
 {% extends "base.html" %}
 
-{% block title %}{% if object %}Edit note{% else %}Add note{% endif %} | D20{% endblock %}
+{% block title %}{{ object|yesno:"Edit note,New note" }}{% endblock %}
 
 {% block content %}
-  <section class="card form-card">
-    <h1>{% if object %}Edit note{% else %}Add note{% endif %}</h1>
-    <p>Campaign: {% if object %}<a href="{% url 'd20:campaign-detail' object.campaign_id %}">{{ object.campaign.title }}</a>{% else %}<a href="{% url 'd20:campaign-detail' campaign.pk %}">{{ campaign.title }}</a>{% endif %}</p>
-    <form method="post">
-      {% csrf_token %}
-      <input type="hidden" name="next" value="{{ next }}">
-      {{ form.as_p }}
-      <div class="actions">
-        <button class="button" type="submit">{% if object %}Save changes{% else %}Add note{% endif %}</button>
-        <a class="button secondary" href="{{ next }}">Cancel</a>
-      </div>
-    </form>
-  </section>
+  <div class="narrow">
+    <p class="breadcrumb">
+      {% if object %}
+        <a href="{{ object.campaign.get_absolute_url }}">{{ object.campaign.title }}</a> /
+        <a href="{{ object.get_absolute_url }}">{{ object.title }}</a>
+      {% else %}
+        <a href="{{ campaign.get_absolute_url }}">{{ campaign.title }}</a>
+      {% endif %}
+    </p>
+    <h1>{{ object|yesno:"Edit note,New note" }}</h1>
+    <p class="muted">Notes are shared with everyone at the table.</p>
+    <div class="card">
+      <form method="post" action="" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        {% include "d20/includes/form.html" %}
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <a class="btn btn-ghost" href="{{ next }}">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
 {% endblock %}
