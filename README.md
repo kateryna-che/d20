@@ -4,6 +4,9 @@ A campaign table for tabletop role-playing groups. The game master runs
 campaigns and plans game sessions; the players keep their character sheets,
 answer the invitations and share notes with the table.
 
+The site is live at https://d20-f3y6.onrender.com/. The server is free and
+falls asleep without visitors, so the first page can take about a minute.
+
 ## Features
 
 - Registration, login and player profiles.
