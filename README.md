@@ -25,12 +25,6 @@ other accounts are in [Demo data](#demo-data).
   the campaign can read.
 - Search and pagination in the lists, light and dark themes.
 
-## Technologies
-
-- Python 3.14, Django 6.1
-- SQLite for development, PostgreSQL in production
-- WhiteNoise for static files, Gunicorn as the WSGI server
-
 ## Getting Started
 
 These instructions get a copy of the project running on your machine for
@@ -264,3 +258,29 @@ add this domain to `ALLOWED_HOSTS`.
 
 The build does not load the [demo data](#demo-data): the fixture is loaded
 once by hand.
+
+## Built With
+
+- [Python](https://www.python.org/) 3.14 - the language
+- [Django](https://www.djangoproject.com/) 6.1 - the web framework
+- [SQLite](https://www.sqlite.org/) - the database for development
+- [PostgreSQL](https://www.postgresql.org/) with
+  [psycopg2](https://www.psycopg.org/) - the database in production
+- [WhiteNoise](https://whitenoise.readthedocs.io/) - serves the static files
+- [Gunicorn](https://gunicorn.org/) - the WSGI server
+- [python-dotenv](https://github.com/theskumar/python-dotenv) - loads the
+  `.env` file
+- [Black](https://black.readthedocs.io/) - the code formatter
+
+The pages are Django templates with plain CSS and JavaScript: no front-end
+framework and no build step.
+
+## Authors
+
+- **Kateryna Cherepanova** - [kateryna-che](https://github.com/kateryna-che)
+
+## Acknowledgments
+
+- The structure of this README follows the
+  [README template](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
+  of Billie Thompson.
