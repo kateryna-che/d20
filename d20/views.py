@@ -61,7 +61,9 @@ class ReturnUrlMixin:
         return self.get_default_return_url()
 
     def get_default_return_url(self):
-        return str(self.success_url)
+        if self.success_url:
+            return str(self.success_url)
+        return self.object.get_absolute_url()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -217,9 +219,6 @@ class CampaignUpdateView(
     form_class = CampaignForm
     success_message = "The campaign was updated."
 
-    def get_default_return_url(self):
-        return reverse("d20:campaign-detail", kwargs={"pk": self.object.pk})
-
 
 class CampaignDeleteView(OwnerRequiredMixin, SuccessMessageMixin, generic.DeleteView):
     model = Campaign
@@ -280,9 +279,6 @@ class CharacterUpdateView(
     form_class = CharacterForm
     owner_field = "owner"
     success_message = "The character sheet was saved."
-
-    def get_default_return_url(self):
-        return reverse("d20:character-detail", kwargs={"pk": self.object.pk})
 
 
 class CharacterDeleteView(OwnerRequiredMixin, SuccessMessageMixin, generic.DeleteView):
@@ -376,9 +372,6 @@ class GameSessionUpdateView(
     owner_field = "campaign__game_master"
     success_message = "The session was updated."
 
-    def get_default_return_url(self):
-        return reverse("d20:session-detail", kwargs={"pk": self.object.pk})
-
 
 class GameSessionDeleteView(
     OwnerRequiredMixin, SuccessMessageMixin, generic.DeleteView
@@ -440,9 +433,6 @@ class PreparationNoteUpdateView(
     def get_queryset(self):
         campaigns = get_user_campaigns(self.request.user)
         return super().get_queryset().filter(campaign__in=campaigns)
-
-    def get_default_return_url(self):
-        return reverse("d20:note-detail", kwargs={"pk": self.object.pk})
 
 
 class PreparationNoteDeleteView(
