@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import redirect_to_login
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Count, Q
 from django.http import HttpResponseBadRequest
@@ -136,13 +137,15 @@ def get_user_campaigns(user):
     return Campaign.objects.filter(Q(game_master=user) | Q(players=user)).distinct()
 
 
-@login_required
 @require_POST
 def update_campaign_membership(request, pk):
     """Join or leave the campaign according to the submitted action.
 
     The game master runs the campaign and is not on its player list.
     """
+    if not request.user.is_authenticated:
+        return redirect_to_login(reverse("d20:campaign-detail", kwargs={"pk": pk}))
+
     action = request.POST.get("action")
     if action not in ("join", "leave"):
         return HttpResponseBadRequest("Invalid membership action.")
@@ -157,13 +160,15 @@ def update_campaign_membership(request, pk):
     return redirect(campaign)
 
 
-@login_required
 @require_POST
 def respond_to_session(request, pk):
     """Save the answer of a campaign player: confirmed or declined.
 
     Only a scheduled session accepts answers.
     """
+    if not request.user.is_authenticated:
+        return redirect_to_login(reverse("d20:session-detail", kwargs={"pk": pk}))
+
     game_session = get_object_or_404(
         GameSession, pk=pk, status=GameSession.Status.SCHEDULED
     )
