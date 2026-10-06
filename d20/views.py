@@ -74,6 +74,34 @@ class ReturnUrlMixin:
         return self.get_return_url()
 
 
+class CampaignRelatedCreateMixin:
+    """Create an object in the campaign from the URL.
+
+    The campaign is found before the form is shown or saved, so list the
+    mixin after LoginRequiredMixin.
+    """
+
+    def get_campaigns(self):
+        """Campaigns that the user may add the object to."""
+        raise NotImplementedError
+
+    def dispatch(self, request, *args, **kwargs):
+        self.campaign = get_object_or_404(self.get_campaigns(), pk=kwargs["pk"])
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["campaign"] = self.campaign
+        return context
+
+    def form_valid(self, form):
+        form.instance.campaign = self.campaign
+        return super().form_valid(form)
+
+    def get_default_return_url(self):
+        return self.campaign.get_absolute_url()
+
+
 class SearchMixin:
     """Filter a list by a validated search term and keep its form in context."""
 
@@ -335,7 +363,11 @@ class GameSessionDetailView(LoginRequiredMixin, generic.DetailView):
 
 
 class GameSessionCreateView(
-    LoginRequiredMixin, ReturnUrlMixin, SuccessMessageMixin, generic.CreateView
+    LoginRequiredMixin,
+    CampaignRelatedCreateMixin,
+    ReturnUrlMixin,
+    SuccessMessageMixin,
+    generic.CreateView,
 ):
     """The game master plans a session of the campaign from the URL."""
 
@@ -343,22 +375,8 @@ class GameSessionCreateView(
     form_class = GameSessionForm
     success_message = "The session was planned."
 
-    def get_campaign(self):
-        return get_object_or_404(
-            Campaign, pk=self.kwargs["pk"], game_master=self.request.user
-        )
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["campaign"] = self.get_campaign()
-        return context
-
-    def form_valid(self, form):
-        form.instance.campaign = self.get_campaign()
-        return super().form_valid(form)
-
-    def get_default_return_url(self):
-        return reverse("d20:campaign-detail", kwargs={"pk": self.kwargs["pk"]})
+    def get_campaigns(self):
+        return Campaign.objects.filter(game_master=self.request.user)
 
 
 class GameSessionUpdateView(
@@ -390,7 +408,11 @@ class PreparationNoteDetailView(LoginRequiredMixin, generic.DetailView):
 
 
 class PreparationNoteCreateView(
-    LoginRequiredMixin, ReturnUrlMixin, SuccessMessageMixin, generic.CreateView
+    LoginRequiredMixin,
+    CampaignRelatedCreateMixin,
+    ReturnUrlMixin,
+    SuccessMessageMixin,
+    generic.CreateView,
 ):
     """The game master or a player adds a note to the campaign from the URL."""
 
@@ -398,23 +420,12 @@ class PreparationNoteCreateView(
     form_class = PreparationNoteForm
     success_message = "The note was added."
 
-    def get_campaign(self):
-        return get_object_or_404(
-            get_user_campaigns(self.request.user), pk=self.kwargs["pk"]
-        )
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["campaign"] = self.get_campaign()
-        return context
+    def get_campaigns(self):
+        return get_user_campaigns(self.request.user)
 
     def form_valid(self, form):
-        form.instance.campaign = self.get_campaign()
         form.instance.author = self.request.user
         return super().form_valid(form)
-
-    def get_default_return_url(self):
-        return reverse("d20:campaign-detail", kwargs={"pk": self.kwargs["pk"]})
 
 
 class PreparationNoteUpdateView(
