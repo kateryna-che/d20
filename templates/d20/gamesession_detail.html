@@ -14,6 +14,7 @@
     </div>
     {% if is_game_master %}
       <div class="actions">
+        <a class="button" href="{% url 'd20:session-create' gamesession.campaign_id %}?next={{ request.get_full_path|urlencode }}">Plan a session</a>
         <a class="button" href="{% url 'd20:session-update' gamesession.pk %}?next={{ request.get_full_path|urlencode }}">Edit session</a>
         <a class="button danger" href="{% url 'd20:session-delete' gamesession.pk %}">Delete session</a>
       </div>
