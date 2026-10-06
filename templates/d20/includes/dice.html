@@ -1,6 +1,7 @@
 {% load static %}
 {# The face image is one of img/dice/1.webp ... 20.webp: dice.js puts the number in. #}
-<dialog class="dice-dialog" id="dice-dialog" aria-labelledby="dice-title" data-face-src="{% static 'd20/img/dice/20.webp' %}">
+{# The static tag is not used here: in production it adds a hash of the file to the name, and the number could not be swapped. #}
+<dialog class="dice-dialog" id="dice-dialog" aria-labelledby="dice-title" data-face-src="{% get_static_prefix %}d20/img/dice/20.webp">
   <p class="eyebrow" id="dice-title">d20 roll</p>
   {# The second die is thrown only with advantage or disadvantage. #}
   <div class="dice-table">
