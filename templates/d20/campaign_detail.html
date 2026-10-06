@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}{{ campaign.title }} | D20{% endblock %}
+
+{% block content %}
+  <a class="back-link" href="{% url 'd20:campaign-list' %}">&larr; All campaigns</a>
+  <div class="page-heading">
+    <div>
+      <span class="badge">{{ campaign.get_status_display }}</span>
+      <h1>{{ campaign.title }}</h1>
+      <p class="muted">Game master: {{ campaign.game_master.display_name }}</p>
+    </div>
+    {% if is_game_master %}
+      <div class="actions">
+        <a class="button" href="{% url 'd20:campaign-update' campaign.pk %}">Edit campaign</a>
+        <a class="button danger" href="{% url 'd20:campaign-delete' campaign.pk %}">Delete campaign</a>
+      </div>
+    {% endif %}
+  </div>
+  {% if campaign.description %}
+    <section class="card">
+      <h2>About the campaign</h2>
+      {{ campaign.description|linebreaks }}
+    </section>
+  {% endif %}
+  <div class="detail-grid">
+    <section class="card">
+      <h2>Players</h2>
+      <ul class="entry-list">
+        {% for membership in campaign.memberships.all %}
+          <li>
+            <strong>{{ membership.player.display_name }}</strong>
+            {% if membership.character %}
+              <p>{{ membership.character.name }} &middot; Level {{ membership.character.level }} {{ membership.character.get_character_class_display }}</p>
+            {% else %}
+              <p class="muted">No character selected yet.</p>
+            {% endif %}
+          </li>
+        {% empty %}
+          <li class="muted">No players have joined yet.</li>
+        {% endfor %}
+      </ul>
+    </section>
+    <section class="card">
+      <h2>Game sessions</h2>
+      <ul class="entry-list">
+        {% for session in campaign.game_sessions.all %}
+          <li>
+            <h3>{{ session.title }}</h3>
+            <p>{{ session.scheduled_at|date:"j M Y, H:i" }} &middot; {{ session.get_status_display }}</p>
+            {% if session.play_location %}<p>{{ session.play_location }}</p>{% endif %}
+            {% if session.agenda %}{{ session.agenda|linebreaks }}{% endif %}
+            {% if session.summary %}{{ session.summary|linebreaks }}{% endif %}
+          </li>
+        {% empty %}
+          <li class="muted">No game sessions scheduled yet.</li>
+        {% endfor %}
+      </ul>
+    </section>
+  </div>
+{% endblock %}

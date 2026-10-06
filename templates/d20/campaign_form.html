@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}{% if object %}Edit campaign{% else %}Create campaign{% endif %} | D20{% endblock %}
+
+{% block content %}
+  <section class="card form-card">
+    <h1>{% if object %}Edit campaign{% else %}Create campaign{% endif %}</h1>
+    <p class="muted">{% if object %}Update the details of your adventure.{% else %}You will be the game master of this campaign.{% endif %}</p>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="actions">
+        <button class="button" type="submit">{% if object %}Save changes{% else %}Create campaign{% endif %}</button>
+        <a class="button secondary" href="{% if object %}{% url 'd20:campaign-detail' object.pk %}{% else %}{% url 'd20:campaign-list' %}{% endif %}">Cancel</a>
+      </div>
+    </form>
+  </section>
+{% endblock %}

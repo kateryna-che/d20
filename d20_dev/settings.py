@@ -35,8 +35,7 @@ ROOT_URLCONF = "d20_dev.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"]
-        ,
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -59,6 +58,9 @@ DATABASES = {
 }
 
 AUTH_USER_MODEL = "d20.User"
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "d20:campaign-list"
+LOGOUT_REDIRECT_URL = "login"
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",

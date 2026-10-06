@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}All campaigns | D20{% endblock %}
+
+{% block content %}
+  <div class="page-heading">
+    <div>
+      <p class="eyebrow">Adventures</p>
+      <h1>All campaigns</h1>
+      <p class="muted">Browse campaigns, players and game sessions.</p>
+    </div>
+    <a class="button" href="{% url 'd20:campaign-create' %}">Create campaign</a>
+  </div>
+  <div class="campaign-grid">
+    {% for campaign in campaign_list %}
+      <article class="card">
+        <span class="badge">{{ campaign.get_status_display }}</span>
+        <h2><a href="{% url 'd20:campaign-detail' campaign.pk %}">{{ campaign.title }}</a></h2>
+        <p class="muted">Game master: {{ campaign.game_master.display_name }}</p>
+        <p>{{ campaign.players.all|length }} player{{ campaign.players.all|length|pluralize }} &middot; {{ campaign.sessions_count }} session{{ campaign.sessions_count|pluralize }}</p>
+        {% if campaign.description %}
+          <p>{{ campaign.description|truncatewords:30 }}</p>
+        {% endif %}
+      </article>
+    {% empty %}
+      <div class="card empty-state">
+        <h2>No campaigns yet</h2>
+        <p>Create the first campaign to start an adventure.</p>
+      </div>
+    {% endfor %}
+  </div>
+  {% if is_paginated %}
+    <nav class="pagination" aria-label="Campaign pages">
+      {% if page_obj.has_previous %}
+        <a class="button secondary" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      {% endif %}
+      <span>Page {{ page_obj.number }} of {{ paginator.num_pages }}</span>
+      {% if page_obj.has_next %}
+        <a class="button secondary" href="?page={{ page_obj.next_page_number }}">Next</a>
+      {% endif %}
+    </nav>
+  {% endif %}
+{% endblock %}

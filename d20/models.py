@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.urls import reverse
 
 
 class User(AbstractUser):
@@ -13,9 +14,6 @@ class User(AbstractUser):
 
     def __str__(self) -> str:
         return self.username
-
-    def get_absolute_url(self):
-        pass
 
     @property
     def display_name(self):
@@ -71,13 +69,8 @@ class Character(models.Model):
         choices=CharacterClass,
         verbose_name="class",
     )
-    ancestry = models.CharField(
-        max_length=20,
-        choices=Ancestry
-    )
-    level = models.PositiveSmallIntegerField(
-        default=1, validators=LEVEL_VALIDATORS
-    )
+    ancestry = models.CharField(max_length=20, choices=Ancestry)
+    level = models.PositiveSmallIntegerField(default=1, validators=LEVEL_VALIDATORS)
     strength = models.PositiveSmallIntegerField(
         default=10, validators=ABILITY_VALIDATORS
     )
@@ -90,23 +83,14 @@ class Character(models.Model):
     intelligence = models.PositiveSmallIntegerField(
         default=10, validators=ABILITY_VALIDATORS
     )
-    wisdom = models.PositiveSmallIntegerField(
-        default=10, validators=ABILITY_VALIDATORS
-    )
+    wisdom = models.PositiveSmallIntegerField(default=10, validators=ABILITY_VALIDATORS)
     charisma = models.PositiveSmallIntegerField(
         default=10, validators=ABILITY_VALIDATORS
     )
-    max_hit_points = models.PositiveSmallIntegerField(
-        "maximum hit points", default=10
-    )
-    hit_points = models.PositiveSmallIntegerField(
-        "current hit points", default=10
-    )
+    max_hit_points = models.PositiveSmallIntegerField("maximum hit points", default=10)
+    hit_points = models.PositiveSmallIntegerField("current hit points", default=10)
     armor_class = models.PositiveSmallIntegerField(default=10)
-    speed = models.PositiveSmallIntegerField(
-        default=30,
-        verbose_name="speed, ft."
-    )
+    speed = models.PositiveSmallIntegerField(default=30, verbose_name="speed, ft.")
     abilities = models.TextField(
         blank=True,
         help_text="Features, traits and spells: one entry per line.",
@@ -127,9 +111,6 @@ class Character(models.Model):
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):
-        pass
-
 
 class Campaign(models.Model):
     class Status(models.TextChoices):
@@ -139,11 +120,7 @@ class Campaign(models.Model):
 
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
-    status = models.CharField(
-        max_length=20,
-        choices=Status,
-        default=Status.PLANNING
-    )
+    status = models.CharField(max_length=20, choices=Status, default=Status.PLANNING)
     game_master = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -163,16 +140,14 @@ class Campaign(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        pass
+        return reverse("d20:campaign-detail", kwargs={"pk": self.pk})
 
 
 class CampaignMembership(models.Model):
     """A player of a campaign and the character the player brings to it."""
 
     campaign = models.ForeignKey(
-        Campaign,
-        on_delete=models.CASCADE,
-        related_name="memberships"
+        Campaign, on_delete=models.CASCADE, related_name="memberships"
     )
     player = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -192,8 +167,7 @@ class CampaignMembership(models.Model):
         ordering = ["joined_at"]
         constraints = [
             models.UniqueConstraint(
-                fields=["campaign", "player"],
-                name="unique_campaign_player"
+                fields=["campaign", "player"], name="unique_campaign_player"
             ),
         ]
 
@@ -223,9 +197,7 @@ class GameSession(models.Model):
         CANCELLED = "cancelled", "Cancelled"
 
     campaign = models.ForeignKey(
-        Campaign,
-        on_delete=models.CASCADE,
-        related_name="game_sessions"
+        Campaign, on_delete=models.CASCADE, related_name="game_sessions"
     )
     title = models.CharField(max_length=255)
     scheduled_at = models.DateTimeField("date and time")
@@ -235,11 +207,7 @@ class GameSession(models.Model):
         verbose_name="place or link",
         help_text="An address, a club name or a link to the online room.",
     )
-    status = models.CharField(
-        max_length=20,
-        choices=Status,
-        default=Status.SCHEDULED
-    )
+    status = models.CharField(max_length=20, choices=Status, default=Status.SCHEDULED)
     agenda = models.TextField(blank=True)
     summary = models.TextField(
         blank=True,
@@ -252,9 +220,6 @@ class GameSession(models.Model):
     def __str__(self):
         return self.title
 
-    def get_absolute_url(self):
-        pass
-
 
 class SessionParticipation(models.Model):
     """The answer of a campaign player to one game session."""
@@ -264,9 +229,7 @@ class SessionParticipation(models.Model):
         DECLINED = "declined", "Declined"
 
     game_session = models.ForeignKey(
-        GameSession,
-        on_delete=models.CASCADE,
-        related_name="participations"
+        GameSession, on_delete=models.CASCADE, related_name="participations"
     )
     membership = models.ForeignKey(
         CampaignMembership,
@@ -274,9 +237,7 @@ class SessionParticipation(models.Model):
         related_name="participations",
     )
     attendance_status = models.CharField(
-        max_length=20,
-        choices=Attendance,
-        default=Attendance.CONFIRMED
+        max_length=20, choices=Attendance, default=Attendance.CONFIRMED
     )
 
     class Meta:
@@ -334,6 +295,3 @@ class PreparationNote(models.Model):
 
     def __str__(self):
         return self.title
-
-    def get_absolute_url(self):
-        pass

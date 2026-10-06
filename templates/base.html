@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}D20 campaigns{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'd20/styles.css' %}">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="container navigation" aria-label="Main navigation">
+      <a class="brand" href="{% url 'd20:campaign-list' %}">D20</a>
+      {% if user.is_authenticated %}
+        <a href="{% url 'd20:campaign-list' %}">Campaigns</a>
+        <span class="account-name">{{ user.display_name }}</span>
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button class="button secondary" type="submit">Log out</button>
+        </form>
+      {% else %}
+        <a class="account-name" href="{% url 'login' %}">Log in</a>
+      {% endif %}
+    </nav>
+  </header>
+  <main class="container">
+    {% if messages %}
+      <div class="messages">
+        {% for message in messages %}
+          <p class="message {{ message.tags }}" role="status">{{ message }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

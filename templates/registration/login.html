@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Log in | D20{% endblock %}
+
+{% block content %}
+  <section class="card form-card">
+    <p class="eyebrow">Welcome back</p>
+    <h1>Log in</h1>
+    <p class="muted">Continue to your campaigns.</p>
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="hidden" name="next" value="{{ next }}">
+      <button class="button" type="submit">Log in</button>
+    </form>
+  </section>
+{% endblock %}
