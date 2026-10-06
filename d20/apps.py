@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class D20Config(AppConfig):
-    name = 'd20'
+    name = "d20"
