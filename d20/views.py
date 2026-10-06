@@ -133,15 +133,11 @@ def respond_to_session(request, pk):
     )
     form = ParticipationForm(request.POST)
     if form.is_valid():
-        participation, created = SessionParticipation.objects.get_or_create(
+        SessionParticipation.objects.update_or_create(
             game_session=game_session,
             membership=membership,
             defaults=form.cleaned_data,
         )
-        if not created:
-            SessionParticipation.objects.filter(pk=participation.pk).update(
-                **form.cleaned_data
-            )
     return redirect(game_session)
 
 
