@@ -51,7 +51,59 @@ the `db.sqlite3` file.
 The database starts empty. To see the site with ready campaigns, sessions and
 characters, load the [demo data](#demo-data) instead of creating a superuser.
 
-Run the tests with `python manage.py test`.
+## Running the tests
+
+```shell
+python manage.py test
+```
+
+The tests run on a test database of their own, so the data in `db.sqlite3`
+stays as it is.
+
+### Application tests
+
+The 25 tests are in `d20/tests/`, a module for every layer of the
+application:
+
+| Module           | What it checks                                           |
+|------------------|----------------------------------------------------------|
+| `test_models.py` | names and addresses of the objects, the campaigns of a   |
+|                  | user, and the rules of a membership: the game master     |
+|                  | cannot be a player of the campaign, the character must   |
+|                  | belong to the player                                     |
+| `test_forms.py`  | the registration and search forms; the membership form   |
+|                  | offers a player only their own characters                |
+| `test_views.py`  | the pages: login is required, registration, the numbers  |
+|                  | of the home page, the list, search, creation, editing    |
+|                  | and deletion of campaigns, joining and leaving one, the  |
+|                  | list and creation of characters, the answer to a session |
+|                  | invitation                                               |
+| `test_admin.py`  | the bio of a player on the user page of the admin site   |
+
+The tests of the views are the closest to end-to-end ones: they send requests
+with the test client of Django and check the redirect, the template, the
+context and the rows in the database. They guard the access rules. For
+example, a game master who edits the campaign of another game master gets the
+404 page, and the campaign stays the same.
+
+Run one module or one test by its path:
+
+```shell
+python manage.py test d20.tests.test_views
+python manage.py test d20.tests.test_views.PrivateCampaignTests.test_join_and_leave_campaign
+```
+
+### Coding style tests
+
+The code is formatted with [Black](https://black.readthedocs.io/), so the
+whole project has one style. `pyproject.toml` keeps the migrations out of
+it. Check the style without changing the files:
+
+```shell
+black --check .
+```
+
+`black .` reformats the files.
 
 ## Demo data
 
