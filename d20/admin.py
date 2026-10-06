@@ -66,3 +66,10 @@ class SessionParticipationAdmin(admin.ModelAdmin):
         "membership__campaign",
         "game_session",
     )
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "membership":
+            kwargs["queryset"] = CampaignMembership.objects.select_related(
+                "player", "campaign"
+            )
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
