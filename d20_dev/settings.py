@@ -17,7 +17,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "d20.apps.D20Config",
+    "d20",
 ]
 
 MIDDLEWARE = [
@@ -58,7 +58,7 @@ DATABASES = {
     }
 }
 
-
+AUTH_USER_MODEL = "d20.User"
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
