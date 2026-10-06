@@ -234,9 +234,6 @@ class MembershipUpdateView(OwnerRequiredMixin, SuccessMessageMixin, generic.Upda
     owner_field = "player"
     success_message = "Your character of the campaign was saved."
 
-    def get_success_url(self):
-        return self.object.campaign.get_absolute_url()
-
 
 class CharacterListView(LoginRequiredMixin, SearchMixin, generic.ListView):
     """The characters of the logged-in user.
