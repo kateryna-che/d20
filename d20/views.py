@@ -1,13 +1,16 @@
 from urllib.parse import urlsplit
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Count, Q
-from django.shortcuts import get_object_or_404
+from django.http import HttpResponseBadRequest
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.views import generic
+from django.views.decorators.http import require_POST
 
 from d20.forms import CampaignForm, GameSessionForm, CharacterForm, ProfileForm, MembershipForm, PreparationNoteForm
 from d20.models import Campaign, GameSession, Character, CampaignMembership, PreparationNote
@@ -59,6 +62,27 @@ def get_user_campaigns(user):
     return Campaign.objects.filter(Q(game_master=user) | Q(players=user)).distinct()
 
 
+@login_required
+@require_POST
+def update_campaign_membership(request, pk):
+    """Join or leave the campaign according to the submitted action.
+
+    The game master runs the campaign and is not on its player list.
+    """
+    action = request.POST.get("action")
+    if action not in ("join", "leave"):
+        return HttpResponseBadRequest("Invalid membership action.")
+
+    campaign = get_object_or_404(
+        Campaign.objects.exclude(game_master=request.user), pk=pk
+    )
+    if action == "join":
+        campaign.memberships.get_or_create(player=request.user)
+    else:
+        campaign.memberships.filter(player=request.user).delete()
+    return redirect(campaign)
+
+
 class UserDetailView(LoginRequiredMixin, generic.DetailView):
     queryset = get_user_model().objects.prefetch_related(
         "characters",
@@ -101,6 +125,10 @@ class CampaignDetailView(LoginRequiredMixin, generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["is_game_master"] = self.object.game_master_id == self.request.user.pk
+        context["is_player"] = any(
+            membership.player_id == self.request.user.pk
+            for membership in self.object.memberships.all()
+        )
         return context
 
 

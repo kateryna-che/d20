@@ -23,6 +23,7 @@ from d20.views import (
     PreparationNoteUpdateView,
     ProfileUpdateView,
     UserDetailView,
+    update_campaign_membership,
 )
 
 app_name = "d20"
@@ -52,6 +53,11 @@ urlpatterns = [
         "campaigns/<int:pk>/delete/",
         CampaignDeleteView.as_view(),
         name="campaign-delete",
+    ),
+    path(
+        "campaigns/<int:pk>/membership/",
+        update_campaign_membership,
+        name="campaign-membership",
     ),
     path(
         "memberships/<int:pk>/update/",

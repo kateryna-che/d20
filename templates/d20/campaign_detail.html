@@ -15,6 +15,15 @@
         <a class="button" href="{% url 'd20:campaign-update' campaign.pk %}?next={{ request.get_full_path|urlencode }}">Edit campaign</a>
         <a class="button danger" href="{% url 'd20:campaign-delete' campaign.pk %}">Delete campaign</a>
       </div>
+    {% else %}
+      <form class="actions" method="post" action="{% url 'd20:campaign-membership' campaign.pk %}">
+        {% csrf_token %}
+        {% if is_player %}
+          <button class="button danger" type="submit" name="action" value="leave">Leave campaign</button>
+        {% else %}
+          <button class="button" type="submit" name="action" value="join">Join campaign</button>
+        {% endif %}
+      </form>
     {% endif %}
   </div>
   {% if campaign.description %}
