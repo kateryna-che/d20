@@ -215,7 +215,11 @@ On Windows `dumpdata --output` writes the file in the encoding of the system
 locale, so the texts of the fixture are plain ASCII. Set `PYTHONUTF8=1` before
 other characters go into it.
 
-## Settings
+## Deployment
+
+A live server works with the production settings and a PostgreSQL database.
+
+### Settings
 
 The settings are a package with a module for every environment:
 
@@ -244,7 +248,7 @@ when the settings are imported.
 | `POSTGRES_HOST`     | host of the database server                 |
 | `DJANGO_SECRET_KEY` | long random string                          |
 
-## Deployment
+### Render
 
 The project is ready for a [Render](https://render.com/) web service with a
 PostgreSQL database, for example on [Neon](https://neon.tech/):
