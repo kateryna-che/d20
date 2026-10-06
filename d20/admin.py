@@ -14,9 +14,7 @@ from d20.models import (
 
 @admin.register(User)
 class UserAdmin(UserAdmin):
-    fieldsets = UserAdmin.fieldsets + (
-        (("Profile", {"fields": ("bio",)}),)
-    )
+    fieldsets = UserAdmin.fieldsets + ((("Profile", {"fields": ("bio",)}),))
     add_fieldsets = UserAdmin.add_fieldsets + (
         (
             (
