@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import redirect_to_login
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import Count
+from django.db.models import Count, Exists, OuterRef
 from django.http import HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
@@ -24,6 +24,12 @@ class CampaignListView(LoginRequiredMixin, SearchMixin, generic.ListView):
     )
     paginate_by = 6
 
+    def get_queryset(self):
+        own_memberships = CampaignMembership.objects.filter(
+            campaign=OuterRef("pk"), player=self.request.user
+        )
+        return super().get_queryset().annotate(is_player=Exists(own_memberships))
+
 
 class CampaignDetailView(LoginRequiredMixin, generic.DetailView):
     queryset = Campaign.objects.select_related("game_master").prefetch_related(
@@ -37,6 +43,8 @@ class CampaignDetailView(LoginRequiredMixin, generic.DetailView):
             membership.player_id == self.request.user.pk
             for membership in self.object.memberships.all()
         )
+        if context["is_game_master"] or context["is_player"]:
+            context["notes"] = self.object.notes.select_related("author")
         return context
 
 
