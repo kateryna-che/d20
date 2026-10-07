@@ -25,7 +25,8 @@ other accounts are in [Demo data](#demo-data).
   a d20 roller with advantage and disadvantage.
 - Preparation notes (NPCs, locations, quests, items) that only the members of
   the campaign can read.
-- Search and pagination in the lists, light and dark themes.
+- Search that answers while you type and pagination in the lists, light and
+  dark themes.
 
 ## Getting Started
 
@@ -305,6 +306,8 @@ once by hand.
   [django-stubs](https://github.com/typeddjango/django-stubs) - the type
   checker
 - [djLint](https://djlint.com/) - the linter of the templates
+- [htmx](https://htmx.org/) 2.0 - the search that answers while you type;
+  the pages load it from a CDN
 
 The pages are Django templates with plain CSS and JavaScript: no front-end
 framework and no build step.

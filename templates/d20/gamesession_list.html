@@ -14,26 +14,34 @@
 
   {% include "d20/includes/search_form.html" %}
 
-  {% if gamesession_list %}
-    <div class="card">
-      <ul class="list">
-        {% for game_session in gamesession_list %}
-          <li>
-            {% include "d20/includes/session_item.html" with show_campaign=True %}
-            <p class="meta">
-              <span>Responses: {{ game_session.answers_count }}</span>
-            </p>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
-  {% else %}
-    <div class="empty">
-      {% if search_query %}
-        <p>No sessions match your search.</p>
-      {% else %}
-        <p>There are no sessions in your campaigns yet. Open a campaign you run and plan the first one, or join a campaign as a player.</p>
-      {% endif %}
-    </div>
-  {% endif %}
+  {# The search form replaces this block while the visitor types. #}
+  <div id="search-results">
+    {% include "d20/includes/search_summary.html" with noun="session" %}
+    {% if gamesession_list %}
+      <div class="card">
+        <ul class="list">
+          {% for game_session in gamesession_list %}
+            <li>
+              {% include "d20/includes/session_item.html" with show_campaign=True %}
+              <p class="meta">
+                <span>Responses: {{ game_session.answers_count }}</span>
+              </p>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% else %}
+      <div class="empty">
+        {% if search_query %}
+          <p>No sessions match “{{ search_query }}”.</p>
+        {% else %}
+          <p>There are no sessions in your campaigns yet. Open a campaign you run and plan the first one, or join a campaign as a player.</p>
+        {% endif %}
+      </div>
+    {% endif %}
+    {% include "d20/includes/pagination.html" %}
+  </div>
 {% endblock %}
+
+{# The pages are a part of the search results. #}
+{% block pagination %}{% endblock %}

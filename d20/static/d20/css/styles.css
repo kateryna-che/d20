@@ -1,4 +1,4 @@
-/* d20: lilac paper, ink and gold. No external fonts or scripts. */
+/* d20: lilac paper, ink and gold. No external fonts. */
 
 :root {
   --ink: #35223f;
@@ -1868,6 +1868,13 @@ input[type="radio"] {
 /* The line of the field: a button is then as tall as the field next to it. */
 .filter-actions .btn {
   line-height: inherit;
+}
+
+/* What the search has found: a line between the form and the list. */
+.search-summary {
+  margin: -6px 0 14px;
+  font-size: var(--text-small);
+  color: var(--muted);
 }
 
 .response-form {

@@ -1,12 +1,25 @@
-<form method="get" class="filters">
+{# The list answers while the visitor types: htmx takes #search-results and the buttons out of the same page. #}
+{# Without scripts the form works as an ordinary one, and so do Enter and the button. #}
+<form method="get" class="filters"
+      hx-get="{{ request.path }}"
+      hx-trigger="input delay:400ms"
+      hx-target="#search-results"
+      hx-select="#search-results"
+      hx-select-oob="#search-actions"
+      hx-swap="outerHTML"
+      hx-replace-url="true"
+      hx-sync="this:replace"
+      hx-history="false">
   <div class="filter">
     {{ search_form.search }}
     {{ search_form.search.errors }}
   </div>
-  <div class="filter-actions">
+  <div class="filter-actions" id="search-actions">
     <button type="submit" class="btn btn-primary">Search</button>
     {% if search_query %}
       <a class="btn btn-ghost" href="{{ request.path }}">Reset</a>
     {% endif %}
   </div>
 </form>
+{# The hash pins the file: a changed one is not run. #}
+<script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.11/dist/htmx.min.js" integrity="sha384-2OatzQy1H+Zd/IIrjr1TcuDGqLXeHhbooAyJY1KdQMKnr4LZ22k31GBLdYKHmVjg" crossorigin="anonymous" defer></script>

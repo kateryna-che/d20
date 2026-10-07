@@ -17,19 +17,27 @@
 
   {% include "d20/includes/search_form.html" %}
 
-  {% if campaign_list %}
-    <div class="card-grid">
-      {% for campaign in campaign_list %}
-        {% include "d20/includes/campaign_card.html" %}
-      {% endfor %}
-    </div>
-  {% else %}
-    <div class="empty">
-      {% if search_query %}
-        <p>No campaigns match the search.</p>
-      {% else %}
-        <p>There are no campaigns yet. Start the first one.</p>
-      {% endif %}
-    </div>
-  {% endif %}
+  {# The search form replaces this block while the visitor types. #}
+  <div id="search-results">
+    {% include "d20/includes/search_summary.html" with noun="campaign" %}
+    {% if campaign_list %}
+      <div class="card-grid">
+        {% for campaign in campaign_list %}
+          {% include "d20/includes/campaign_card.html" %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty">
+        {% if search_query %}
+          <p>No campaigns match “{{ search_query }}”.</p>
+        {% else %}
+          <p>There are no campaigns yet. Start the first one.</p>
+        {% endif %}
+      </div>
+    {% endif %}
+    {% include "d20/includes/pagination.html" %}
+  </div>
 {% endblock %}
+
+{# The pages are a part of the search results. #}
+{% block pagination %}{% endblock %}
