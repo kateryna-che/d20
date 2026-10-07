@@ -115,7 +115,7 @@ stays as it is.
 
 ### Application tests
 
-The 25 tests are in `d20/tests/`, a module for every layer of the
+The 33 tests are in `d20/tests/`, a module for every layer of the
 application:
 
 | Module           | What it checks                                           |
