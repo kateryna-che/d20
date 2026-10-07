@@ -111,10 +111,13 @@ class SearchMixin(MultipleObjectMixin):
 
     request: HttpRequest
     search_field = "title"
+    search_placeholder = "Search"
 
     def get_queryset(self) -> QuerySet[Any]:
         queryset = super().get_queryset()
-        self.search_form = SearchForm(self.request.GET)
+        self.search_form = SearchForm(
+            self.request.GET, placeholder=self.search_placeholder
+        )
         self.search_query = ""
         if self.search_form.is_valid():
             self.search_query = self.search_form.cleaned_data["search"]

@@ -17,6 +17,16 @@ class FormsTests(TestCase):
             with self.subTest(data=data):
                 self.assertTrue(SearchForm(data=data).is_valid())
 
+    def test_search_form_placeholder_belongs_to_its_instance(self) -> None:
+        form = SearchForm(placeholder="Campaign title…")
+
+        self.assertEqual(
+            form.fields["search"].widget.attrs["placeholder"], "Campaign title…"
+        )
+        self.assertEqual(
+            SearchForm().fields["search"].widget.attrs["placeholder"], "Search"
+        )
+
     def test_membership_form_offers_only_player_characters(self) -> None:
         game_master = create_user("master")
         player = create_user("player")

@@ -1695,8 +1695,7 @@ main > .page-title > h1 {
   margin-bottom: 16px;
 }
 
-.field label,
-.filter label {
+.field label {
   display: block;
   margin-bottom: 4px;
   font-weight: 600;
@@ -1847,7 +1846,7 @@ input[type="radio"] {
 .filters {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: 12px;
   margin-bottom: 20px;
   padding: 14px 16px;
@@ -1861,16 +1860,14 @@ input[type="radio"] {
   min-width: 0;
 }
 
-.filter label {
-  font-size: var(--text-label);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
 .filter-actions {
   display: flex;
   gap: 8px;
+}
+
+/* The line of the field: a button is then as tall as the field next to it. */
+.filter-actions .btn {
+  line-height: inherit;
 }
 
 .response-form {

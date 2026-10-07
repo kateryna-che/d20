@@ -113,5 +113,9 @@ class SearchForm(forms.Form):
     search = forms.CharField(
         max_length=255,
         required=False,
-        widget=forms.TextInput(attrs={"placeholder": "Search", "type": "search"}),
+        widget=forms.TextInput(attrs={"type": "search", "aria-label": "Search"}),
     )
+
+    def __init__(self, *args: Any, placeholder: str = "Search", **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        self.fields["search"].widget.attrs["placeholder"] = placeholder

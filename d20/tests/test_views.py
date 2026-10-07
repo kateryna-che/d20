@@ -65,6 +65,16 @@ class PrivateIndexTests(TestCase):
         self.assertEqual(res.context["num_characters"], 1)
         self.assertEqual(res.context["next_session"], game_session)
 
+    def test_search_field_names_what_it_searches(self) -> None:
+        for url, placeholder in (
+            (CAMPAIGN_LIST_URL, "Campaign title…"),
+            (CHARACTER_LIST_URL, "Character name…"),
+            (SESSION_LIST_URL, "Session title…"),
+        ):
+            with self.subTest(url=url):
+                res = self.client.get(url)
+                self.assertContains(res, f'placeholder="{placeholder}"')
+
 
 class PrivateCampaignTests(TestCase):
     def setUp(self) -> None:

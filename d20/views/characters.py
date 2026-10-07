@@ -23,6 +23,7 @@ class CharacterListView(LoginRequiredMixin, SearchMixin, generic.ListView):
     ordering = ("name", "pk")
     paginate_by = 8
     search_field = "name"
+    search_placeholder = "Character name…"
 
     def get_queryset(self) -> QuerySet[Character]:
         return super().get_queryset().filter(owner=self.request.user)

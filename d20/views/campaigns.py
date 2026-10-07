@@ -33,6 +33,7 @@ class CampaignListView(LoginRequiredMixin, SearchMixin, generic.ListView):
         .order_by("-created_at")
     )
     paginate_by = 6
+    search_placeholder = "Campaign title…"
 
     def get_queryset(self) -> QuerySet[Campaign]:
         own_memberships = CampaignMembership.objects.filter(

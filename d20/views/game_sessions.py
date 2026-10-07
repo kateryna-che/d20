@@ -35,6 +35,7 @@ class GameSessionListView(LoginRequiredMixin, SearchMixin, generic.ListView):
         .order_by("-scheduled_at", "-pk")
     )
     paginate_by = 8
+    search_placeholder = "Session title…"
 
     def get_queryset(self) -> QuerySet[GameSession]:
         campaigns = Campaign.objects.for_user(self.request.user)
