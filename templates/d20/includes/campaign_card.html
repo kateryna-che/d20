@@ -1,7 +1,7 @@
 <article class="card card-link">
   <p class="meta">
     <span class="badge badge-{{ campaign.status }}">{{ campaign.get_status_display }}</span>
-    {% if campaign.game_master_id == user.id %}
+    {% if campaign.game_master_id == user.pk %}
       <span class="badge badge-master">You are the game master</span>
     {% elif campaign.is_player %}
       <span class="badge badge-player">You are a player</span>

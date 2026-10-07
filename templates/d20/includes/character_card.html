@@ -12,7 +12,7 @@
   {% if character.concept %}
     <p class="clamp">{{ character.concept }}</p>
   {% endif %}
-  {% if character.owner_id == user.id %}
+  {% if character.owner_id == user.pk %}
     <p class="meta card-foot">
       <a href="{% url 'd20:character-update' pk=character.pk %}?next={{ request.get_full_path|urlencode }}">Edit sheet</a>
     </p>

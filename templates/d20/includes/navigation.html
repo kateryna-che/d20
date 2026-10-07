@@ -11,7 +11,8 @@
       <button type="button" class="nav-link" data-roll title="Roll d20" hidden>
         <img src="{% static 'd20/img/d20-logo.png' %}" alt="" width="20" height="20"><span class="nav-label">Roll d20</span>
       </button>
-      <a class="nav-link{% if name == 'profile-update' %} active{% endif %}" href="{{ user.get_absolute_url }}" title="{{ user.display_name }}"><span class="avatar avatar-small" aria-hidden="true">{{ user.display_name|first|upper }}</span><span class="nav-label">{{ user.display_name }}</span></a>
+      {# "profile" is in the context of the page of a player and of the profile form. #}
+      <a class="nav-link{% if profile.pk == user.pk %} active{% endif %}" href="{{ user.get_absolute_url }}" title="{{ user.display_name }}">{% include "d20/includes/avatar.html" with player=user size="small" %}<span class="nav-label">{{ user.display_name }}</span></a>
       <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}
         <button type="submit" class="btn btn-light btn-small">Log out</button>

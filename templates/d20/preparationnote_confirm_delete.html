@@ -1,23 +1,14 @@
-{% extends "base.html" %}
+{% extends "d20/confirm_delete.html" %}
 
 {% block title %}Delete note{% endblock %}
 
-{% block content %}
-  <div class="narrow">
-    <p class="breadcrumb">
-      <a href="{{ preparationnote.campaign.get_absolute_url }}">{{ preparationnote.campaign.title }}</a> /
-      <a href="{{ preparationnote.get_absolute_url }}">{{ preparationnote.title }}</a>
-    </p>
-    <h1>Delete note?</h1>
-    <div class="card">
-      <p>The note <strong>{{ preparationnote.title }}</strong> will be deleted for everyone in the campaign.</p>
-      <form method="post" action="">
-        {% csrf_token %}
-        <div class="form-actions">
-          <button type="submit" class="btn btn-danger">Yes, delete</button>
-          <a class="btn btn-ghost" href="{{ preparationnote.get_absolute_url }}">Cancel</a>
-        </div>
-      </form>
-    </div>
-  </div>
+{% block breadcrumb %}
+  <a href="{{ preparationnote.campaign.get_absolute_url }}">{{ preparationnote.campaign.title }}</a> /
+  <a href="{{ preparationnote.get_absolute_url }}">{{ preparationnote.title }}</a>
+{% endblock %}
+
+{% block heading %}Delete note?{% endblock %}
+
+{% block warning %}
+  <p>The note <strong>{{ preparationnote.title }}</strong> will be deleted for everyone in the campaign.</p>
 {% endblock %}

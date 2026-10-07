@@ -1,0 +1,2 @@
+{# A round avatar of a player: the first letter of the name. #}
+<span class="avatar{% if size %} avatar-{{ size }}{% endif %}" aria-hidden="true">{{ player.display_name|first|upper }}</span>

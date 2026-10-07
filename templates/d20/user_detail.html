@@ -5,7 +5,7 @@
 {% block content %}
   <div class="page-head">
     <div class="page-title">
-      <span class="avatar avatar-large" aria-hidden="true">{{ profile.display_name|first|upper }}</span>
+      {% include "d20/includes/avatar.html" with player=profile size="large" %}
       <div>
         <h1>{{ profile.display_name }}</h1>
         <p class="meta">
@@ -70,7 +70,9 @@
               {% endfor %}
             </ul>
           {% else %}
-            <p class="muted">{% if profile.pk == user.pk %}You do not run any campaign.{% else %}Does not run any campaign.{% endif %}</p>
+            <div class="empty">
+              <p>{% if profile.pk == user.pk %}You do not run any campaign.{% else %}Does not run any campaign.{% endif %}</p>
+            </div>
           {% endif %}
         {% endwith %}
       </section>
@@ -100,7 +102,9 @@
               {% endfor %}
             </ul>
           {% else %}
-            <p class="muted">{% if profile.pk == user.pk %}You are not a player in any campaign.{% else %}Is not a player in any campaign.{% endif %}</p>
+            <div class="empty">
+              <p>{% if profile.pk == user.pk %}You are not a player in any campaign.{% else %}Is not a player in any campaign.{% endif %}</p>
+            </div>
           {% endif %}
         {% endwith %}
       </section>

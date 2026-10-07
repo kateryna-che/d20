@@ -107,7 +107,7 @@
                     <tr>
                       <td>
                         <span class="cell-lead">
-                          <span class="avatar avatar-small" aria-hidden="true">{{ participation.membership.player.display_name|first|upper }}</span>
+                          {% include "d20/includes/avatar.html" with player=participation.membership.player size="small" %}
                           <a href="{{ participation.membership.player.get_absolute_url }}">{{ participation.membership.player.display_name }}</a>
                         </span>
                       </td>
@@ -137,9 +137,7 @@
 
       <aside class="stack">
         <section class="card">
-          <div class="card-head">
-            <h2>Characters of the session</h2>
-          </div>
+          <h2>Characters of the session</h2>
           <p class="muted">Characters of the players who confirmed.</p>
           <ul class="list">
             {% for participation in participations %}

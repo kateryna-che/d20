@@ -1,21 +1,14 @@
-{% extends "base.html" %}
+{% extends "d20/confirm_delete.html" %}
 
 {% block title %}Delete character{% endblock %}
 
-{% block content %}
-  <div class="narrow">
-    <p class="breadcrumb"><a href="{{ character.get_absolute_url }}">{{ character.name }}</a></p>
-    <h1>Delete character?</h1>
-    <div class="card">
-      <p>The character <strong>{{ character.name }}</strong> and the sheet will be deleted.</p>
-      <p class="muted">You stay in your campaigns without a chosen character.</p>
-      <form method="post" action="">
-        {% csrf_token %}
-        <div class="form-actions">
-          <button type="submit" class="btn btn-danger">Yes, delete</button>
-          <a class="btn btn-ghost" href="{{ character.get_absolute_url }}">Cancel</a>
-        </div>
-      </form>
-    </div>
-  </div>
+{% block breadcrumb %}
+  <a href="{{ character.get_absolute_url }}">{{ character.name }}</a>
+{% endblock %}
+
+{% block heading %}Delete character?{% endblock %}
+
+{% block warning %}
+  <p>The character <strong>{{ character.name }}</strong> and the sheet will be deleted.</p>
+  <p class="muted">You stay in your campaigns without a chosen character.</p>
 {% endblock %}

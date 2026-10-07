@@ -16,15 +16,10 @@
     <h1>{{ object|yesno:"Edit character,New character" }}</h1>
   </div>
 
-  <form method="post" action="" novalidate>
+  <form method="post" novalidate>
     {% csrf_token %}
     <input type="hidden" name="next" value="{{ next }}">
-    {% if form.errors %}
-      <div class="message message-error">
-        Please correct the highlighted fields.
-        {{ form.non_field_errors }}
-      </div>
-    {% endif %}
+    {% include "d20/includes/form_errors.html" %}
 
     <div class="stack">
       <div class="card">

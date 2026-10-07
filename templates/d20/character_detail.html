@@ -19,7 +19,7 @@
     </div>
     <div class="actions">
       <button type="button" class="btn" data-print hidden>Print</button>
-      {% if character.owner_id == user.id %}
+      {% if character.owner_id == user.pk %}
         <a class="btn" href="{% url 'd20:character-update' pk=character.pk %}?next={{ request.get_full_path|urlencode }}">Edit sheet</a>
         <a class="btn btn-danger" href="{% url 'd20:character-delete' pk=character.pk %}">Delete</a>
       {% endif %}
@@ -128,7 +128,9 @@
               {% endfor %}
             </ul>
           {% else %}
-            <p class="muted">{% if character.owner_id == user.id %}Not chosen for any campaign yet. Join a campaign and choose the character there.{% else %}Does not play in a campaign yet.{% endif %}</p>
+            <div class="empty">
+              <p>{% if character.owner_id == user.pk %}Not chosen for any campaign yet. Join a campaign and choose the character there.{% else %}Does not play in a campaign yet.{% endif %}</p>
+            </div>
           {% endif %}
         </section>
 

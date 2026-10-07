@@ -1,6 +1,4 @@
-{% if form.non_field_errors %}
-  <div class="message message-error">{{ form.non_field_errors }}</div>
-{% endif %}
+{% include "d20/includes/form_errors.html" %}
 {% for field in form.hidden_fields %}{{ field }}{% endfor %}
 {% for field in form.visible_fields %}
   {% include "d20/includes/form_field.html" %}

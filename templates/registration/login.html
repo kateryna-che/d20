@@ -26,8 +26,8 @@
       {% endif %}
       <form method="post" action="{% url 'login' %}" novalidate>
         {% csrf_token %}
-        {% include "d20/includes/form.html" %}
         <input type="hidden" name="next" value="{{ next }}">
+        {% include "d20/includes/form.html" %}
         <div class="form-actions">
           <button type="submit" class="btn btn-primary">Log in</button>
         </div>

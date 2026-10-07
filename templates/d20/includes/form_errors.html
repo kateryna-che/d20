@@ -1,0 +1,10 @@
+{# The errors of the whole form. The errors of a field stand under the field. #}
+{% if form.errors %}
+  <div class="message message-error">
+    {% if form.non_field_errors %}
+      {{ form.non_field_errors }}
+    {% else %}
+      Please correct the highlighted fields.
+    {% endif %}
+  </div>
+{% endif %}
