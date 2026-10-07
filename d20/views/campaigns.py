@@ -5,11 +5,12 @@ from typing import Any
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import redirect_to_login
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import Count, Exists, OuterRef, QuerySet
+from django.db.models import Count, Exists, OuterRef, Prefetch, QuerySet
 from django.forms import ModelForm
 from django.http import HttpRequest, HttpResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
+from django.utils import timezone
 from django.views import generic
 from django.views.decorators.http import require_POST
 
@@ -23,21 +24,40 @@ from d20.views.mixins import (
 
 
 class CampaignListView(SearchMixin, generic.ListView):
-    """The campaigns of all game masters: guests may look through them too."""
+    """The campaigns of all game masters: guests may look through them too.
+
+    A card shows the party of the campaign and its next session.
+    """
 
     queryset = (
         Campaign.objects.select_related("game_master")
-        .annotate(
-            players_count=Count("memberships", distinct=True),
-            sessions_count=Count("game_sessions", distinct=True),
+        .prefetch_related(
+            Prefetch(
+                "memberships",
+                queryset=CampaignMembership.objects.select_related("character"),
+            )
         )
+        .annotate(sessions_count=Count("game_sessions"))
         .order_by("-created_at")
     )
     paginate_by = 6
     search_placeholder = "Campaign title…"
 
     def get_queryset(self) -> QuerySet[Campaign]:
-        campaigns: QuerySet[Campaign] = super().get_queryset()
+        upcoming_sessions = GameSession.objects.filter(
+            status=GameSession.Status.SCHEDULED, scheduled_at__gte=timezone.now()
+        ).order_by("scheduled_at")
+        campaigns: QuerySet[Campaign] = (
+            super()
+            .get_queryset()
+            .prefetch_related(
+                Prefetch(
+                    "game_sessions",
+                    queryset=upcoming_sessions,
+                    to_attr="upcoming_sessions",
+                )
+            )
+        )
         user = self.request.user
         if not user.is_authenticated:
             return campaigns
