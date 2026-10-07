@@ -20,7 +20,7 @@
       {% if is_game_master %}
         <a class="btn" href="{% url 'd20:campaign-update' pk=campaign.pk %}?next={{ request.get_full_path|urlencode }}">Edit</a>
         <a class="btn btn-danger" href="{% url 'd20:campaign-delete' pk=campaign.pk %}">Delete</a>
-      {% else %}
+      {% elif is_player or can_join %}
         <form method="post" action="{% url 'd20:campaign-membership' pk=campaign.pk %}">
           {% csrf_token %}
           {% if is_player %}
@@ -29,6 +29,8 @@
             <button type="submit" name="action" value="join" class="btn btn-primary">Join the campaign</button>
           {% endif %}
         </form>
+      {% else %}
+        <p class="muted">A completed campaign takes no new players.</p>
       {% endif %}
     </div>
   </div>

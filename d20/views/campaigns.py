@@ -55,6 +55,11 @@ class CampaignDetailView(LoginRequiredMixin, generic.DetailView):
             membership.player_id == self.request.user.pk
             for membership in self.object.memberships.all()
         )
+        context["can_join"] = (
+            not context["is_game_master"]
+            and not context["is_player"]
+            and self.object.status != Campaign.Status.COMPLETED
+        )
         if context["is_game_master"] or context["is_player"]:
             context["notes"] = self.object.notes.select_related("author")
         context["session_groups"] = self.get_session_groups()
@@ -113,6 +118,7 @@ def update_campaign_membership(request: HttpRequest, pk: int) -> HttpResponse:
     """Join or leave the campaign according to the submitted action.
 
     The game master runs the campaign and is not on its player list.
+    A completed campaign takes no new players; those in it may leave.
     """
     if not request.user.is_authenticated:
         return redirect_to_login(reverse("d20:campaign-detail", kwargs={"pk": pk}))
@@ -121,12 +127,14 @@ def update_campaign_membership(request: HttpRequest, pk: int) -> HttpResponse:
     if action not in ("join", "leave"):
         return HttpResponseBadRequest("Invalid membership action.")
 
-    campaign = get_object_or_404(
-        Campaign.objects.exclude(game_master=request.user), pk=pk
-    )
+    campaigns = Campaign.objects.exclude(game_master=request.user)
     if action == "join":
+        campaign = get_object_or_404(
+            campaigns.exclude(status=Campaign.Status.COMPLETED), pk=pk
+        )
         campaign.memberships.get_or_create(player=request.user)
     else:
+        campaign = get_object_or_404(campaigns, pk=pk)
         campaign.memberships.filter(player=request.user).delete()
     return redirect(campaign)
 

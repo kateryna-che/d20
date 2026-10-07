@@ -154,6 +154,34 @@ class PrivateCampaignTests(TestCase):
 
         self.assertNotIn(self.other_campaign, self.user.campaigns.all())
 
+    def test_completed_campaign_takes_no_new_players(self) -> None:
+        self.other_campaign.status = Campaign.Status.COMPLETED
+        self.other_campaign.save()
+        url = reverse("d20:campaign-membership", args=[self.other_campaign.id])
+
+        res = self.client.get(self.other_campaign.get_absolute_url())
+
+        self.assertFalse(res.context["can_join"])
+        self.assertNotContains(res, 'value="join"')
+
+        res = self.client.post(url, {"action": "join"})
+
+        self.assertEqual(res.status_code, 404)
+        self.assertNotIn(self.other_campaign, self.user.campaigns.all())
+
+    def test_leave_completed_campaign(self) -> None:
+        self.other_campaign.status = Campaign.Status.COMPLETED
+        self.other_campaign.save()
+        CampaignMembership.objects.create(
+            campaign=self.other_campaign, player=self.user
+        )
+        url = reverse("d20:campaign-membership", args=[self.other_campaign.id])
+
+        res = self.client.post(url, {"action": "leave"})
+
+        self.assertRedirects(res, self.other_campaign.get_absolute_url())
+        self.assertNotIn(self.other_campaign, self.user.campaigns.all())
+
     def test_campaign_detail_groups_sessions_by_status(self) -> None:
         now = timezone.now()
         later = GameSession.objects.create(
