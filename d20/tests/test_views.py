@@ -144,6 +144,32 @@ class PrivateCampaignTests(TestCase):
 
         self.assertNotIn(self.other_campaign, self.user.campaigns.all())
 
+    def test_campaign_detail_groups_sessions_by_status(self) -> None:
+        now = timezone.now()
+        later = GameSession.objects.create(
+            campaign=self.campaign,
+            title="Later",
+            scheduled_at=now + timedelta(days=7),
+        )
+        sooner = GameSession.objects.create(
+            campaign=self.campaign,
+            title="Sooner",
+            scheduled_at=now + timedelta(days=1),
+        )
+        played = GameSession.objects.create(
+            campaign=self.campaign,
+            title="Played",
+            scheduled_at=now - timedelta(days=7),
+            status=GameSession.Status.COMPLETED,
+        )
+
+        res = self.client.get(self.campaign.get_absolute_url())
+
+        self.assertEqual(
+            res.context["session_groups"],
+            [("Scheduled", [sooner, later]), ("Completed", [played])],
+        )
+
 
 class PrivateCharacterTests(TestCase):
     def setUp(self) -> None:
@@ -180,6 +206,26 @@ class PrivateCharacterTests(TestCase):
         self.assertRedirects(res, CHARACTER_LIST_URL)
         self.assertEqual(character.owner, self.user)
 
+    def test_character_detail_lists_answers_of_player(self) -> None:
+        campaign = Campaign.objects.create(
+            title="Lost Mine", game_master=create_user("master")
+        )
+        membership = CampaignMembership.objects.create(
+            campaign=campaign, player=self.user, character=self.character
+        )
+        participation = SessionParticipation.objects.create(
+            game_session=GameSession.objects.create(
+                campaign=campaign,
+                title="Session 1",
+                scheduled_at=timezone.now() + timedelta(days=1),
+            ),
+            membership=membership,
+        )
+
+        res = self.client.get(self.character.get_absolute_url())
+
+        self.assertEqual(res.context["participations"], [participation])
+
 
 class PrivateGameSessionTests(TestCase):
     def setUp(self) -> None:
@@ -211,3 +257,23 @@ class PrivateGameSessionTests(TestCase):
             participation.attendance_status,
             SessionParticipation.Attendance.DECLINED,
         )
+
+    def test_session_detail_lists_confirmed_characters(self) -> None:
+        self.membership.character = create_character(self.user)
+        self.membership.save()
+        participation = SessionParticipation.objects.create(
+            game_session=self.game_session, membership=self.membership
+        )
+
+        res = self.client.get(self.game_session.get_absolute_url())
+
+        self.assertTrue(res.context["can_respond"])
+        self.assertEqual(res.context["confirmed_participations"], [participation])
+
+    def test_completed_session_accepts_no_answers(self) -> None:
+        self.game_session.status = GameSession.Status.COMPLETED
+        self.game_session.save()
+
+        res = self.client.get(self.game_session.get_absolute_url())
+
+        self.assertFalse(res.context["can_respond"])

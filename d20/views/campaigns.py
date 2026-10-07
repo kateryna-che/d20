@@ -1,3 +1,4 @@
+from operator import attrgetter
 from typing import Any
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -12,7 +13,7 @@ from django.views import generic
 from django.views.decorators.http import require_POST
 
 from d20.forms import CampaignForm, MembershipForm
-from d20.models import Campaign, CampaignMembership
+from d20.models import Campaign, CampaignMembership, GameSession
 from d20.views.mixins import (
     AuthenticatedHttpRequest,
     OwnerRequiredMixin,
@@ -55,7 +56,28 @@ class CampaignDetailView(LoginRequiredMixin, generic.DetailView):
         )
         if context["is_game_master"] or context["is_player"]:
             context["notes"] = self.object.notes.select_related("author")
+        context["session_groups"] = self.get_session_groups()
         return context
+
+    def get_session_groups(self) -> list[tuple[str, list[GameSession]]]:
+        """Sessions of the campaign under their statuses, scheduled ones first.
+
+        The nearest scheduled session comes first, played ones start from
+        the latest.
+        """
+        campaign_sessions = self.object.game_sessions.all()
+        groups = []
+        for status in GameSession.Status:
+            game_sessions = [
+                game_session
+                for game_session in campaign_sessions
+                if game_session.status == status
+            ]
+            if status == GameSession.Status.SCHEDULED:
+                game_sessions.sort(key=attrgetter("scheduled_at"))
+            if game_sessions:
+                groups.append((status.label, game_sessions))
+        return groups
 
 
 class CampaignCreateView(

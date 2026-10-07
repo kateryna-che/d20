@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import QuerySet
@@ -31,6 +33,15 @@ class CharacterDetailView(LoginRequiredMixin, generic.DetailView):
         "memberships__campaign",
         "memberships__participations__game_session",
     )
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["participations"] = [
+            participation
+            for membership in self.object.memberships.all()
+            for participation in membership.participations.all()
+        ]
+        return context
 
 
 class CharacterCreateView(

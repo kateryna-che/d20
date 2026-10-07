@@ -70,6 +70,16 @@ class GameSessionDetailView(LoginRequiredMixin, generic.DetailView):
                 campaign_id=self.object.campaign_id, player=self.request.user
             ).exists()
         )
+        context["can_respond"] = (
+            context["is_player"] and self.object.status == GameSession.Status.SCHEDULED
+        )
+        context["confirmed_participations"] = [
+            participation
+            for participation in self.object.participations.all()
+            if participation.attendance_status
+            == SessionParticipation.Attendance.CONFIRMED
+            and participation.membership.character
+        ]
         return context
 
 

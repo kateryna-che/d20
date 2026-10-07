@@ -33,7 +33,7 @@
       {% endif %}
     </div>
 
-    <section class="card response-bar{% if gamesession.status == "scheduled" and is_player and not my_participation %} card-attention{% endif %}">
+    <section class="card response-bar{% if can_respond and not my_participation %} card-attention{% endif %}">
       <div>
         <h2>Your response</h2>
         {% if is_game_master %}
@@ -42,14 +42,14 @@
           <p class="meta">
             <span class="badge badge-{{ my_participation.attendance_status }}">{{ my_participation.get_attendance_status_display }}</span>
           </p>
-        {% elif gamesession.status == "scheduled" and is_player %}
+        {% elif can_respond %}
           <p class="meta"><span class="badge badge-unanswered">No answer yet</span></p>
         {% endif %}
       </div>
       <div>
         {% if is_game_master %}
           <p class="muted">You run this session as the game master. Responses belong to the players.</p>
-        {% elif is_player and gamesession.status == "scheduled" %}
+        {% elif can_respond %}
           <form method="post" action="{% url 'd20:session-respond' pk=gamesession.pk %}" class="response-form">
             {% csrf_token %}
             <div class="form-actions">
@@ -139,9 +139,9 @@
         <section class="card">
           <h2>Characters of the session</h2>
           <p class="muted">Characters of the players who confirmed.</p>
-          <ul class="list">
-            {% for participation in participations %}
-              {% if participation.attendance_status == "confirmed" and participation.membership.character %}
+          {% if confirmed_participations %}
+            <ul class="list">
+              {% for participation in confirmed_participations %}
                 <li class="lead">
                   {% include "d20/includes/token.html" with character=participation.membership.character %}
                   <a class="row-title" href="{{ participation.membership.character.get_absolute_url }}">{{ participation.membership.character.name }}</a>
@@ -152,9 +152,13 @@
                     <span>Player: {{ participation.membership.player.display_name }}</span>
                   </p>
                 </li>
-              {% endif %}
-            {% endfor %}
-          </ul>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <div class="empty">
+              <p>Nobody comes with a character yet.</p>
+            </div>
+          {% endif %}
         </section>
       </aside>
     </div>
