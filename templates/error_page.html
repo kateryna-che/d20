@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+
+{# The shell of an error page: its pages fill in the code and the texts. #}
+{% block content %}
+  <div class="error-page">
+    <img class="error-die" src="{% static 'd20/img/dice/1.webp' %}" alt="A twenty-sided die showing 1" width="150" height="150">
+    <p class="eyebrow">Critical failure</p>
+    <p class="error-code">{% block code %}{% endblock %}</p>
+    <h1>{% block heading %}{% endblock %}</h1>
+    <p class="muted">{% block explanation %}{% endblock %}</p>
+    <a class="btn btn-primary" href="{% url 'd20:index' %}">Back to the home page</a>
+  </div>
+{% endblock %}

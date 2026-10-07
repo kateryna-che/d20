@@ -1,15 +1,9 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "error_page.html" %}
 
 {% block title %}Page not found{% endblock %}
 
-{% block content %}
-  <div class="error-page">
-    <img class="error-die" src="{% static 'd20/img/dice/1.webp' %}" alt="A twenty-sided die showing 1" width="150" height="150">
-    <p class="eyebrow">Critical failure</p>
-    <p class="error-code">404</p>
-    <h1>The map ends here</h1>
-    <p class="muted">The page does not exist or was deleted.</p>
-    <a class="btn btn-primary" href="{% url 'd20:index' %}">Back to the home page</a>
-  </div>
-{% endblock %}
+{% block code %}404{% endblock %}
+
+{% block heading %}Here be dragons{% endblock %}
+
+{% block explanation %}The page does not exist or was deleted.{% endblock %}

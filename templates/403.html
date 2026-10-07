@@ -1,15 +1,9 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "error_page.html" %}
 
 {% block title %}Access denied{% endblock %}
 
-{% block content %}
-  <div class="error-page">
-    <img class="error-die" src="{% static 'd20/img/dice/1.webp' %}" alt="A twenty-sided die showing 1" width="150" height="150">
-    <p class="eyebrow">Critical failure</p>
-    <p class="error-code">403</p>
-    <h1>This door is locked</h1>
-    <p class="muted">You do not have permission to open this page.</p>
-    <a class="btn btn-primary" href="{% url 'd20:index' %}">Back to the home page</a>
-  </div>
-{% endblock %}
+{% block code %}403{% endblock %}
+
+{% block heading %}You shall not pass{% endblock %}
+
+{% block explanation %}You do not have permission to open this page.{% endblock %}
