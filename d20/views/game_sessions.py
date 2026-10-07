@@ -2,14 +2,12 @@ from typing import Any
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import redirect_to_login
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Count, QuerySet
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from django.views import generic
-from django.views.decorators.http import require_POST
 
 from d20.forms import GameSessionForm, ParticipationForm
 from d20.models import Campaign, CampaignMembership, GameSession, SessionParticipation
@@ -119,30 +117,31 @@ class GameSessionDeleteView(
     success_message = "The session was deleted."
 
 
-@require_POST
-def respond_to_session(request: HttpRequest, pk: int) -> HttpResponse:
+class GameSessionRespondView(LoginRequiredMixin, generic.View):
     """Save the answer of a campaign player: confirmed or declined.
 
     Only a scheduled session accepts answers.
     """
-    if not request.user.is_authenticated:
-        return redirect_to_login(reverse("d20:session-detail", kwargs={"pk": pk}))
 
-    game_session = get_object_or_404(
-        GameSession, pk=pk, status=GameSession.Status.SCHEDULED
-    )
-    membership = get_object_or_404(
-        CampaignMembership,
-        campaign=game_session.campaign_id,
-        player=request.user,
-    )
-    form = ParticipationForm(request.POST)
-    if form.is_valid():
-        SessionParticipation.objects.update_or_create(
-            game_session=game_session,
-            membership=membership,
-            defaults=form.cleaned_data,
+    def get(self, request: AuthenticatedHttpRequest, pk: int) -> HttpResponse:
+        return redirect("d20:session-detail", pk=pk)
+
+    def post(self, request: AuthenticatedHttpRequest, pk: int) -> HttpResponse:
+        game_session = get_object_or_404(
+            GameSession, pk=pk, status=GameSession.Status.SCHEDULED
         )
-    else:
-        messages.error(request, "Choose a valid answer: confirmed or declined.")
-    return redirect(game_session)
+        membership = get_object_or_404(
+            CampaignMembership,
+            campaign=game_session.campaign_id,
+            player=request.user,
+        )
+        form = ParticipationForm(request.POST)
+        if form.is_valid():
+            SessionParticipation.objects.update_or_create(
+                game_session=game_session,
+                membership=membership,
+                defaults=form.cleaned_data,
+            )
+        else:
+            messages.error(request, "Choose a valid answer: confirmed or declined.")
+        return redirect(game_session)

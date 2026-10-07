@@ -5,9 +5,9 @@ from d20.views.campaigns import (
     CampaignDeleteView,
     CampaignDetailView,
     CampaignListView,
+    CampaignMembershipView,
     CampaignUpdateView,
     MembershipUpdateView,
-    update_campaign_membership,
 )
 from d20.views.characters import (
     CharacterCreateView,
@@ -21,10 +21,10 @@ from d20.views.game_sessions import (
     GameSessionDeleteView,
     GameSessionDetailView,
     GameSessionListView,
+    GameSessionRespondView,
     GameSessionUpdateView,
-    respond_to_session,
 )
-from d20.views.home import index
+from d20.views.home import IndexView
 from d20.views.notes import (
     PreparationNoteCreateView,
     PreparationNoteDeleteView,
@@ -36,7 +36,7 @@ from d20.views.users import ProfileUpdateView, UserDetailView
 app_name = "d20"
 
 urlpatterns = [
-    path("", index, name="index"),
+    path("", IndexView.as_view(), name="index"),
     path("players/<int:pk>/", UserDetailView.as_view(), name="user-detail"),
     path("profile/update/", ProfileUpdateView.as_view(), name="profile-update"),
     path("campaigns/", CampaignListView.as_view(), name="campaign-list"),
@@ -62,7 +62,7 @@ urlpatterns = [
     ),
     path(
         "campaigns/<int:pk>/membership/",
-        update_campaign_membership,
+        CampaignMembershipView.as_view(),
         name="campaign-membership",
     ),
     path(
@@ -114,7 +114,7 @@ urlpatterns = [
     ),
     path(
         "sessions/<int:pk>/respond/",
-        respond_to_session,
+        GameSessionRespondView.as_view(),
         name="session-respond",
     ),
     path(

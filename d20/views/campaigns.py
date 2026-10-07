@@ -3,20 +3,19 @@ from operator import attrgetter
 from typing import Any
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import redirect_to_login
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Count, Exists, OuterRef, Prefetch, QuerySet
 from django.forms import ModelForm
-from django.http import HttpRequest, HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views import generic
-from django.views.decorators.http import require_POST
 
 from d20.forms import CampaignForm, MembershipForm
 from d20.models import Campaign, CampaignMembership, GameSession, PreparationNote
 from d20.views.mixins import (
+    AuthenticatedHttpRequest,
     OwnerRequiredMixin,
     ReturnUrlMixin,
     SearchMixin,
@@ -168,30 +167,31 @@ class CampaignDeleteView(OwnerRequiredMixin, SuccessMessageMixin, generic.Delete
     success_message = "The campaign was deleted."
 
 
-@require_POST
-def update_campaign_membership(request: HttpRequest, pk: int) -> HttpResponse:
+class CampaignMembershipView(LoginRequiredMixin, generic.View):
     """Join or leave the campaign according to the submitted action.
 
     The game master runs the campaign and is not on its player list.
     A completed campaign takes no new players; those in it may leave.
     """
-    if not request.user.is_authenticated:
-        return redirect_to_login(reverse("d20:campaign-detail", kwargs={"pk": pk}))
 
-    action = request.POST.get("action")
-    if action not in ("join", "leave"):
-        return HttpResponseBadRequest("Invalid membership action.")
+    def get(self, request: AuthenticatedHttpRequest, pk: int) -> HttpResponse:
+        return redirect("d20:campaign-detail", pk=pk)
 
-    campaigns = Campaign.objects.exclude(game_master=request.user)
-    if action == "join":
-        campaign = get_object_or_404(
-            campaigns.exclude(status=Campaign.Status.COMPLETED), pk=pk
-        )
-        campaign.memberships.get_or_create(player=request.user)
-    else:
-        campaign = get_object_or_404(campaigns, pk=pk)
-        campaign.memberships.filter(player=request.user).delete()
-    return redirect(campaign)
+    def post(self, request: AuthenticatedHttpRequest, pk: int) -> HttpResponse:
+        action = request.POST.get("action")
+        if action not in ("join", "leave"):
+            return HttpResponseBadRequest("Invalid membership action.")
+
+        campaigns = Campaign.objects.exclude(game_master=request.user)
+        if action == "join":
+            campaign = get_object_or_404(
+                campaigns.exclude(status=Campaign.Status.COMPLETED), pk=pk
+            )
+            campaign.memberships.get_or_create(player=request.user)
+        else:
+            campaign = get_object_or_404(campaigns, pk=pk)
+            campaign.memberships.filter(player=request.user).delete()
+        return redirect(campaign)
 
 
 class MembershipUpdateView(OwnerRequiredMixin, SuccessMessageMixin, generic.UpdateView):
