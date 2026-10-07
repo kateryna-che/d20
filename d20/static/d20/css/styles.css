@@ -1358,6 +1358,14 @@ main > .page-title > h1 {
   padding: 16px 22px 20px;
 }
 
+/* The campaigns that the user runs or plays in are framed with gold. The
+   second line of the frame is an outline: it takes no room, so the titles
+   of a row stay level with the cards that have no frame. */
+.campaign-own {
+  border-color: var(--gold);
+  outline: 1px solid var(--gold);
+}
+
 .note-card {
   border-left: 4px solid var(--kind);
 }

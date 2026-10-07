@@ -1,5 +1,5 @@
 {# The party stands at the top of the card, on the colour of the status; the leaf of the next session lies at its foot. #}
-<article class="card card-link campaign-card campaign-{{ campaign.status }}">
+<article class="card card-link campaign-card campaign-{{ campaign.status }}{% if campaign.game_master_id == user.pk or campaign.is_player %} campaign-own{% endif %}">
   {% with memberships=campaign.memberships.all next_session=campaign.upcoming_sessions|first %}
     <div class="campaign-head">
       {% if memberships %}
