@@ -63,7 +63,8 @@ python -m venv .venv
 ```
 
 Install the requirements. `requirements-dev.txt` takes the packages of the
-production server from `requirements.txt` and adds Black to them:
+production server from `requirements.txt` and adds the tools that check the
+code to them:
 
 ```shell
 pip install -r requirements-dev.txt
@@ -144,15 +145,41 @@ python manage.py test d20.tests.test_views.PrivateCampaignTests.test_join_and_le
 
 ### Coding style tests
 
-The code is formatted with [Black](https://black.readthedocs.io/), so the
-whole project has one style. `pyproject.toml` keeps the migrations out of
-it. Check the style without changing the files:
+Four tools check the code, each its own part of it. `pyproject.toml` holds
+their settings and keeps the migrations out of the first three.
+
+[Black](https://black.readthedocs.io/) formats the Python code, so the whole
+project has one style. Check the style without changing the files:
 
 ```shell
 black --check .
 ```
 
 `black .` reformats the files.
+
+[Ruff](https://docs.astral.sh/ruff/) finds what a formatter does not see:
+unused imports and names, imports out of order, code that tends to hide a
+bug:
+
+```shell
+ruff check .
+```
+
+`ruff check --fix .` repairs what it can by itself.
+
+[mypy](https://mypy-lang.org/) with
+[django-stubs](https://github.com/typeddjango/django-stubs) checks the type
+annotations in strict mode:
+
+```shell
+mypy .
+```
+
+[djLint](https://djlint.com/) checks the templates:
+
+```shell
+djlint templates --lint
+```
 
 ## Demo data
 
@@ -271,6 +298,11 @@ once by hand.
 - [python-dotenv](https://github.com/theskumar/python-dotenv) - loads the
   `.env` file
 - [Black](https://black.readthedocs.io/) - the code formatter
+- [Ruff](https://docs.astral.sh/ruff/) - the linter
+- [mypy](https://mypy-lang.org/) with
+  [django-stubs](https://github.com/typeddjango/django-stubs) - the type
+  checker
+- [djLint](https://djlint.com/) - the linter of the templates
 
 The pages are Django templates with plain CSS and JavaScript: no front-end
 framework and no build step.
