@@ -58,7 +58,12 @@
 
     <aside class="stack">
       <section class="card">
-        <h2>Runs as game master</h2>
+        <div class="card-head">
+          <h2>Runs as game master</h2>
+          {% if profile.pk == user.pk %}
+            <a class="btn btn-small btn-primary" href="{% url 'd20:campaign-create' %}?next={{ request.get_full_path|urlencode }}">New campaign</a>
+          {% endif %}
+        </div>
         {% with mastered_campaigns=profile.mastered_campaigns.all %}
           {% if mastered_campaigns %}
             <ul class="list">
