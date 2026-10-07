@@ -22,12 +22,7 @@ SESSION_LIST_URL = reverse("d20:session-list")
 
 class PublicViewsTests(TestCase):
     def test_login_required(self) -> None:
-        for url in (
-            INDEX_URL,
-            CAMPAIGN_LIST_URL,
-            CHARACTER_LIST_URL,
-            SESSION_LIST_URL,
-        ):
+        for url in (INDEX_URL, CHARACTER_LIST_URL, SESSION_LIST_URL):
             with self.subTest(url=url):
                 res = self.client.get(url)
                 self.assertRedirects(res, f"/accounts/login/?next={url}")

@@ -20,6 +20,8 @@
       {% if is_game_master %}
         <a class="btn" href="{% url 'd20:campaign-update' pk=campaign.pk %}?next={{ request.get_full_path|urlencode }}">Edit</a>
         <a class="btn btn-danger" href="{% url 'd20:campaign-delete' pk=campaign.pk %}">Delete</a>
+      {% elif can_join and not user.is_authenticated %}
+        <a class="btn btn-primary" href="{% url 'login' %}?next={{ request.path|urlencode }}">Log in to join</a>
       {% elif is_player or can_join %}
         <form method="post" action="{% url 'd20:campaign-membership' pk=campaign.pk %}">
           {% csrf_token %}
@@ -114,7 +116,10 @@
             <h2>Players</h2>
             <span class="muted">{{ memberships|length }}</span>
           </div>
-          {% if memberships %}
+          {% if memberships and not user.is_authenticated %}
+            {# The names of the players are for those who logged in. #}
+            <p class="muted"><a href="{% url 'login' %}?next={{ request.path|urlencode }}">Log in</a> to see who plays.</p>
+          {% elif memberships %}
             <ul class="list">
               {% for membership in memberships %}
                 <li class="lead">
@@ -153,14 +158,16 @@
                     <p class="meta">
                       <span>{{ membership.character.summary }}</span>
                     </p>
-                    <p class="meta">
-                      <span>Player: {{ membership.player.display_name }}</span>
-                      {% if membership.player_id == user.pk %}<span class="badge badge-player">Yours</span>{% endif %}
-                    </p>
+                    {% if user.is_authenticated %}
+                      <p class="meta">
+                        <span>Player: {{ membership.player.display_name }}</span>
+                        {% if membership.player_id == user.pk %}<span class="badge badge-player">Yours</span>{% endif %}
+                      </p>
+                    {% endif %}
                   {% else %}
                     <span class="avatar" aria-hidden="true">?</span>
                     <div class="row">
-                      <span class="muted">{{ membership.player.display_name }} has not chosen a character yet.</span>
+                      <span class="muted">{% if user.is_authenticated %}{{ membership.player.display_name }}{% else %}A player{% endif %} has not chosen a character yet.</span>
                       {% if membership.player_id == user.pk %}
                         <a class="btn btn-small btn-primary" href="{% url 'd20:membership-update' pk=membership.pk %}">Choose</a>
                       {% endif %}

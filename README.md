@@ -15,6 +15,8 @@ other accounts are in [Demo data](#demo-data).
 ## Features
 
 - Registration, login and player profiles.
+- Guests look through the campaigns without an account; the names of the
+  players and the places of the sessions open after login.
 - Campaigns: run one as the game master or join it as a player with one of
   your characters.
 - Game sessions: date, place, agenda and summary; every player confirms or

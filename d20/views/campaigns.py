@@ -15,15 +15,15 @@ from django.views.decorators.http import require_POST
 from d20.forms import CampaignForm, MembershipForm
 from d20.models import Campaign, CampaignMembership, GameSession
 from d20.views.mixins import (
-    AuthenticatedHttpRequest,
     OwnerRequiredMixin,
     ReturnUrlMixin,
     SearchMixin,
 )
 
 
-class CampaignListView(LoginRequiredMixin, SearchMixin, generic.ListView):
-    request: AuthenticatedHttpRequest
+class CampaignListView(SearchMixin, generic.ListView):
+    """The campaigns of all game masters: guests may look through them too."""
+
     queryset = (
         Campaign.objects.select_related("game_master")
         .annotate(
@@ -36,14 +36,23 @@ class CampaignListView(LoginRequiredMixin, SearchMixin, generic.ListView):
     search_placeholder = "Campaign title…"
 
     def get_queryset(self) -> QuerySet[Campaign]:
-        own_memberships = CampaignMembership.objects.filter(
-            campaign=OuterRef("pk"), player=self.request.user
-        )
         campaigns: QuerySet[Campaign] = super().get_queryset()
+        user = self.request.user
+        if not user.is_authenticated:
+            return campaigns
+        own_memberships = CampaignMembership.objects.filter(
+            campaign=OuterRef("pk"), player=user
+        )
         return campaigns.annotate(is_player=Exists(own_memberships))
 
 
-class CampaignDetailView(LoginRequiredMixin, generic.DetailView):
+class CampaignDetailView(generic.DetailView):
+    """The page of a campaign: guests may read it too.
+
+    The template keeps the names of the players and the places of the
+    sessions from a guest.
+    """
+
     queryset = Campaign.objects.select_related("game_master").prefetch_related(
         "memberships__player", "memberships__character", "game_sessions"
     )

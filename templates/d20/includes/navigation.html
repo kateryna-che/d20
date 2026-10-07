@@ -20,6 +20,8 @@
     </div>
   {% else %}
     <div class="nav-user">
+      {# The campaigns are open to guests; the other sections need an account. #}
+      <a class="nav-link{% if 'campaign' in name %} active{% endif %}" href="{% url 'd20:campaign-list' %}">Campaigns</a>
       <a class="nav-link{% if name == 'login' %} active{% endif %}" href="{% url 'login' %}">Log in</a>
       <a class="nav-link{% if name == 'register' %} active{% endif %}" href="{% url 'register' %}">Sign up</a>
     </div>
