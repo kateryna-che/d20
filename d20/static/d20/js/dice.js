@@ -215,11 +215,8 @@
   function open(trigger) {
     var label = trigger.dataset.rollLabel;
     var bonus = parseInt(trigger.dataset.rollModifier, 10);
-    // A roll that is still on the screen keeps its own title in the history.
-    if (shown) {
-      remember(shown);
-      shown = null;
-    }
+    // A roll that is still on the screen keeps its own title in the history:
+    // announce() has already stored it.
     title.textContent = label || defaultTitle;
     modifier = isNaN(bonus) ? null : bonus;
     if (!dialog.open) {
@@ -253,20 +250,17 @@
       roll(again.dataset.diceAgain);
       return;
     }
-    if (event.target.closest("[data-dice-close]")) {
-      stop();
-      dialog.close();
-      return;
-    }
-    // A click on the backdrop closes the dialog. The backdrop belongs to
-    // the dialog element, so the click is told apart by its position.
+    // A click on the backdrop closes the dialog as the button does. The
+    // backdrop belongs to the dialog element, so the click is told apart
+    // by its position.
     var box = dialog.getBoundingClientRect();
     var inside =
       event.clientX >= box.left &&
       event.clientX <= box.right &&
       event.clientY >= box.top &&
       event.clientY <= box.bottom;
-    if (event.target === dialog && !inside) {
+    var onBackdrop = event.target === dialog && !inside;
+    if (onBackdrop || event.target.closest("[data-dice-close]")) {
       stop();
       dialog.close();
     }

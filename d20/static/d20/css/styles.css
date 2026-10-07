@@ -3,6 +3,8 @@
 :root {
   --ink: #35223f;
   --ink-soft: #4d375c;
+  /* The ink of the night theme. Shadows and veils take it in both themes. */
+  --night: #241629;
   --page: #f3eef4;
   --page-deep: #e7dceb;
   --paper: #fbf7fa;
@@ -19,25 +21,38 @@
   --heading: var(--ink);
   --accent: var(--crimson);
   --accent-strong: var(--crimson-deep);
-  /* Text on the dark header, the masthead and other ink fills. */
+  /* Text on the dark header, the masthead and other ink fills; headings
+     are brighter. */
   --on-dark: #f3e7cf;
+  --on-dark-strong: #fff8e6;
+  /* A light wash over the ink fills: panels and hovered controls. */
+  --cream: #fdf8ec;
   --frame: var(--ink);
   --green: #2f6b4a;
   --blue: #2f5d8a;
   --violet: #6a4592;
   --amber: #a5651b;
   --grey: #63605c;
-  /* Facets of the die in static/img/d20.webp. */
+  /* Facets of the die in img/d20.webp. */
   --rose: #ef86a6;
   --orchid: #c77fc4;
   --iris: #8e72c4;
   --radius: 14px;
   --radius-small: 9px;
-  --shadow: 0 1px 2px rgba(77, 55, 92, 0.05),
-    0 14px 30px -20px rgba(77, 55, 92, 0.4);
-  --shadow-lift: 0 1px 2px rgba(77, 55, 92, 0.06),
-    0 22px 34px -20px rgba(77, 55, 92, 0.5);
-  --serif: "Palatino Linotype", "Book Antiqua", Palatino, "Iowan Old Style",
+  /* The sizes of small text: secondary lines, hints under fields, uppercase
+     labels and the labels of narrow tiles. */
+  --text-small: 0.93rem;
+  --text-hint: 0.875rem;
+  --text-label: 0.75rem;
+  --text-tiny: 0.64rem;
+  --shadow:
+    0 1px 2px color-mix(in srgb, var(--ink-soft) 5%, transparent),
+    0 14px 30px -20px color-mix(in srgb, var(--ink-soft) 40%, transparent);
+  --shadow-lift:
+    0 1px 2px color-mix(in srgb, var(--ink-soft) 6%, transparent),
+    0 22px 34px -20px color-mix(in srgb, var(--ink-soft) 50%, transparent);
+  --serif:
+    "Palatino Linotype", "Book Antiqua", Palatino, "Iowan Old Style",
     "URW Palladio L", P052, Georgia, serif;
   --sans: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
   /* Paper grain: plum noise with a low alpha. */
@@ -46,17 +61,17 @@
   --die-outline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 112' fill='none' stroke='%23000' stroke-width='4' stroke-linejoin='round'%3E%3Cpath d='M50 3 96 29v54L50 109 4 83V29z'/%3E%3Cpath d='M50 27 80 78H20z'/%3E%3Cpath d='M50 3v24M4 29l46-2 46 2M4 29l16 49M96 29 80 78M4 83l16-5 30 31 30-31 16 5'/%3E%3C/svg%3E");
   --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none' stroke='%2374687d' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m1 1.5 5 5 5-5'/%3E%3C/svg%3E");
   --hex: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
-  --glow-warm: rgba(239, 134, 166, 0.14);
-  --glow-wine: rgba(142, 114, 196, 0.13);
+  --glow-warm: color-mix(in srgb, var(--rose) 14%, transparent);
+  --glow-wine: color-mix(in srgb, var(--iris) 13%, transparent);
   /* How far a badge colour is lifted towards white. */
   --lift: 0%;
   color-scheme: light;
 }
 
-/* The tavern at night. static/js/theme.js sets data-theme; print stays light. */
+/* The tavern at night. js/theme.js sets data-theme; print stays light. */
 @media screen {
   :root[data-theme="dark"] {
-    --ink: #241629;
+    --ink: var(--night);
     --ink-soft: #3b2644;
     --crimson: #8b2040;
     --crimson-deep: #68152e;
@@ -74,11 +89,12 @@
     --accent-strong: #ffc2d3;
     --frame: #a98e58;
     --shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 12px 24px -16px rgba(0, 0, 0, 0.9);
-    --shadow-lift: 0 1px 0 rgba(0, 0, 0, 0.3),
+    --shadow-lift:
+      0 1px 0 rgba(0, 0, 0, 0.3),
       0 20px 30px -18px rgba(0, 0, 0, 1);
     --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none' stroke='%23b0a08f' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m1 1.5 5 5 5-5'/%3E%3C/svg%3E");
-    --glow-warm: rgba(201, 162, 75, 0.13);
-    --glow-wine: rgba(199, 127, 196, 0.1);
+    --glow-warm: color-mix(in srgb, var(--gold) 13%, transparent);
+    --glow-wine: color-mix(in srgb, var(--orchid) 10%, transparent);
     --lift: 58%;
     color-scheme: dark;
   }
@@ -104,29 +120,29 @@ section[id] {
 }
 
 body {
-  margin: 0;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  font-family: var(--sans);
-  font-size: 16px;
-  line-height: 1.55;
-  color: var(--text);
+  min-height: 100vh;
+  margin: 0;
   background-color: var(--page);
   background-image:
     var(--grain),
     radial-gradient(circle at 12% 0%, var(--glow-warm), transparent 42%),
     radial-gradient(circle at 100% 30%, var(--glow-wine), transparent 45%);
   background-attachment: scroll, fixed, fixed;
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--text);
 }
 
 h1,
 h2,
 h3 {
-  font-family: var(--serif);
-  color: var(--heading);
-  line-height: 1.2;
   margin: 0 0 0.5em;
+  font-family: var(--serif);
+  line-height: 1.2;
+  color: var(--heading);
   overflow-wrap: anywhere;
   text-wrap: balance;
 }
@@ -167,7 +183,7 @@ a:hover {
 }
 
 ::selection {
-  background: rgba(201, 162, 75, 0.45);
+  background: color-mix(in srgb, var(--gold) 45%, transparent);
 }
 
 .container {
@@ -185,7 +201,7 @@ main.container {
 
 .eyebrow {
   margin: 0 0 6px;
-  font-size: 0.75rem;
+  font-size: var(--text-label);
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -195,8 +211,8 @@ main.container {
 /* Header and navigation */
 
 .site-header {
-  background: linear-gradient(180deg, var(--ink-soft), var(--ink));
   border-bottom: 3px solid var(--gold);
+  background: linear-gradient(180deg, var(--ink-soft), var(--ink));
   color: var(--on-dark);
 }
 
@@ -207,8 +223,8 @@ main.container {
 
 .header-inner {
   display: flex;
-  align-items: center;
   flex-wrap: wrap;
+  align-items: center;
   gap: 8px 24px;
   min-height: 62px;
 }
@@ -248,9 +264,8 @@ main.container {
 
 .nav-toggle-label {
   display: none;
-  margin-left: auto;
   padding: 6px 12px;
-  border: 1px solid rgba(201, 162, 75, 0.6);
+  border: 1px solid color-mix(in srgb, var(--gold) 60%, transparent);
   border-radius: var(--radius-small);
   color: var(--on-dark);
   cursor: pointer;
@@ -263,18 +278,18 @@ main.container {
 }
 
 .site-nav {
-  display: flex;
   flex: 1;
-  align-items: center;
+  display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 4px;
 }
 
 .nav-links,
 .nav-user {
   display: flex;
-  align-items: center;
   flex-wrap: wrap;
+  align-items: center;
   gap: 4px;
 }
 
@@ -294,18 +309,14 @@ main.container {
 }
 
 .nav-link:hover {
-  background: rgba(253, 248, 236, 0.1);
+  background: color-mix(in srgb, var(--cream) 10%, transparent);
   color: #fff;
 }
 
 .nav-link.active {
-  background: rgba(201, 162, 75, 0.18);
-  color: var(--gold-light);
+  background: color-mix(in srgb, var(--gold) 18%, transparent);
   box-shadow: inset 0 -2px 0 var(--gold);
-}
-
-.nav-user form {
-  margin: 0;
+  color: var(--gold-light);
 }
 
 .tab-icon {
@@ -320,6 +331,12 @@ main.container {
 }
 
 @media (min-width: 861px) {
+  /* The menu button belongs to small screens. Its checkbox is invisible,
+     but without this it would still take the keyboard focus. */
+  .nav-toggle {
+    display: none;
+  }
+
   .nav-user a .nav-label {
     max-width: 16ch;
   }
@@ -355,7 +372,7 @@ button.nav-link {
   width: 36px;
   height: 36px;
   padding: 0;
-  border: 1px solid rgba(201, 162, 75, 0.5);
+  border: 1px solid color-mix(in srgb, var(--gold) 50%, transparent);
   border-radius: 50%;
   background: transparent;
   color: var(--gold-light);
@@ -365,7 +382,7 @@ button.nav-link {
 
 .theme-toggle:hover {
   border-color: var(--gold);
-  background: rgba(253, 248, 236, 0.12);
+  background: color-mix(in srgb, var(--cream) 12%, transparent);
 }
 
 .theme-toggle svg {
@@ -383,11 +400,12 @@ button.nav-link {
   display: block;
 }
 
+/* Footer */
 
 .site-footer {
-  border-top: 1px solid var(--line);
   padding: 18px 0;
-  font-size: 0.9rem;
+  border-top: 1px solid var(--line);
+  font-size: var(--text-small);
   color: var(--muted);
 }
 
@@ -423,9 +441,14 @@ button.nav-link {
   --size: 34px;
   height: var(--size);
   border-radius: 50%;
-  background: linear-gradient(140deg, var(--rose), var(--orchid) 55%, var(--iris));
-  color: var(--ink);
+  background: linear-gradient(
+    140deg,
+    var(--rose),
+    var(--orchid) 55%,
+    var(--iris)
+  );
   font-size: calc(var(--size) * 0.44);
+  color: var(--ink);
 }
 
 .token {
@@ -436,9 +459,9 @@ button.nav-link {
   aspect-ratio: 1 / 1.1547;
   clip-path: var(--hex);
   background: var(--gold);
-  color: var(--gold-light);
   font-family: var(--serif);
   font-size: calc(var(--size) * 0.46);
+  color: var(--gold-light);
 }
 
 .token::before {
@@ -447,7 +470,6 @@ button.nav-link {
   inset: 2px;
   z-index: -1;
   clip-path: var(--hex);
-  background: var(--tone);
   background: linear-gradient(
     160deg,
     color-mix(in srgb, var(--tone), white 16%),
@@ -469,7 +491,7 @@ button.nav-link {
   inset: 3px;
 }
 
-/* The token takes the colour of the class; other classes stay ink. */
+/* The token takes the colour of the class; without one it stays ink. */
 
 .token-artificer {
   --tone: #8a5226;
@@ -526,7 +548,7 @@ button.nav-link {
 /* Masthead of the home page */
 
 body:has(.masthead) .site-header {
-  border-bottom: 1px solid rgba(201, 162, 75, 0.3);
+  border-bottom: 1px solid color-mix(in srgb, var(--gold) 30%, transparent);
 }
 
 .masthead {
@@ -534,7 +556,11 @@ body:has(.masthead) .site-header {
   overflow: hidden;
   border-bottom: 3px solid var(--gold);
   background:
-    radial-gradient(60% 130% at 88% 45%, rgba(199, 127, 196, 0.3), transparent 62%),
+    radial-gradient(
+      60% 130% at 88% 45%,
+      color-mix(in srgb, var(--orchid) 30%, transparent),
+      transparent 62%
+    ),
     linear-gradient(180deg, var(--ink), var(--ink-soft));
   color: var(--on-dark);
 }
@@ -555,13 +581,13 @@ body:has(.masthead) .site-header {
 
 .masthead h1 {
   margin-bottom: 8px;
-  color: #fff8e6;
+  color: var(--on-dark-strong);
 }
 
 .masthead-lead {
   max-width: 62ch;
   margin-bottom: 20px;
-  color: rgba(243, 231, 207, 0.82);
+  color: color-mix(in srgb, var(--on-dark) 82%, transparent);
 }
 
 /* A die that rolls on click: the button has no look of its own. */
@@ -596,9 +622,9 @@ body:has(.masthead) .site-header {
   width: 400px;
   max-width: 100%;
   padding: 18px 20px;
-  border: 1px solid rgba(201, 162, 75, 0.45);
+  border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
   border-radius: var(--radius);
-  background: rgba(253, 248, 236, 0.07);
+  background: color-mix(in srgb, var(--cream) 7%, transparent);
   box-shadow: 0 18px 30px -20px rgba(0, 0, 0, 0.7);
 }
 
@@ -611,7 +637,7 @@ body:has(.masthead) .site-header {
 }
 
 .next-session-in {
-  color: rgba(243, 231, 207, 0.78);
+  color: color-mix(in srgb, var(--on-dark) 78%, transparent);
 }
 
 .next-session-title {
@@ -619,7 +645,7 @@ body:has(.masthead) .site-header {
   font-size: 1.25rem;
   font-weight: 700;
   line-height: 1.25;
-  color: #fff8e6;
+  color: var(--on-dark-strong);
   text-decoration: none;
 }
 
@@ -629,7 +655,7 @@ body:has(.masthead) .site-header {
 
 .next-session .meta {
   margin-top: 4px;
-  color: rgba(243, 231, 207, 0.8);
+  color: color-mix(in srgb, var(--on-dark) 80%, transparent);
 }
 
 .next-session .meta a {
@@ -644,7 +670,7 @@ body:has(.masthead) .site-header {
   gap: 10px;
   margin-top: 14px;
   padding-top: 12px;
-  border-top: 1px solid rgba(201, 162, 75, 0.3);
+  border-top: 1px solid color-mix(in srgb, var(--gold) 30%, transparent);
 }
 
 .next-session-die {
@@ -668,29 +694,29 @@ body:has(.masthead) .site-header {
   align-items: baseline;
   gap: 10px;
   padding: 12px 16px;
-  border: 1px solid rgba(201, 162, 75, 0.35);
+  border: 1px solid color-mix(in srgb, var(--gold) 35%, transparent);
   border-radius: var(--radius);
-  background: rgba(253, 248, 236, 0.06);
+  background: color-mix(in srgb, var(--cream) 6%, transparent);
   color: var(--on-dark);
   text-decoration: none;
   transition: background-color 0.15s, border-color 0.15s;
 }
 
-a.counter::after {
+.counter::after {
   content: "\2192";
   margin-left: auto;
-  color: var(--gold);
   opacity: 0.6;
+  color: var(--gold);
   transition: opacity 0.15s, transform 0.15s;
 }
 
-a.counter:hover {
+.counter:hover {
   border-color: var(--gold);
-  background: rgba(253, 248, 236, 0.12);
+  background: color-mix(in srgb, var(--cream) 12%, transparent);
   color: #fff;
 }
 
-a.counter:hover::after {
+.counter:hover::after {
   opacity: 1;
   transform: translateX(3px);
 }
@@ -705,7 +731,7 @@ a.counter:hover::after {
 }
 
 .counter-label {
-  font-size: 0.93rem;
+  font-size: var(--text-small);
 }
 
 /* Petals by day, fireflies by night: a decoration behind the text. */
@@ -856,15 +882,18 @@ main.container:has(> .drift) {
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-small);
   background: var(--paper);
-  box-shadow: 0 1px 0 rgba(36, 22, 41, 0.08);
-  color: var(--heading);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--night) 8%, transparent);
   font: inherit;
   font-weight: 600;
   line-height: 1.2;
+  color: var(--heading);
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
-  transition: background-color 0.15s, color 0.15s, border-color 0.15s,
+  transition:
+    background-color 0.15s,
+    color 0.15s,
+    border-color 0.15s,
     transform 0.05s;
 }
 
@@ -885,8 +914,9 @@ main.container:has(> .drift) {
     color-mix(in srgb, var(--crimson), white 12%),
     var(--crimson)
   );
-  box-shadow: inset 0 0 0 1px rgba(241, 213, 143, 0.45),
-    0 1px 0 rgba(36, 22, 41, 0.15);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--gold-light) 45%, transparent),
+    0 1px 0 color-mix(in srgb, var(--night) 15%, transparent);
   color: #fff;
 }
 
@@ -919,7 +949,7 @@ main.container:has(> .drift) {
 }
 
 .btn-light {
-  border-color: rgba(201, 162, 75, 0.7);
+  border-color: color-mix(in srgb, var(--gold) 70%, transparent);
   background: transparent;
   box-shadow: none;
   color: var(--on-dark);
@@ -927,7 +957,7 @@ main.container:has(> .drift) {
 
 .btn-light:hover {
   border-color: var(--gold);
-  background: rgba(253, 248, 236, 0.12);
+  background: color-mix(in srgb, var(--cream) 12%, transparent);
   color: #fff;
 }
 
@@ -946,12 +976,7 @@ main.container:has(> .drift) {
 
 .btn-small {
   padding: 5px 10px;
-  font-size: 0.875rem;
-}
-
-.inline-form {
-  display: inline;
-  margin: 0;
+  font-size: var(--text-hint);
 }
 
 /* Page head */
@@ -973,8 +998,8 @@ main.container:has(> .drift) {
   position: absolute;
   inset: auto 0 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--crimson), var(--gold) 55%);
   clip-path: polygon(0 0, 100% 50%, 0 100%);
+  background: linear-gradient(90deg, var(--crimson), var(--gold) 55%);
 }
 
 .page-head h1 {
@@ -982,8 +1007,8 @@ main.container:has(> .drift) {
 }
 
 .page-head > div:first-child {
-  min-width: 0;
   flex: 1 1 320px;
+  min-width: 0;
 }
 
 .page-title {
@@ -997,7 +1022,8 @@ main.container:has(> .drift) {
 }
 
 /* A title that stands on its own, without a page head around it (the
-   character form): it keeps its distance from what follows. */
+   character form): it keeps its distance from what follows, and its token
+   stays level with the single line on a phone too. */
 main > .page-title {
   align-items: center;
   margin-bottom: 20px;
@@ -1014,10 +1040,6 @@ main > .page-title > h1 {
   gap: 8px;
 }
 
-form.actions {
-  margin: 0;
-}
-
 /* Jumps between the sections of a long page: shown where it is one column. */
 .section-nav {
   display: none;
@@ -1032,8 +1054,8 @@ form.actions {
   gap: 2px 8px;
   margin-bottom: 14px;
   font-weight: 600;
-  overflow-wrap: anywhere;
   color: var(--muted);
+  overflow-wrap: anywhere;
 }
 
 .breadcrumb::before {
@@ -1057,8 +1079,8 @@ form.actions {
   align-items: center;
   gap: 4px 14px;
   margin: 0;
+  font-size: var(--text-small);
   color: var(--muted);
-  font-size: 0.93rem;
 }
 
 .meta + .meta {
@@ -1077,9 +1099,9 @@ form.actions {
   grid-auto-flow: column;
   grid-auto-columns: minmax(0, 1fr);
   gap: 12px;
+  list-style: none;
   margin: 0 0 20px;
   padding: 0;
-  list-style: none;
 }
 
 .hub-stats li {
@@ -1097,8 +1119,8 @@ form.actions {
   border-radius: var(--radius);
   background: var(--paper);
   box-shadow: var(--shadow);
+  font-size: var(--text-small);
   color: var(--muted);
-  font-size: 0.93rem;
   text-decoration: none;
   transition: border-color 0.15s;
 }
@@ -1119,12 +1141,12 @@ form.actions {
 /* Cards and layout */
 
 .card {
-  background: var(--paper);
+  min-width: 0;
+  padding: 20px 22px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
+  background: var(--paper);
   box-shadow: var(--shadow);
-  padding: 20px 22px;
-  min-width: 0;
 }
 
 .card > :last-child {
@@ -1144,11 +1166,10 @@ form.actions {
   margin-bottom: 14px;
   padding-bottom: 10px;
   border-bottom: 1px solid var(--line);
-  font-size: 0.93rem;
+  font-size: var(--text-small);
 }
 
-.card-head h2,
-.card-head h3 {
+.card-head h2 {
   margin: 0;
 }
 
@@ -1165,8 +1186,8 @@ form.actions {
 .card h3 {
   margin-top: 18px;
   margin-bottom: 10px;
-  font-size: 0.78rem;
   font-family: var(--sans);
+  font-size: var(--text-label);
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -1252,8 +1273,6 @@ form.actions {
 }
 
 .note-card {
-  --kind: var(--grey);
-  --icon: url("../img/icons/hand.png");
   border-left: 4px solid var(--kind);
 }
 
@@ -1269,6 +1288,13 @@ form.actions {
   mask: var(--icon) center / contain no-repeat;
   opacity: 0.85;
   pointer-events: none;
+}
+
+/* The kind of a note gives it the colour and the drawing. */
+
+.note-general {
+  --kind: var(--grey);
+  --icon: url("../img/icons/hand.png");
 }
 
 .note-npc {
@@ -1296,7 +1322,7 @@ form.actions {
   --icon: url("../img/icons/shine.png");
 }
 
-/* One-colour drawings from static/img/icons, painted with the text colour. */
+/* One-colour drawings from img/icons, painted with the text colour. */
 
 .icon,
 .weapon {
@@ -1306,8 +1332,8 @@ form.actions {
 }
 
 .icon {
-  display: inline-block;
   flex: none;
+  display: inline-block;
   width: 20px;
   height: 20px;
 }
@@ -1344,9 +1370,9 @@ form.actions {
   bottom: 12px;
   width: 104px;
   height: 46px;
-  color: color-mix(in srgb, var(--muted) 80%, transparent);
   -webkit-mask-position: right bottom;
   mask-position: right bottom;
+  color: color-mix(in srgb, var(--muted) 80%, transparent);
   pointer-events: none;
 }
 
@@ -1394,25 +1420,21 @@ form.actions {
 
 .stack {
   display: grid;
-  gap: 18px;
   align-content: start;
+  gap: 18px;
   min-width: 0;
 }
 
 .split {
   display: grid;
   grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
-  gap: 20px;
   align-items: start;
+  gap: 20px;
 }
 
 .narrow {
   max-width: 720px;
   margin: 0 auto;
-}
-
-.narrow > .meta {
-  margin-bottom: 12px;
 }
 
 .prose {
@@ -1463,8 +1485,8 @@ form.actions {
 }
 
 .row-main {
-  min-width: 0;
   flex: 1 1 200px;
+  min-width: 0;
 }
 
 .row-title {
@@ -1509,7 +1531,7 @@ form.actions {
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--page);
-  font-size: 0.9rem;
+  font-size: var(--text-small);
 }
 
 /* Sessions: a calendar leaf next to the title */
@@ -1566,20 +1588,20 @@ form.actions {
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-small);
   background: var(--field);
-  box-shadow: 0 1px 0 rgba(36, 22, 41, 0.08);
-  text-align: center;
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--night) 8%, transparent);
   line-height: 1.1;
+  text-align: center;
 }
 
 .date-month {
   display: block;
   padding: 3px 0;
   background: var(--crimson);
-  color: #fff;
-  font-size: 0.66rem;
+  font-size: var(--text-tiny);
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  color: #fff;
 }
 
 .date-day {
@@ -1598,7 +1620,7 @@ form.actions {
 
 .date-tile-large .date-month {
   padding: 4px 0;
-  font-size: 0.76rem;
+  font-size: var(--text-label);
 }
 
 .date-tile-large .date-day {
@@ -1621,26 +1643,24 @@ form.actions {
 /* Badges */
 
 .badge {
+  --tone: var(--grey);
   display: inline-block;
   padding: 2px 9px;
-  border: 1px solid;
+  border: 1px solid color-mix(in srgb, currentColor 32%, transparent);
   border-radius: 999px;
-  font-size: 0.72rem;
+  background: color-mix(in srgb, currentColor 9%, var(--field));
+  font-size: var(--text-label);
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  white-space: nowrap;
-  --tone: var(--grey);
-  color: var(--tone);
   color: color-mix(in srgb, var(--tone), white var(--lift));
-  background: rgba(255, 255, 255, 0.6);
-  border-color: color-mix(in srgb, currentColor 32%, transparent);
-  background: color-mix(in srgb, currentColor 9%, var(--field));
+  white-space: nowrap;
 }
 
 .badge-active,
 .badge-scheduled,
-.badge-confirmed {
+.badge-confirmed,
+.badge-resource {
   --tone: var(--green);
 }
 
@@ -1667,10 +1687,6 @@ form.actions {
 
 .badge-item {
   --tone: var(--gold-deep);
-}
-
-.badge-resource {
-  --tone: var(--green);
 }
 
 /* Forms */
@@ -1702,8 +1718,8 @@ form.actions {
 }
 
 .optional {
+  font-size: var(--text-hint);
   font-weight: 400;
-  font-size: 0.85rem;
   color: var(--muted);
 }
 
@@ -1721,30 +1737,30 @@ textarea {
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-small);
   background-color: var(--field);
-  box-shadow: inset 0 1px 2px rgba(36, 22, 41, 0.06);
-  color: var(--text);
+  box-shadow: inset 0 1px 2px color-mix(in srgb, var(--night) 6%, transparent);
   font: inherit;
+  color: var(--text);
   transition: border-color 0.15s;
 }
 
 select {
   padding-right: 34px;
-  appearance: none;
-  -webkit-appearance: none;
   background-image: var(--chevron);
   background-repeat: no-repeat;
   background-position: right 12px center;
   background-size: 12px 8px;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 textarea {
-  resize: vertical;
   min-height: 90px;
+  resize: vertical;
 }
 
 ::placeholder {
-  color: color-mix(in srgb, var(--muted) 70%, transparent);
   opacity: 1;
+  color: color-mix(in srgb, var(--muted) 70%, transparent);
 }
 
 input:hover,
@@ -1757,7 +1773,7 @@ input:focus,
 select:focus,
 textarea:focus {
   border-color: var(--gold-deep);
-  outline: 3px solid rgba(201, 162, 75, 0.45);
+  outline: 3px solid color-mix(in srgb, var(--gold) 45%, transparent);
   outline-offset: 0;
 }
 
@@ -1768,7 +1784,7 @@ input[type="radio"] {
 
 .help {
   margin-top: 4px;
-  font-size: 0.88rem;
+  font-size: var(--text-hint);
   color: var(--muted);
 }
 
@@ -1781,9 +1797,9 @@ input[type="radio"] {
   list-style: none;
   margin: 4px 0 0;
   padding: 0;
-  color: var(--accent);
-  font-size: 0.9rem;
+  font-size: var(--text-small);
   font-weight: 600;
+  color: var(--accent);
 }
 
 .has-error input,
@@ -1801,10 +1817,10 @@ input[type="radio"] {
 }
 
 .form-section {
+  min-width: 0;
   margin: 0 0 8px;
   padding: 0;
   border: 0;
-  min-width: 0;
 }
 
 .form-section legend {
@@ -1840,25 +1856,16 @@ input[type="radio"] {
   background: color-mix(in srgb, var(--paper) 70%, transparent);
 }
 
-.card .filters {
-  margin: 12px 0;
-  background: var(--page);
-}
-
 .filter {
-  flex: 1 1 170px;
+  flex: 2 1 240px;
   min-width: 0;
 }
 
 .filter label {
-  font-size: 0.75rem;
+  font-size: var(--text-label);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted);
-}
-
-.filter-search {
-  flex: 2 1 240px;
 }
 
 .filter-actions {
@@ -1867,30 +1874,20 @@ input[type="radio"] {
 }
 
 .response-form {
-  display: grid;
-  gap: 4px;
-  margin: 10px 0 12px;
-}
-
-.response-form .field {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 /* The player's answer, right under the head of the session page. */
 .response-bar {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
-  gap: 12px 32px;
   align-items: start;
+  gap: 12px 32px;
   margin-bottom: 20px;
 }
 
 .response-bar h2 {
   margin-bottom: 8px;
-}
-
-.response-bar .response-form {
-  margin-top: 0;
 }
 
 .response-bar > div > :last-child {
@@ -1915,9 +1912,9 @@ input[type="radio"] {
   display: grid;
   gap: 8px;
   width: min(360px, calc(100vw - 32px));
+  list-style: none;
   margin: 0;
   padding: 0;
-  list-style: none;
   /* The gaps between the messages let clicks through. */
   pointer-events: none;
 }
@@ -1956,9 +1953,9 @@ input[type="radio"] {
   border: 0;
   border-radius: 50%;
   background: none;
-  color: var(--muted);
   font-size: 1.25rem;
   line-height: 1;
+  color: var(--muted);
   cursor: pointer;
 }
 
@@ -1992,11 +1989,6 @@ input[type="radio"] {
   background: color-mix(in srgb, var(--crimson) 8%, var(--paper));
 }
 
-.message-warning {
-  border-left-color: var(--amber);
-  background: color-mix(in srgb, var(--amber) 8%, var(--paper));
-}
-
 .notice {
   padding: 10px 14px;
   border: 1px solid var(--line);
@@ -2004,6 +1996,8 @@ input[type="radio"] {
   border-radius: var(--radius-small);
   background: var(--page);
 }
+
+/* Empty states */
 
 .empty {
   padding: 28px 20px;
@@ -2061,7 +2055,7 @@ input[type="radio"] {
 
 .table th {
   border-bottom-color: var(--line-strong);
-  font-size: 0.75rem;
+  font-size: var(--text-label);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted);
@@ -2073,10 +2067,6 @@ input[type="radio"] {
 
 .table tr:last-child td {
   border-bottom: 0;
-}
-
-.table .actions {
-  justify-content: flex-end;
 }
 
 /* Character sheet */
@@ -2098,26 +2088,25 @@ input[type="radio"] {
   }
 }
 
+/* A stat is a button: a click rolls its check. */
 .stat {
   position: relative;
+  width: 100%;
   padding: 10px 4px 20px;
   border: 1.5px solid var(--frame);
   border-radius: 10px 10px 24px 24px;
   background: var(--field);
-  box-shadow: inset 0 0 0 3px var(--field),
-    inset 0 0 0 4px rgba(201, 162, 75, 0.55);
-  text-align: center;
-}
-
-button.stat {
-  width: 100%;
-  color: inherit;
+  box-shadow:
+    inset 0 0 0 3px var(--field),
+    inset 0 0 0 4px color-mix(in srgb, var(--gold) 55%, transparent);
   font: inherit;
+  text-align: center;
+  color: inherit;
   cursor: pointer;
   transition: transform 0.15s, border-color 0.15s;
 }
 
-button.stat:hover {
+.stat:hover {
   border-color: var(--gold-deep);
   box-shadow: inset 0 0 0 3px var(--field), inset 0 0 0 4px var(--gold);
   transform: translateY(-2px);
@@ -2133,7 +2122,7 @@ button.stat:hover {
 
 .stat-label {
   display: block;
-  font-size: 0.64rem;
+  font-size: var(--text-tiny);
   font-weight: 700;
   letter-spacing: 0.02em;
   text-transform: uppercase;
@@ -2152,8 +2141,8 @@ button.stat:hover {
 
 .stat-score {
   position: absolute;
-  left: 50%;
   bottom: -14px;
+  left: 50%;
   min-width: 42px;
   padding: 1px 8px;
   border: 1.5px solid var(--frame);
@@ -2180,7 +2169,7 @@ button.stat:hover {
 }
 
 .vital dt {
-  font-size: 0.7rem;
+  font-size: var(--text-tiny);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -2205,8 +2194,8 @@ button.stat:hover {
   border: 0;
   border-radius: 999px;
   background: var(--line);
-  appearance: none;
   -webkit-appearance: none;
+  appearance: none;
 }
 
 .hp::-webkit-progress-bar {
@@ -2238,9 +2227,9 @@ button.stat:hover {
   padding: 5px 12px;
   border-radius: var(--radius-small);
   background: var(--ink);
-  color: var(--on-dark);
-  font-size: 0.9rem;
+  font-size: var(--text-small);
   font-weight: 600;
+  color: var(--on-dark);
 }
 
 /* Sign in and sign up */
@@ -2249,8 +2238,8 @@ button.stat:hover {
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 40px;
   align-items: center;
+  gap: 40px;
   margin-top: 24px;
 }
 
@@ -2258,17 +2247,40 @@ button.stat:hover {
   padding: 8px 0;
   background: radial-gradient(
     closest-side at 50% 36%,
-    rgba(239, 134, 166, 0.3),
+    color-mix(in srgb, var(--rose) 30%, transparent),
     transparent
   );
   text-align: center;
 }
 
-.auth-hero img {
+/* The logo floats over its shadow. */
+.auth-logo {
   width: min(360px, 86%);
   height: auto;
-  filter: drop-shadow(0 18px 16px rgba(36, 22, 41, 0.22));
+  filter: drop-shadow(
+    0 18px 16px color-mix(in srgb, var(--night) 22%, transparent)
+  );
   animation: die-float 7s ease-in-out infinite;
+}
+
+@keyframes die-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1.5deg);
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+
+/* On the login page the logo is a button that rolls the d20. */
+.die-button.auth-logo {
+  border-radius: var(--radius);
+}
+
+.auth-logo:hover img {
+  transform: scale(1.04);
 }
 
 .auth-hero h1 {
@@ -2284,37 +2296,14 @@ button.stat:hover {
   padding: 26px 28px;
 }
 
-/* The logo of the login page rolls the d20. */
-.auth-logo {
-  width: min(360px, 86%);
-  border-radius: var(--radius);
-  animation: die-float 7s ease-in-out infinite;
-}
-
-.auth-hero .auth-logo img {
-  width: 100%;
-  animation: none;
-}
-
-.auth-hero .auth-logo:hover img {
-  transform: scale(1.04);
-}
-
-.auth-hero .btn img {
-  width: 20px;
-  height: 20px;
-  filter: none;
-  animation: none;
-}
-
 /* The way to the table on the sign-up page. */
 .steps {
   display: grid;
   gap: 14px;
   width: min(330px, 100%);
+  list-style: none;
   margin: 22px auto 0;
   padding: 0;
-  list-style: none;
   text-align: left;
 }
 
@@ -2330,7 +2319,7 @@ button.stat:hover {
 }
 
 .steps div span {
-  font-size: 0.93rem;
+  font-size: var(--text-small);
   color: var(--muted);
 }
 
@@ -2352,7 +2341,7 @@ button.stat:hover {
 
 /* Two classes: the padding of a card changes with the width of the screen. */
 .card.handout {
-  --shade: color-mix(in srgb, var(--kind, var(--grey)), white var(--lift));
+  --shade: color-mix(in srgb, var(--kind), white var(--lift));
   padding: 0;
   overflow: hidden;
   border-top: 5px solid var(--shade);
@@ -2388,9 +2377,8 @@ button.stat:hover {
   width: 34px;
   height: 34px;
   background: var(--shade);
-  -webkit-mask: var(--icon, url("../img/icons/hand.png")) center / contain
-    no-repeat;
-  mask: var(--icon, url("../img/icons/hand.png")) center / contain no-repeat;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
 }
 
 .handout-head .eyebrow {
@@ -2434,7 +2422,7 @@ button.stat:hover {
   gap: 16px;
   margin-bottom: 16px;
   font-family: var(--sans);
-  font-size: 0.78rem;
+  font-size: var(--text-label);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--gold-deep);
@@ -2488,35 +2476,27 @@ button.stat:hover {
 
 .feature h3 {
   margin-bottom: 4px;
-  font-size: 1.05rem;
 }
 
 .feature p {
   margin: 0;
-  font-size: 0.93rem;
+  font-size: var(--text-small);
   color: var(--muted);
 }
 
-@keyframes die-float {
-  0%,
-  100% {
-    transform: translateY(0) rotate(-1.5deg);
-  }
-
-  50% {
-    transform: translateY(-8px) rotate(1deg);
-  }
-}
+/* Error pages */
 
 .error-page {
-  text-align: center;
   padding: 40px 0;
+  text-align: center;
 }
 
 .error-die {
   width: 150px;
   height: auto;
-  filter: drop-shadow(0 16px 14px rgba(36, 22, 41, 0.28));
+  filter: drop-shadow(
+    0 16px 14px color-mix(in srgb, var(--night) 28%, transparent)
+  );
   transform: rotate(-6deg);
 }
 
@@ -2539,10 +2519,12 @@ button.stat:hover {
   border-radius: var(--radius);
   background: var(--paper);
   box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7);
-  color: var(--text);
   text-align: center;
+  color: var(--text);
 }
 
+/* The backdrop inherits nothing, so it cannot read the variables: the
+   colour of --night is written out. */
 .dice-dialog::backdrop {
   background: rgba(36, 22, 41, 0.8);
   -webkit-backdrop-filter: blur(3px);
@@ -2574,9 +2556,12 @@ button.stat:hover {
   border-radius: 50%;
   /* The clip has a white background, so the badge is white as well. */
   background: #fff;
-  box-shadow: 0 0 0 6px rgba(201, 162, 75, 0.25);
-  transition: transform 0.5s cubic-bezier(0.3, 1.3, 0.5, 1), opacity 0.4s,
-    filter 0.4s, box-shadow 0.3s;
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--gold) 25%, transparent);
+  transition:
+    transform 0.5s cubic-bezier(0.3, 1.3, 0.5, 1),
+    opacity 0.4s,
+    filter 0.4s,
+    box-shadow 0.3s;
 }
 
 .dice-dialog.is-pair .dice-stage {
@@ -2649,8 +2634,9 @@ button.stat:hover {
 }
 
 .dice-dialog[data-outcome="critical"] .dice-stage:not(.is-dropped) {
-  box-shadow: 0 0 0 6px rgba(201, 162, 75, 0.5),
-    0 0 34px rgba(241, 213, 143, 0.9);
+  box-shadow:
+    0 0 0 6px color-mix(in srgb, var(--gold) 50%, transparent),
+    0 0 34px color-mix(in srgb, var(--gold-light) 90%, transparent);
 }
 
 .dice-dialog[data-outcome="critical"] .dice-detail {
@@ -2680,7 +2666,7 @@ button.stat:hover {
   margin: 14px 0 0;
   padding: 10px 0 0;
   border-top: 1px solid var(--line);
-  font-size: 0.88rem;
+  font-size: var(--text-hint);
   text-align: left;
   color: var(--muted);
 }
@@ -2716,7 +2702,7 @@ button.stat:hover {
   align-items: center;
   justify-content: center;
   gap: 14px;
-  background: rgba(36, 22, 41, 0.86);
+  background: color-mix(in srgb, var(--night) 86%, transparent);
   -webkit-backdrop-filter: blur(3px);
   backdrop-filter: blur(3px);
   color: var(--on-dark);
@@ -2732,7 +2718,8 @@ button.stat:hover {
   border-radius: 50%;
   /* The clip has a white background, so the badge is white as well. */
   background: #fff;
-  box-shadow: 0 0 0 6px rgba(201, 162, 75, 0.25),
+  box-shadow:
+    0 0 0 6px color-mix(in srgb, var(--gold) 25%, transparent),
     0 18px 30px -12px rgba(0, 0, 0, 0.6);
 }
 
@@ -2770,15 +2757,10 @@ button.stat:hover {
   from {
     opacity: 0;
   }
-
-  to {
-    opacity: 1;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .page-loader,
-  .auth-hero img,
   .auth-logo,
   .dice-stage img,
   .drift i,
@@ -2800,18 +2782,18 @@ button.stat:hover {
   .die-button img,
   .card-link,
   .btn,
-  button.stat,
+  .stat,
   .dice-stage,
-  a.counter::after {
+  .counter::after {
     transition: none;
   }
 
   .brand:hover img,
   .die-button:hover img,
-  .auth-hero .auth-logo:hover img,
+  .auth-logo:hover img,
   .card-link:hover,
   .btn:active,
-  button.stat:hover {
+  .stat:hover {
     transform: none;
   }
 }
@@ -2819,23 +2801,6 @@ button.stat:hover {
 /* Small screens */
 
 @media (max-width: 860px) {
-  .split,
-  .auth {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .feature-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  /* One column: the form lies right under the text, so the petals fade
-     out above it instead of sliding under its edge. */
-  .drift-page {
-    right: 0;
-    bottom: auto;
-    height: 320px;
-  }
-
   .nav-toggle-label {
     display: inline-block;
   }
@@ -2864,7 +2829,7 @@ button.stat:hover {
     justify-content: center;
     gap: 2px;
     padding: 6px 2px 5px;
-    font-size: 0.72rem;
+    font-size: var(--text-label);
     line-height: 1.2;
   }
 
@@ -2878,13 +2843,35 @@ button.stat:hover {
     height: 22px;
   }
 
+  .nav-user {
+    flex-basis: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    margin: 0;
+    padding: 8px 0 12px;
+    border-top: 1px solid color-mix(in srgb, var(--gold) 35%, transparent);
+  }
+
+  .nav-toggle:checked ~ .site-nav .nav-user {
+    display: flex;
+  }
+
+  .nav-user .btn {
+    width: 100%;
+  }
+
+  .theme-toggle {
+    order: 0;
+    margin-left: auto;
+  }
+
   /* The page ends above the bar, and so do the messages. */
   body:has(.nav-links) {
     padding-bottom: calc(60px + env(safe-area-inset-bottom));
   }
 
   .messages {
-    right: 16px;
     left: 16px;
     width: auto;
   }
@@ -2893,18 +2880,54 @@ button.stat:hover {
     bottom: calc(72px + env(safe-area-inset-bottom));
   }
 
-  .nav-user {
-    display: none;
-    flex-basis: 100%;
-    flex-direction: column;
-    align-items: stretch;
-    margin: 0;
-    padding: 8px 0 12px;
-    border-top: 1px solid rgba(201, 162, 75, 0.35);
+  .masthead-inner,
+  .split,
+  .response-bar,
+  .auth {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .nav-toggle:checked ~ .site-nav .nav-user {
+  .masthead-die {
+    display: none;
+  }
+
+  .next-session {
+    width: 100%;
+  }
+
+  /* One column: the form lies right under the text, so the petals fade
+     out above it instead of sliding under its edge. */
+  .drift-page {
+    right: 0;
+    bottom: auto;
+    height: 320px;
+  }
+
+  .section-nav {
+    position: sticky;
+    top: 0;
+    z-index: 5;
     display: flex;
+    gap: 6px;
+    margin: -8px -16px 16px;
+    padding: 8px 16px;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--line);
+    background: color-mix(in srgb, var(--page) 88%, transparent);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+  }
+
+  .section-nav a {
+    flex: none;
+    padding: 4px 12px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: var(--paper);
+    font-size: var(--text-small);
+    font-weight: 600;
+    color: var(--heading);
+    text-decoration: none;
   }
 
   /* The form comes first on a phone. */
@@ -2920,57 +2943,8 @@ button.stat:hover {
     padding: 18px 18px 22px;
   }
 
-  .nav-user .btn {
-    width: 100%;
-  }
-
-  .theme-toggle {
-    order: 0;
-    margin-left: auto;
-  }
-
-  .section-nav {
-    position: sticky;
-    top: 0;
-    z-index: 5;
-    display: flex;
-    gap: 6px;
-    overflow-x: auto;
-    margin: -8px -16px 16px;
-    padding: 8px 16px;
-    border-bottom: 1px solid var(--line);
-    background: color-mix(in srgb, var(--page) 88%, transparent);
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
-  }
-
-  .section-nav a {
-    flex: none;
-    padding: 4px 12px;
-    border: 1px solid var(--line-strong);
-    border-radius: 999px;
-    background: var(--paper);
-    color: var(--heading);
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  .nav-toggle-label {
-    margin-left: 0;
-  }
-
-  .masthead-inner,
-  .response-bar {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .masthead-die {
-    display: none;
-  }
-
-  .next-session {
-    width: 100%;
+  .feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
