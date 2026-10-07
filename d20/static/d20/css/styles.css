@@ -1322,6 +1322,42 @@ main > .page-title > h1 {
   --icon: url("../img/icons/shine.png");
 }
 
+/* The kinds of the campaign notes above the cards: each link leaves the
+   notes of one kind, and the chosen one is gilded. */
+.kind-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.kind-filter a {
+  padding: 3px 11px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--paper);
+  font-size: var(--text-small);
+  font-weight: 600;
+  color: var(--heading);
+  text-decoration: none;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.kind-filter a:hover {
+  border-color: var(--accent);
+}
+
+.kind-filter a[aria-current] {
+  border-color: var(--gold-deep);
+  background: color-mix(in srgb, var(--gold) 28%, var(--paper));
+}
+
+.kind-filter span {
+  margin-left: 2px;
+  font-weight: 400;
+  opacity: 0.75;
+}
+
 /* One-colour drawings from img/icons, painted with the text colour. */
 
 .icon,

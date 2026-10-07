@@ -1,3 +1,4 @@
+from collections import Counter
 from operator import attrgetter
 from typing import Any
 
@@ -13,7 +14,7 @@ from django.views import generic
 from django.views.decorators.http import require_POST
 
 from d20.forms import CampaignForm, MembershipForm
-from d20.models import Campaign, CampaignMembership, GameSession
+from d20.models import Campaign, CampaignMembership, GameSession, PreparationNote
 from d20.views.mixins import (
     OwnerRequiredMixin,
     ReturnUrlMixin,
@@ -70,9 +71,34 @@ class CampaignDetailView(generic.DetailView):
             and self.object.status != Campaign.Status.COMPLETED
         )
         if context["is_game_master"] or context["is_player"]:
-            context["notes"] = self.object.notes.select_related("author")
+            context.update(self.get_notes_context())
         context["session_groups"] = self.get_session_groups()
         return context
+
+    def get_notes_context(self) -> dict[str, Any]:
+        """Notes of the campaign and the filter by their kinds.
+
+        The kind comes from "kind" of the query string. The filter offers
+        only the kinds that the campaign has notes of; any other value
+        shows every note.
+        """
+        notes = list(self.object.notes.select_related("author"))
+        kind_counts = Counter(note.kind for note in notes)
+        active_kind = self.request.GET.get("kind", "")
+        if active_kind not in kind_counts:
+            active_kind = ""
+        return {
+            "notes": [
+                note for note in notes if not active_kind or note.kind == active_kind
+            ],
+            "notes_count": len(notes),
+            "note_kinds": [
+                (kind.value, kind.label, kind_counts[kind.value])
+                for kind in PreparationNote.Kind
+                if kind_counts[kind.value]
+            ],
+            "active_kind": active_kind,
+        }
 
     def get_session_groups(self) -> list[tuple[str, list[GameSession]]]:
         """Sessions of the campaign under their statuses, scheduled ones first.

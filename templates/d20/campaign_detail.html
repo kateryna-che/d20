@@ -42,7 +42,7 @@
     <ul class="hub-stats">
       <li><a class="hub-stat" href="#sessions"><b>{{ game_sessions|length }}</b><span>Session{{ game_sessions|length|pluralize }}</span></a></li>
       {% if is_game_master or is_player %}
-        <li><a class="hub-stat" href="#notes"><b>{{ notes|length }}</b><span>Note{{ notes|length|pluralize }}</span></a></li>
+        <li><a class="hub-stat" href="#notes"><b>{{ notes_count }}</b><span>Note{{ notes_count|pluralize }}</span></a></li>
       {% endif %}
       <li><a class="hub-stat" href="#players"><b>{{ memberships|length }}</b><span>Player{{ memberships|length|pluralize }}</span></a></li>
     </ul>
@@ -95,6 +95,15 @@
               <h2>Campaign notes</h2>
               <a class="btn btn-small btn-primary" href="{% url 'd20:note-create' pk=campaign.pk %}?next={{ request.get_full_path|urlencode }}">Add a note</a>
             </div>
+            {# The view offers the kinds that the campaign has notes of. #}
+            {% if note_kinds|length > 1 %}
+              <nav class="kind-filter" aria-label="Kinds of notes">
+                <a href="{% querystring kind=None %}#notes"{% if not active_kind %} aria-current="true"{% endif %}>All <span>{{ notes_count }}</span></a>
+                {% for value, label, count in note_kinds %}
+                  <a href="{% querystring kind=value %}#notes"{% if value == active_kind %} aria-current="true"{% endif %}>{{ label }} <span>{{ count }}</span></a>
+                {% endfor %}
+              </nav>
+            {% endif %}
             {% if notes %}
               <div class="card-grid">
                 {% for note in notes %}

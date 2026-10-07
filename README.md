@@ -25,8 +25,8 @@ other accounts are in [Demo data](#demo-data).
   a d20 roller with advantage and disadvantage.
 - Preparation notes (NPCs, locations, quests, items) that only the members of
   the campaign can read.
-- Search that answers while you type and pagination in the lists, light and
-  dark themes.
+- Search that answers while you type and pagination in the lists, a filter
+  of the campaign notes by kind, light and dark themes.
 
 ## Getting Started
 
