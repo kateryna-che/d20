@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Meet d20, a campaign table for tabletop role-playing groups. Plan sessions, keep character sheets, and share your world with the party.">
+  <meta name="theme-color" content="#35223f">
+  <title>Your campaign table | d20</title>
+  <link rel="icon" type="image/png" href="../d20/static/d20/img/favicon.png">
+  <script src="../d20/static/d20/js/theme.js"></script>
+  <link rel="stylesheet" href="../d20/static/d20/css/styles.css">
+  <style>
+    /* This overview shares the application's styles and assets. Only the
+       layout of the README itself needs a few additional rules. */
+    .readme-nav { display: flex; flex-wrap: wrap; gap: 4px; margin-left: auto; }
+    .readme-skip { position: absolute; top: -100px; left: 16px; z-index: 30; padding: 10px 16px; background: var(--paper); }
+    .readme-skip:focus { top: 10px; }
+    .readme-masthead .masthead-inner { padding-block: 42px 30px; }
+    .readme-masthead h1 { max-width: 24ch; }
+    .readme-main > .features { margin-top: 0; }
+    .readme-section { margin-top: 32px; }
+    .readme-image { margin: 0; }
+    .readme-image img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: var(--radius-small); }
+    .readme-image figcaption { margin-top: 12px; font-size: var(--text-hint); color: var(--muted); }
+    .readme-details { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .readme-credentials { margin: 16px 0; }
+    .readme-credentials > div { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+    .readme-credentials dt { color: var(--muted); }
+    .readme-credentials dd { margin: 0; overflow-wrap: anywhere; }
+    .readme-copy-status { color: var(--muted); font-size: var(--text-hint); }
+    .readme-stack { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; list-style: none; }
+    .readme-footer .container { flex-wrap: wrap; }
+    @media (max-width: 860px) {
+      .readme-nav { order: 3; flex-basis: 100%; margin: 0; padding-bottom: 8px; }
+      .readme-nav .nav-link { padding: 7px 10px; font-size: var(--text-hint); }
+      .readme-details { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 520px) {
+      .readme-masthead .masthead-inner { padding-block: 28px 24px; }
+      .readme-section { margin-top: 24px; }
+      .readme-credentials > div { grid-template-columns: 1fr; gap: 3px; }
+    }
+    @media print {
+      .readme-nav, .theme-toggle, .readme-skip, .readme-copy, .readme-masthead .actions { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="readme-skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="d20, back to top">
+        <img src="../d20/static/d20/img/d20-logo.png" alt="" width="40" height="40">
+        <span>d20</span>
+      </a>
+      <nav class="readme-nav" aria-label="Overview navigation">
+        <a class="nav-link" href="#features">At one table</a>
+        <a class="nav-link" href="#preview">A look inside</a>
+        <a class="nav-link" href="#demo">Try the demo</a>
+        <a class="nav-link" href="https://github.com/kateryna-che/d20">GitHub</a>
+      </nav>
+      <button type="button" class="theme-toggle" data-theme-toggle hidden>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.4 14.6A8.5 8.5 0 0 1 9.4 3.6a8.5 8.5 0 1 0 11 11z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.5 1.5M17.2 17.2l1.5 1.5M5.3 18.7l1.5-1.5M17.2 6.8l1.5-1.5"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <section class="masthead readme-masthead" id="top" aria-labelledby="overview-title">
+    <div class="drift" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="container masthead-inner">
+      <div>
+        <p class="eyebrow">Your campaign table</p>
+        <h1 id="overview-title">Every adventure starts at a table.</h1>
+        <p class="masthead-lead">A shared home for your tabletop campaigns. Plan the next session, keep your characters close, and bring your party together.</p>
+        <div class="actions">
+          <a class="btn btn-gold" href="https://d20-f3y6.onrender.com/">Open d20</a>
+          <a class="btn btn-light" href="https://github.com/kateryna-che/d20">Explore the code</a>
+          <button type="button" class="btn btn-light" data-roll hidden>Roll a d20</button>
+        </div>
+      </div>
+      <button type="button" class="die-button masthead-die" data-roll aria-label="Roll the d20" hidden>
+        <img src="../d20/static/d20/img/d20.webp" alt="" width="190" height="190">
+      </button>
+      <div class="counters" aria-label="Included demo data">
+        <a class="counter" href="#demo"><span class="counter-number">9</span><span class="counter-label">Demo campaigns</span></a>
+        <a class="counter" href="#demo"><span class="counter-number">46</span><span class="counter-label">Game sessions</span></a>
+        <a class="counter" href="#demo"><span class="counter-number">27</span><span class="counter-label">Character sheets</span></a>
+      </div>
+    </div>
+  </section>
+
+  <main class="container readme-main" id="main">
+    <section class="features" id="features" aria-labelledby="features-title">
+      <h2 class="features-title" id="features-title">At one table</h2>
+      <ul class="feature-grid">
+        <li class="feature">
+          <div class="feature-art" aria-hidden="true"><span class="avatar">M</span><span class="avatar">B</span><span class="avatar">V</span></div>
+          <h3>Campaigns</h3>
+          <p>Run a campaign as the game master or join the party with one of your characters. Give every adventure a home.</p>
+        </li>
+        <li class="feature">
+          <div class="feature-art" aria-hidden="true">
+            <span class="date-tile date-tile-scheduled"><span class="date-month">Jan</span><span class="date-day">16</span></span>
+            <span class="badge badge-confirmed">Confirmed</span>
+          </div>
+          <h3>Sessions</h3>
+          <p>Set the date and place, share an agenda, and see who is coming. Keep a summary for the next chapter.</p>
+        </li>
+        <li class="feature">
+          <div class="feature-art" aria-hidden="true"><span class="token token-wizard">E</span><span class="token token-fighter">T</span><span class="token token-ranger">K</span></div>
+          <h3>Characters</h3>
+          <p>Keep ability scores, hit points and inventory together. Roll a d20 with advantage or disadvantage.</p>
+        </li>
+        <li class="feature">
+          <div class="feature-art" aria-hidden="true"><span class="icon note-npc"></span><span class="icon note-location"></span><span class="icon note-quest"></span><span class="icon note-item"></span></div>
+          <h3>Preparation notes</h3>
+          <p>Collect NPCs, locations, quests and items. Share the details with the members of your campaign.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="card readme-section" id="preview" aria-labelledby="preview-title">
+      <div class="card-head">
+        <h2 id="preview-title">Your party. Your plans. All in one place.</h2>
+        <a href="home.webp" target="_blank" rel="noopener">Full screenshot</a>
+      </div>
+      <figure class="readme-image">
+        <a href="home.webp" target="_blank" rel="noopener" aria-label="Open the dashboard screenshot in a new tab">
+          <img src="home.webp" alt="A d20 dashboard with the next game session, upcoming sessions, campaigns and a character sheet link, shown in the dark theme." width="1460" height="924" loading="lazy">
+        </a>
+        <figcaption>A look inside the campaign table. Search as you type, switch between light and dark themes, and keep your next session in view.</figcaption>
+      </figure>
+    </section>
+
+    <div class="split readme-details readme-section">
+      <section class="card" id="demo" aria-labelledby="demo-title">
+        <div class="card-head"><h2 id="demo-title">Take a seat at the table</h2><span class="badge badge-active">Live demo</span></div>
+        <p>Explore ready-made campaigns, characters and notes as both a game master and a player.</p>
+        <dl class="readme-credentials">
+          <div><dt>Username</dt><dd><code>demo</code></dd></div>
+          <div><dt>Password</dt><dd><code id="demo-password">roll-for-initiative</code></dd></div>
+        </dl>
+        <div class="actions readme-copy">
+          <button type="button" class="btn btn-small" id="copy-password" hidden>Copy password</button>
+          <span class="readme-copy-status" id="copy-status" role="status" aria-live="polite"></span>
+        </div>
+        <h3>A first look</h3>
+        <ol>
+          <li>Open a campaign to meet the party and read its notes.</li>
+          <li>Look through the game sessions and their summaries.</li>
+          <li>Open a character sheet and try the d20 roller.</li>
+        </ol>
+        <p class="muted">The free server sleeps between visits. The first page may take about a minute to open.</p>
+        <a class="btn btn-primary" href="https://d20-f3y6.onrender.com/">Open the live demo</a>
+      </section>
+
+      <section class="card" aria-labelledby="build-title">
+        <div class="card-head"><h2 id="build-title">Behind the table</h2><a href="https://github.com/kateryna-che/d20">Source code</a></div>
+        <p>A Django project with server-rendered templates, plain CSS and JavaScript. A little htmx keeps search responsive.</p>
+        <ul class="readme-stack" aria-label="Technology stack">
+          <li><span class="badge">Python</span></li><li><span class="badge">Django</span></li><li><span class="badge">htmx</span></li><li><span class="badge">PostgreSQL</span></li><li><span class="badge">SQLite</span></li>
+        </ul>
+        <h3>Made for a shared table</h3>
+        <ul class="list">
+          <li>Guests can browse campaigns. An account opens player details and session locations.</li>
+          <li>Campaign notes are shared with campaign members.</li>
+          <li>Local development uses SQLite; production uses PostgreSQL.</li>
+          <li>Application tests, type checking and code style checks accompany the project.</li>
+        </ul>
+        <h3>Make yourself at home in the code</h3>
+        <p class="muted">The README covers setup, demo data, tests and deployment.</p>
+        <a class="btn" href="https://github.com/kateryna-che/d20#readme">Read the documentation</a>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer readme-footer">
+    <div class="container">
+      <img src="../d20/static/d20/img/favicon.png" alt="" width="22" height="22">
+      <span>d20: a shared table for your next adventure.</span>
+      <span>Made by <a href="https://github.com/kateryna-che">Kateryna Cherepanova</a></span>
+    </div>
+  </footer>
+
+  <dialog class="dice-dialog" id="dice-dialog" aria-labelledby="dice-title" data-face-src="../d20/static/d20/img/dice/20.webp">
+    <p class="eyebrow" id="dice-title">d20 roll</p>
+    <div class="dice-table">
+      <div class="dice-stage">
+        <video muted playsinline preload="none" aria-hidden="true"><source src="../d20/static/d20/video/dice-roll.webm" type="video/webm"><source src="../d20/static/d20/video/dice-roll.mp4" type="video/mp4"></video>
+        <img class="dice-face" alt="" width="168" height="168">
+      </div>
+      <div class="dice-stage" hidden>
+        <video muted playsinline preload="none" aria-hidden="true"><source src="../d20/static/d20/video/dice-roll.webm" type="video/webm"><source src="../d20/static/d20/video/dice-roll.mp4" type="video/mp4"></video>
+        <img class="dice-face" alt="" width="168" height="168">
+      </div>
+    </div>
+    <p class="dice-result" role="status"></p>
+    <p class="dice-detail"></p>
+    <div class="form-actions"><button type="button" class="btn btn-primary" data-dice-again>Roll again</button><button type="button" class="btn btn-ghost" data-dice-close>Close</button></div>
+    <div class="dice-modes" role="group" aria-label="Roll two dice"><button type="button" class="btn btn-small" data-dice-again="advantage">With advantage</button><button type="button" class="btn btn-small" data-dice-again="disadvantage">With disadvantage</button></div>
+    <ol class="dice-history" aria-label="Earlier rolls" hidden></ol>
+  </dialog>
+  <script src="../d20/static/d20/js/dice.js" defer></script>
+  <script>
+    (function () {
+      "use strict";
+      var button = document.getElementById("copy-password");
+      var password = document.getElementById("demo-password");
+      var status = document.getElementById("copy-status");
+      button.hidden = false;
+      button.addEventListener("click", async function () {
+        try {
+          await navigator.clipboard.writeText(password.textContent.trim());
+          status.textContent = "Password copied.";
+        } catch (error) {
+          var selection = window.getSelection();
+          if (selection) {
+            var range = document.createRange();
+            range.selectNodeContents(password);
+            selection.removeAllRanges();
+            selection.addRange(range);
+            status.textContent = "Password selected. Copy it with Ctrl+C or ⌘C.";
+          } else {
+            status.textContent = "Copy the password shown above.";
+          }
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
