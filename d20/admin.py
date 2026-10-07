@@ -1,5 +1,10 @@
+from typing import Any
+
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
+from django.db.models import ForeignKey
+from django.forms import ModelChoiceField
+from django.http import HttpRequest
 
 from d20.models import (
     Campaign,
@@ -14,14 +19,13 @@ from d20.models import (
 
 @admin.register(User)
 class UserAdmin(DjangoUserAdmin):
-    fieldsets = DjangoUserAdmin.fieldsets + ((("Profile", {"fields": ("bio",)}),))
-    add_fieldsets = DjangoUserAdmin.add_fieldsets + (
-        (
-            (
-                "Profile",
-                {"fields": ("first_name", "last_name", "email", "bio")},
-            ),
-        )
+    fieldsets = (
+        *(DjangoUserAdmin.fieldsets or ()),
+        ("Profile", {"fields": ("bio",)}),
+    )
+    add_fieldsets = (
+        *DjangoUserAdmin.add_fieldsets,
+        ("Profile", {"fields": ("first_name", "last_name", "email", "bio")}),
     )
 
 
@@ -67,7 +71,9 @@ class SessionParticipationAdmin(admin.ModelAdmin):
         "game_session",
     )
 
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+    def formfield_for_foreignkey(
+        self, db_field: ForeignKey, request: HttpRequest, **kwargs: Any
+    ) -> ModelChoiceField | None:
         if db_field.name == "membership":
             kwargs["queryset"] = CampaignMembership.objects.select_related(
                 "player", "campaign"

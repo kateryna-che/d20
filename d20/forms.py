@@ -1,12 +1,14 @@
+from typing import Any, cast
+
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 
 from d20.models import (
     Campaign,
-    GameSession,
-    Character,
     CampaignMembership,
+    Character,
+    GameSession,
     PreparationNote,
     SessionParticipation,
 )
@@ -15,11 +17,7 @@ from d20.models import (
 class RegistrationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
-        fields = UserCreationForm.Meta.fields + (
-            "first_name",
-            "last_name",
-            "email",
-        )
+        fields = (*UserCreationForm.Meta.fields, "first_name", "last_name", "email")
 
 
 class ProfileForm(forms.ModelForm):
@@ -46,11 +44,10 @@ class MembershipForm(forms.ModelForm):
         model = CampaignMembership
         fields = ("character",)
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
-        self.fields["character"].queryset = Character.objects.filter(
-            owner=self.instance.player
-        )
+        character_field = cast(forms.ModelChoiceField, self.fields["character"])
+        character_field.queryset = Character.objects.filter(owner=self.instance.player)
 
 
 class CharacterForm(forms.ModelForm):

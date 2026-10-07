@@ -21,7 +21,7 @@ SESSION_LIST_URL = reverse("d20:session-list")
 
 
 class PublicViewsTests(TestCase):
-    def test_login_required(self):
+    def test_login_required(self) -> None:
         for url in (
             INDEX_URL,
             CAMPAIGN_LIST_URL,
@@ -32,7 +32,7 @@ class PublicViewsTests(TestCase):
                 res = self.client.get(url)
                 self.assertRedirects(res, f"/accounts/login/?next={url}")
 
-    def test_register_user(self):
+    def test_register_user(self) -> None:
         res = self.client.post(reverse("register"), REGISTRATION_DATA)
         new_user = get_user_model().objects.get(username=REGISTRATION_DATA["username"])
 
@@ -43,11 +43,11 @@ class PublicViewsTests(TestCase):
 
 
 class PrivateIndexTests(TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.user = create_user("test")
         self.client.force_login(self.user)
 
-    def test_index_counters(self):
+    def test_index_counters(self) -> None:
         campaign = Campaign.objects.create(title="Lost Mine", game_master=self.user)
         game_session = GameSession.objects.create(
             campaign=campaign,
@@ -67,7 +67,7 @@ class PrivateIndexTests(TestCase):
 
 
 class PrivateCampaignTests(TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.user = create_user("test")
         self.client.force_login(self.user)
         self.other_user = create_user("other")
@@ -79,14 +79,14 @@ class PrivateCampaignTests(TestCase):
         )
         Campaign.objects.create(title="Lost Caverns", game_master=self.other_user)
 
-    def test_retrieve_campaigns(self):
+    def test_retrieve_campaigns(self) -> None:
         res = self.client.get(CAMPAIGN_LIST_URL)
 
         self.assertEqual(res.status_code, 200)
         self.assertCountEqual(res.context["campaign_list"], Campaign.objects.all())
         self.assertTemplateUsed(res, "d20/campaign_list.html")
 
-    def test_search_campaigns_by_title(self):
+    def test_search_campaigns_by_title(self) -> None:
         res = self.client.get(CAMPAIGN_LIST_URL, {"search": "LOST"})
 
         self.assertCountEqual(
@@ -96,7 +96,7 @@ class PrivateCampaignTests(TestCase):
         self.assertEqual(len(res.context["campaign_list"]), 2)
         self.assertNotContains(res, "Curse of Strahd")
 
-    def test_create_campaign(self):
+    def test_create_campaign(self) -> None:
         res = self.client.post(
             reverse("d20:campaign-create"),
             {"title": "Tomb of Horrors", "status": Campaign.Status.PLANNING},
@@ -106,7 +106,7 @@ class PrivateCampaignTests(TestCase):
         self.assertRedirects(res, CAMPAIGN_LIST_URL)
         self.assertEqual(campaign.game_master, self.user)
 
-    def test_update_campaign(self):
+    def test_update_campaign(self) -> None:
         res = self.client.post(
             reverse("d20:campaign-update", args=[self.campaign.id]),
             {"title": "Curse of Strahd", "status": Campaign.Status.ACTIVE},
@@ -116,7 +116,7 @@ class PrivateCampaignTests(TestCase):
         self.assertRedirects(res, self.campaign.get_absolute_url())
         self.assertEqual(self.campaign.status, Campaign.Status.ACTIVE)
 
-    def test_update_campaign_of_other_game_master(self):
+    def test_update_campaign_of_other_game_master(self) -> None:
         res = self.client.post(
             reverse("d20:campaign-update", args=[self.other_campaign.id]),
             {"title": "Hacked", "status": Campaign.Status.ACTIVE},
@@ -126,13 +126,13 @@ class PrivateCampaignTests(TestCase):
         self.assertEqual(res.status_code, 404)
         self.assertEqual(self.other_campaign.title, "Lost Mine")
 
-    def test_delete_campaign(self):
+    def test_delete_campaign(self) -> None:
         res = self.client.post(reverse("d20:campaign-delete", args=[self.campaign.id]))
 
         self.assertRedirects(res, CAMPAIGN_LIST_URL)
         self.assertFalse(Campaign.objects.filter(id=self.campaign.id).exists())
 
-    def test_join_and_leave_campaign(self):
+    def test_join_and_leave_campaign(self) -> None:
         url = reverse("d20:campaign-membership", args=[self.other_campaign.id])
 
         res = self.client.post(url, {"action": "join"})
@@ -146,13 +146,13 @@ class PrivateCampaignTests(TestCase):
 
 
 class PrivateCharacterTests(TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.user = create_user("test")
         self.client.force_login(self.user)
         self.character = create_character(self.user)
         create_character(create_user("other"), name="Legolas")
 
-    def test_retrieve_only_own_characters(self):
+    def test_retrieve_only_own_characters(self) -> None:
         res = self.client.get(CHARACTER_LIST_URL)
 
         self.assertEqual(res.status_code, 200)
@@ -160,7 +160,7 @@ class PrivateCharacterTests(TestCase):
         self.assertTemplateUsed(res, "d20/character_list.html")
         self.assertNotContains(res, "Legolas")
 
-    def test_create_character(self):
+    def test_create_character(self) -> None:
         res = self.client.post(
             reverse("d20:character-create"),
             {
@@ -182,7 +182,7 @@ class PrivateCharacterTests(TestCase):
 
 
 class PrivateGameSessionTests(TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.user = create_user("test")
         self.client.force_login(self.user)
         campaign = Campaign.objects.create(
@@ -197,7 +197,7 @@ class PrivateGameSessionTests(TestCase):
             scheduled_at=timezone.now() + timedelta(days=1),
         )
 
-    def test_respond_to_session(self):
+    def test_respond_to_session(self) -> None:
         res = self.client.post(
             reverse("d20:session-respond", args=[self.game_session.id]),
             {"attendance_status": SessionParticipation.Attendance.DECLINED},

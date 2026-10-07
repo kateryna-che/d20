@@ -1,8 +1,11 @@
+from typing import Any
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import redirect_to_login
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import Count, Exists, OuterRef
-from django.http import HttpResponseBadRequest
+from django.db.models import Count, Exists, OuterRef, QuerySet
+from django.forms import ModelForm
+from django.http import HttpRequest, HttpResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import generic
@@ -10,10 +13,16 @@ from django.views.decorators.http import require_POST
 
 from d20.forms import CampaignForm, MembershipForm
 from d20.models import Campaign, CampaignMembership
-from d20.views.mixins import OwnerRequiredMixin, ReturnUrlMixin, SearchMixin
+from d20.views.mixins import (
+    AuthenticatedHttpRequest,
+    OwnerRequiredMixin,
+    ReturnUrlMixin,
+    SearchMixin,
+)
 
 
 class CampaignListView(LoginRequiredMixin, SearchMixin, generic.ListView):
+    request: AuthenticatedHttpRequest
     queryset = (
         Campaign.objects.select_related("game_master")
         .annotate(
@@ -24,11 +33,12 @@ class CampaignListView(LoginRequiredMixin, SearchMixin, generic.ListView):
     )
     paginate_by = 6
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet[Campaign]:
         own_memberships = CampaignMembership.objects.filter(
             campaign=OuterRef("pk"), player=self.request.user
         )
-        return super().get_queryset().annotate(is_player=Exists(own_memberships))
+        campaigns: QuerySet[Campaign] = super().get_queryset()
+        return campaigns.annotate(is_player=Exists(own_memberships))
 
 
 class CampaignDetailView(LoginRequiredMixin, generic.DetailView):
@@ -36,7 +46,7 @@ class CampaignDetailView(LoginRequiredMixin, generic.DetailView):
         "memberships__player", "memberships__character", "game_sessions"
     )
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["is_game_master"] = self.object.game_master_id == self.request.user.pk
         context["is_player"] = any(
@@ -56,7 +66,7 @@ class CampaignCreateView(
     success_url = reverse_lazy("d20:campaign-list")
     success_message = "The campaign was created. You are its game master."
 
-    def form_valid(self, form):
+    def form_valid(self, form: ModelForm) -> HttpResponse:
         form.instance.game_master = self.request.user
         return super().form_valid(form)
 
@@ -76,7 +86,7 @@ class CampaignDeleteView(OwnerRequiredMixin, SuccessMessageMixin, generic.Delete
 
 
 @require_POST
-def update_campaign_membership(request, pk):
+def update_campaign_membership(request: HttpRequest, pk: int) -> HttpResponse:
     """Join or leave the campaign according to the submitted action.
 
     The game master runs the campaign and is not on its player list.

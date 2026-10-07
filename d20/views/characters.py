@@ -1,5 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import QuerySet
+from django.forms import ModelForm
+from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -19,7 +22,7 @@ class CharacterListView(LoginRequiredMixin, SearchMixin, generic.ListView):
     paginate_by = 8
     search_field = "name"
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet[Character]:
         return super().get_queryset().filter(owner=self.request.user)
 
 
@@ -38,7 +41,7 @@ class CharacterCreateView(
     success_url = reverse_lazy("d20:character-list")
     success_message = "The character was created."
 
-    def form_valid(self, form):
+    def form_valid(self, form: ModelForm) -> HttpResponse:
         form.instance.owner = self.request.user
         return super().form_valid(form)
 

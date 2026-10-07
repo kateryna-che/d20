@@ -1,3 +1,5 @@
+from typing import Self
+
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
@@ -15,11 +17,11 @@ class User(AbstractUser):
     def __str__(self) -> str:
         return self.username
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return reverse("d20:user-detail", kwargs={"pk": self.pk})
 
     @property
-    def display_name(self):
+    def display_name(self) -> str:
         return self.get_full_name() or self.username
 
 
@@ -90,8 +92,12 @@ class Character(models.Model):
     charisma = models.PositiveSmallIntegerField(
         default=10, validators=ABILITY_VALIDATORS
     )
-    max_hit_points = models.PositiveSmallIntegerField("maximum hit points", default=10)
-    hit_points = models.PositiveSmallIntegerField("current hit points", default=10)
+    max_hit_points = models.PositiveSmallIntegerField(
+        default=10, verbose_name="maximum hit points"
+    )
+    hit_points = models.PositiveSmallIntegerField(
+        default=10, verbose_name="current hit points"
+    )
     armor_class = models.PositiveSmallIntegerField(default=10)
     speed = models.PositiveSmallIntegerField(default=30, verbose_name="speed, ft.")
     abilities = models.TextField(
@@ -99,7 +105,7 @@ class Character(models.Model):
         help_text="Features, traits and spells: one entry per line.",
     )
     inventory = models.TextField(blank=True, help_text="One item per line.")
-    notes = models.TextField("sheet notes", blank=True)
+    notes = models.TextField(blank=True, verbose_name="sheet notes")
     backstory = models.TextField(blank=True)
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -111,14 +117,14 @@ class Character(models.Model):
     class Meta:
         ordering = ["name"]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return reverse("d20:character-detail", kwargs={"pk": self.pk})
 
     @property
-    def summary(self):
+    def summary(self) -> str:
         """Short line such as "Level 3 Elf Wizard"."""
         return (
             f"Level {self.level} {self.get_ancestry_display()} "
@@ -126,7 +132,7 @@ class Character(models.Model):
         )
 
     @property
-    def stat_blocks(self):
+    def stat_blocks(self) -> list[dict[str, str | int]]:
         """Ability scores with the modifiers that are added to dice rolls."""
         return [
             {
@@ -139,7 +145,7 @@ class Character(models.Model):
 
 
 class CampaignQuerySet(models.QuerySet):
-    def for_user(self, user):
+    def for_user(self, user: User) -> Self:
         """Campaigns that the user runs or plays in."""
         return self.filter(
             models.Q(game_master=user) | models.Q(players=user)
@@ -172,10 +178,10 @@ class Campaign(models.Model):
     class Meta:
         ordering = ["-created_at"]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.title
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return reverse("d20:campaign-detail", kwargs={"pk": self.pk})
 
 
@@ -207,10 +213,13 @@ class CampaignMembership(models.Model):
             ),
         ]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.player} in {self.campaign}"
 
-    def clean(self):
+    def get_absolute_url(self) -> str:
+        return reverse("d20:campaign-detail", kwargs={"pk": self.campaign_id})
+
+    def clean(self) -> None:
         super().clean()
         if self.player_id is None:
             return
@@ -226,21 +235,15 @@ class CampaignMembership(models.Model):
                     "The game master runs the campaign and cannot be its player."
                 )
 
-        if self.character_id is None:
-            return
-
         try:
             character = self.character
         except Character.DoesNotExist:
             return
 
-        if character.owner_id != self.player_id:
+        if character is not None and character.owner_id != self.player_id:
             raise ValidationError(
                 {"character": "The character must belong to the campaign player."}
             )
-
-    def get_absolute_url(self):
-        return reverse("d20:campaign-detail", kwargs={"pk": self.campaign_id})
 
 
 class GameSession(models.Model):
@@ -253,7 +256,7 @@ class GameSession(models.Model):
         Campaign, on_delete=models.CASCADE, related_name="game_sessions"
     )
     title = models.CharField(max_length=255)
-    scheduled_at = models.DateTimeField("date and time")
+    scheduled_at = models.DateTimeField(verbose_name="date and time")
     play_location = models.CharField(
         max_length=255,
         blank=True,
@@ -270,14 +273,14 @@ class GameSession(models.Model):
     class Meta:
         ordering = ["-scheduled_at"]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.title
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return reverse("d20:session-detail", kwargs={"pk": self.pk})
 
     @property
-    def location_is_link(self):
+    def location_is_link(self) -> bool:
         return self.play_location.startswith(("http://", "https://"))
 
 
@@ -308,10 +311,10 @@ class SessionParticipation(models.Model):
             ),
         ]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.membership.player} at {self.game_session}"
 
-    def clean(self):
+    def clean(self) -> None:
         super().clean()
         if self.game_session_id is None or self.membership_id is None:
             return
@@ -353,8 +356,8 @@ class PreparationNote(models.Model):
     class Meta:
         ordering = ["-updated_at"]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.title
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return reverse("d20:note-detail", kwargs={"pk": self.pk})

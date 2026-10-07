@@ -7,24 +7,24 @@ from d20.tests.utils import create_character, create_user
 
 
 class ModelsTests(TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.game_master = create_user("master")
         self.player = create_user("player")
         self.campaign = Campaign.objects.create(
             title="Lost Mine", game_master=self.game_master
         )
 
-    def test_user_str(self):
+    def test_user_str(self) -> None:
         self.assertEqual(str(self.player), self.player.username)
 
-    def test_character_str(self):
+    def test_character_str(self) -> None:
         character = create_character(self.player)
         self.assertEqual(str(character), character.name)
 
-    def test_campaign_str(self):
+    def test_campaign_str(self) -> None:
         self.assertEqual(str(self.campaign), self.campaign.title)
 
-    def test_create_user_with_bio(self):
+    def test_create_user_with_bio(self) -> None:
         username = "test"
         password = "test123"
         bio = "Plays bards only."
@@ -35,10 +35,10 @@ class ModelsTests(TestCase):
         self.assertTrue(user.check_password(password))
         self.assertEqual(user.bio, bio)
 
-    def test_user_get_absolute_url(self):
+    def test_user_get_absolute_url(self) -> None:
         self.assertEqual(self.player.get_absolute_url(), f"/players/{self.player.id}/")
 
-    def test_campaigns_for_user(self):
+    def test_campaigns_for_user(self) -> None:
         CampaignMembership.objects.create(campaign=self.campaign, player=self.player)
         Campaign.objects.create(title="Other", game_master=create_user("stranger"))
 
@@ -46,12 +46,12 @@ class ModelsTests(TestCase):
             with self.subTest(user=user.username):
                 self.assertEqual(list(Campaign.objects.for_user(user)), [self.campaign])
 
-    def test_game_master_cannot_be_campaign_player(self):
+    def test_game_master_cannot_be_campaign_player(self) -> None:
         membership = CampaignMembership(campaign=self.campaign, player=self.game_master)
         with self.assertRaisesMessage(ValidationError, "cannot be its player"):
             membership.full_clean()
 
-    def test_membership_character_should_belong_to_player(self):
+    def test_membership_character_should_belong_to_player(self) -> None:
         membership = CampaignMembership(
             campaign=self.campaign,
             player=self.player,

@@ -1,17 +1,19 @@
 from datetime import timedelta
 
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
 from django.utils.timesince import timeuntil
 
 from d20.models import Campaign, GameSession
+from d20.views.mixins import AuthenticatedHttpRequest
 
 SESSION_START_GRACE = timedelta(hours=4)
 
 
 @login_required
-def index(request):
+def index(request: AuthenticatedHttpRequest) -> HttpResponse:
     """View function for the home page of the site."""
 
     user = request.user

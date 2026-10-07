@@ -1,6 +1,8 @@
+from typing import Any
+
 from django.contrib.auth import get_user_model
 
-from d20.models import Character
+from d20.models import Character, User
 
 REGISTRATION_DATA = {
     "username": "new_player",
@@ -12,11 +14,11 @@ REGISTRATION_DATA = {
 }
 
 
-def create_user(username, **extra_fields):
+def create_user(username: str, **extra_fields: Any) -> User:
     return get_user_model().objects.create_user(username=username, **extra_fields)
 
 
-def create_character(owner, name="Gimli"):
+def create_character(owner: User, name: str = "Gimli") -> Character:
     return Character.objects.create(
         name=name,
         character_class=Character.CharacterClass.FIGHTER,

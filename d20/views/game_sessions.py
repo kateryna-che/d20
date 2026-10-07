@@ -1,8 +1,11 @@
+from typing import Any
+
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import redirect_to_login
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import Count
+from django.db.models import Count, QuerySet
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import generic
@@ -11,6 +14,7 @@ from django.views.decorators.http import require_POST
 from d20.forms import GameSessionForm, ParticipationForm
 from d20.models import Campaign, CampaignMembership, GameSession, SessionParticipation
 from d20.views.mixins import (
+    AuthenticatedHttpRequest,
     CampaignRelatedCreateMixin,
     OwnerRequiredMixin,
     ReturnUrlMixin,
@@ -24,6 +28,7 @@ class GameSessionListView(LoginRequiredMixin, SearchMixin, generic.ListView):
     Sessions of other campaigns are opened from campaign pages.
     """
 
+    request: AuthenticatedHttpRequest
     queryset = (
         GameSession.objects.select_related("campaign")
         .annotate(answers_count=Count("participations"))
@@ -31,12 +36,13 @@ class GameSessionListView(LoginRequiredMixin, SearchMixin, generic.ListView):
     )
     paginate_by = 8
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet[GameSession]:
         campaigns = Campaign.objects.for_user(self.request.user)
         return super().get_queryset().filter(campaign__in=campaigns)
 
 
 class GameSessionDetailView(LoginRequiredMixin, generic.DetailView):
+    request: AuthenticatedHttpRequest
     queryset = GameSession.objects.select_related(
         "campaign__game_master"
     ).prefetch_related(
@@ -44,7 +50,7 @@ class GameSessionDetailView(LoginRequiredMixin, generic.DetailView):
         "participations__membership__character",
     )
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         my_participation = next(
             (
@@ -75,11 +81,12 @@ class GameSessionCreateView(
 ):
     """The game master plans a session of the campaign from the URL."""
 
+    request: AuthenticatedHttpRequest
     model = GameSession
     form_class = GameSessionForm
     success_message = "The session was planned."
 
-    def get_campaigns(self):
+    def get_campaigns(self) -> QuerySet[Campaign]:
         return Campaign.objects.filter(game_master=self.request.user)
 
 
@@ -102,7 +109,7 @@ class GameSessionDeleteView(
 
 
 @require_POST
-def respond_to_session(request, pk):
+def respond_to_session(request: HttpRequest, pk: int) -> HttpResponse:
     """Save the answer of a campaign player: confirmed or declined.
 
     Only a scheduled session accepts answers.
