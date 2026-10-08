@@ -23,6 +23,7 @@
     .readme-image img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: var(--radius-small); }
     .readme-image figcaption { margin-top: 12px; font-size: var(--text-hint); color: var(--muted); }
     .readme-details { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .readme-details h3 { font-family: var(--serif); font-size: 1.05rem; letter-spacing: normal; text-transform: none; color: var(--heading); }
     .readme-credentials { margin: 16px 0; }
     .readme-credentials > div { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
     .readme-credentials dt { color: var(--muted); }
@@ -32,7 +33,7 @@
     .readme-footer .container { flex-wrap: wrap; }
     @media (max-width: 860px) {
       .readme-nav { order: 3; flex-basis: 100%; margin: 0; padding-bottom: 8px; }
-      .readme-nav .nav-link { padding: 7px 10px; font-size: var(--text-hint); }
+      .readme-nav .nav-link { padding: 7px 10px; }
       .readme-details { grid-template-columns: minmax(0, 1fr); }
     }
     @media (max-width: 520px) {
