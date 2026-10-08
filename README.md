@@ -5,8 +5,8 @@ campaigns and plans game sessions; the players keep their character sheets,
 answer the invitations and share notes with the table.
 
 A [one-page HTML overview](docs/index.html) presents the project using the
-site's styles. To view it, open `docs/index.html` in your browser from a
-local checkout.
+site's styles. To view it locally, run `python -m http.server 8765` from the
+project root and open http://127.0.0.1:8765/docs/.
 
 ![The home page of d20 in the dark theme](docs/home.webp)
 
