@@ -4,7 +4,11 @@ A campaign table for tabletop role-playing groups. The game master runs
 campaigns and plans game sessions; the players keep their character sheets,
 answer the invitations and share notes with the table.
 
-![The home page of d20 in the dark theme](docs/home.webp)
+A [one-page HTML overview](https://d20-f3y6.onrender.com/about/) presents the
+project using the site's styles. It is served by Django at `/about/` and
+included in the same deployment as the application.
+
+![The home page of d20 in the dark theme](d20/static/d20/img/home.webp)
 
 The site is live at https://d20-f3y6.onrender.com/. The server is free and
 falls asleep without visitors, so the first page can take about a minute.
@@ -104,6 +108,8 @@ The site opens at http://127.0.0.1:8000/. Log in as `demo` with the password
 your campaigns, sessions and characters, and the sessions that wait for your
 answer.
 
+The project overview opens at http://127.0.0.1:8000/about/ without logging in.
+
 ## Running the tests
 
 ```shell
@@ -115,7 +121,7 @@ stays as it is.
 
 ### Application tests
 
-The 33 tests are in `d20/tests/`, a module for every layer of the
+The 34 tests are in `d20/tests/`, a module for every layer of the
 application:
 
 | Module           | What it checks                                           |
@@ -126,7 +132,8 @@ application:
 |                  | belong to the player                                     |
 | `test_forms.py`  | the registration and search forms; the membership form   |
 |                  | offers a player only their own characters                |
-| `test_views.py`  | the pages: login is required, registration, the numbers  |
+| `test_views.py`  | the pages: public project overview, login rules,         |
+|                  | registration, the numbers                               |
 |                  | of the home page, the list, search, creation, editing    |
 |                  | and deletion of campaigns, joining and leaving one, the  |
 |                  | list and creation of characters, the answer to a session |
@@ -285,6 +292,9 @@ PostgreSQL database, for example on [Neon](https://neon.tech/):
 
 Render sets `RENDER_EXTERNAL_HOSTNAME` itself, and the production settings
 add this domain to `ALLOWED_HOSTS`.
+
+The public project overview is available at `/about/`. Its styles, scripts
+and screenshot are included in the static files collected by `build.sh`.
 
 The build does not load the [demo data](#demo-data): the fixture is loaded
 once by hand.

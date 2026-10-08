@@ -77,38 +77,6 @@
 {% block content %}
   <div class="split">
     <div class="stack">
-      {% if unanswered_sessions %}
-        <section class="card card-attention">
-          <div class="card-head">
-            <h2>Awaiting your response</h2>
-            <span class="badge badge-unanswered">{{ unanswered_sessions|length }}</span>
-          </div>
-          <ul class="list">
-            {% for game_session in unanswered_sessions %}
-              <li>
-                <div class="session">
-                  {% include "d20/includes/date_tile.html" %}
-                  <div class="row">
-                    <div class="row-main">
-                      <a class="row-title" href="{{ game_session.get_absolute_url }}">{{ game_session.title }}</a>
-                      <p class="meta">
-                        <span>{{ game_session.campaign.title }}</span>
-                        <span>{{ game_session.scheduled_at|date:"D, j M Y, H:i" }}</span>
-                      </p>
-                    </div>
-                    <form method="post" action="{% url 'd20:session-respond' pk=game_session.pk %}" class="actions" aria-label="Respond to {{ game_session.title }}">
-                      {% csrf_token %}
-                      <button type="submit" name="attendance_status" value="confirmed" class="btn btn-small btn-primary">Confirm</button>
-                      <button type="submit" name="attendance_status" value="declined" class="btn btn-small btn-danger">Decline</button>
-                    </form>
-                  </div>
-                </div>
-              </li>
-            {% endfor %}
-          </ul>
-        </section>
-      {% endif %}
-
       <section class="card">
         <div class="card-head">
           <h2>Upcoming sessions</h2>
@@ -170,6 +138,45 @@
     </div>
 
     <div class="stack">
+      {% if unanswered_sessions %}
+        <section class="card card-attention">
+          <div class="card-head">
+            <h2>Awaiting your response</h2>
+            <span class="badge badge-unanswered">{{ unanswered_sessions|length }}</span>
+          </div>
+          <ul class="list">
+            {% for game_session in unanswered_sessions %}
+              <li>
+                <div class="session">
+                  {% include "d20/includes/date_tile.html" %}
+                  <div class="row">
+                    <div class="row-main">
+                      <a class="row-title" href="{{ game_session.get_absolute_url }}">{{ game_session.title }}</a>
+                      <p class="meta">
+                        <span>{{ game_session.campaign.title }}</span>
+                        <span>{{ game_session.scheduled_at|date:"D, j M Y, H:i" }}</span>
+                      </p>
+                    </div>
+                    <form method="post" action="{% url 'd20:session-respond' pk=game_session.pk %}" class="actions" aria-label="Respond to {{ game_session.title }}">
+                      {% csrf_token %}
+                      <button type="submit" name="attendance_status" value="confirmed" class="btn btn-small btn-primary">Confirm</button>
+                      <button type="submit" name="attendance_status" value="declined" class="btn btn-small btn-danger">Decline</button>
+                    </form>
+                  </div>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        </section>
+      {% else %}
+        <section class="card">
+          <h2>Awaiting your response</h2>
+          <div class="empty">
+            <p>No sessions are waiting for your answer.</p>
+          </div>
+        </section>
+      {% endif %}
+
       <section class="card">
         <div class="card-head">
           <h2>My characters</h2>
@@ -197,15 +204,6 @@
           </div>
         {% endif %}
       </section>
-
-      {% if not unanswered_sessions %}
-        <section class="card">
-          <h2>Awaiting your response</h2>
-          <div class="empty">
-            <p>No sessions are waiting for your answer.</p>
-          </div>
-        </section>
-      {% endif %}
     </div>
   </div>
 {% endblock %}
