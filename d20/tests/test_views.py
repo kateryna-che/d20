@@ -1,6 +1,8 @@
 from datetime import timedelta
 
 from django.contrib.auth import get_user_model
+from django.contrib.staticfiles import finders
+from django.templatetags.static import static
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
@@ -21,6 +23,22 @@ SESSION_LIST_URL = reverse("d20:session-list")
 
 
 class PublicViewsTests(TestCase):
+    def test_project_overview_is_public_and_uses_deployable_assets(self) -> None:
+        res = self.client.get(reverse("d20:about"))
+
+        self.assertEqual(res.status_code, 200)
+        self.assertTemplateUsed(res, "d20/about.html")
+        for asset in (
+            "d20/css/styles.css",
+            "d20/js/theme.js",
+            "d20/js/dice.js",
+            "d20/img/home.webp",
+        ):
+            with self.subTest(asset=asset):
+                self.assertContains(res, static(asset))
+                self.assertIsNotNone(finders.find(asset))
+        self.assertNotContains(res, "../d20/static/")
+
     def test_login_required(self) -> None:
         for url in (INDEX_URL, CHARACTER_LIST_URL, SESSION_LIST_URL):
             with self.subTest(url=url):

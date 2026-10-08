@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,12 +7,12 @@
   <meta name="description" content="Meet d20, a campaign table for tabletop role-playing groups. Plan sessions, keep character sheets, and share your world with the party.">
   <meta name="theme-color" content="#35223f">
   <title>Your campaign table | d20</title>
-  <link rel="icon" type="image/png" href="../d20/static/d20/img/favicon.png">
-  <script src="../d20/static/d20/js/theme.js"></script>
-  <link rel="stylesheet" href="../d20/static/d20/css/styles.css">
+  <link rel="icon" type="image/png" href="{% static 'd20/img/favicon.png' %}">
+  <script src="{% static 'd20/js/theme.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'd20/css/styles.css' %}">
   <style>
     /* This overview shares the application's styles and assets. Only the
-       layout of the README itself needs a few additional rules. */
+       layout of the overview page needs a few additional rules. */
     .readme-nav { display: flex; flex-wrap: wrap; gap: 4px; margin-left: auto; }
     .readme-skip { position: absolute; top: -100px; left: 16px; z-index: 30; padding: 10px 16px; background: var(--paper); }
     .readme-skip:focus { top: 10px; }
@@ -51,11 +52,11 @@
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="#top" aria-label="d20, back to top">
-        <img src="../d20/static/d20/img/d20-logo.png" alt="" width="40" height="40">
+        <img src="{% static 'd20/img/d20-logo.png' %}" alt="" width="40" height="40">
         <span>d20</span>
       </a>
       <nav class="readme-nav" aria-label="Overview navigation">
-        <a class="nav-link" href="https://d20-f3y6.onrender.com/">Home</a>
+        <a class="nav-link" href="{% url 'd20:index' %}">Home</a>
         <a class="nav-link" href="#features">At one table</a>
         <a class="nav-link" href="#preview">A look inside</a>
         <a class="nav-link" href="#demo">Try the demo</a>
@@ -69,20 +70,20 @@
   </header>
 
   <section class="masthead readme-masthead" id="top" aria-labelledby="overview-title">
-    <div class="drift" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    {% include "d20/includes/drift.html" %}
     <div class="container masthead-inner">
       <div>
         <p class="eyebrow">Your campaign table</p>
         <h1 id="overview-title">Every adventure starts at a table.</h1>
         <p class="masthead-lead">A shared home for your tabletop campaigns. Plan the next session, keep your characters close, and bring your party together.</p>
         <div class="actions">
-          <a class="btn btn-gold" href="https://d20-f3y6.onrender.com/">Open d20</a>
+          <a class="btn btn-gold" href="{% url 'd20:index' %}">Open d20</a>
           <a class="btn btn-light" href="https://github.com/kateryna-che/d20#readme">Read the documentation</a>
           <button type="button" class="btn btn-light" data-roll hidden>Roll a d20</button>
         </div>
       </div>
       <button type="button" class="die-button masthead-die" data-roll aria-label="Roll the d20" hidden>
-        <img src="../d20/static/d20/img/d20.webp" alt="" width="190" height="190">
+        <img src="{% static 'd20/img/d20.webp' %}" alt="" width="190" height="190">
       </button>
       <div class="counters" aria-label="Included demo data">
         <a class="counter" href="#demo"><span class="counter-number">9</span><span class="counter-label">Demo campaigns</span></a>
@@ -124,7 +125,10 @@
 
     <div class="split readme-details readme-section">
       <section class="card" id="documentation" aria-labelledby="build-title">
-        <div class="card-head"><h2 id="build-title">Behind the table</h2><a href="https://github.com/kateryna-che/d20">Source code</a></div>
+        <div class="card-head">
+          <h2 id="build-title">Behind the table</h2>
+          <a href="https://github.com/kateryna-che/d20">Source code</a>
+        </div>
         <p>A Django project with server-rendered templates, plain CSS and JavaScript. A little htmx keeps search responsive.</p>
         <ul class="readme-stack" aria-label="Technology stack">
           <li><span class="badge">Python</span></li><li><span class="badge">Django</span></li><li><span class="badge">htmx</span></li><li><span class="badge">PostgreSQL</span></li><li><span class="badge">SQLite</span></li>
@@ -142,7 +146,10 @@
       </section>
 
       <section class="card" id="demo" aria-labelledby="demo-title">
-        <div class="card-head"><h2 id="demo-title">Take a seat at the table</h2><span class="badge badge-active">Live demo</span></div>
+        <div class="card-head">
+          <h2 id="demo-title">Take a seat at the table</h2>
+          <span class="badge badge-active">Live demo</span>
+        </div>
         <p>Explore ready-made campaigns, characters and notes as both a game master and a player.</p>
         <dl class="readme-credentials">
           <div><dt>Username</dt><dd><code>demo</code></dd></div>
@@ -159,18 +166,18 @@
           <li>Open a character sheet and try the d20 roller.</li>
         </ol>
         <p class="muted">The free server sleeps between visits. The first page may take about a minute to open.</p>
-        <a class="btn btn-primary" href="https://d20-f3y6.onrender.com/">Open the live demo</a>
+        <a class="btn btn-primary" href="{% url 'd20:index' %}">Open the live demo</a>
       </section>
     </div>
 
     <section class="card readme-section" id="preview" aria-labelledby="preview-title">
       <div class="card-head">
         <h2 id="preview-title">Your party. Your plans. All in one place.</h2>
-        <a href="home.webp" target="_blank" rel="noopener">Full screenshot</a>
+        <a href="{% static 'd20/img/home.webp' %}" target="_blank" rel="noopener">Full screenshot</a>
       </div>
       <figure class="readme-image">
-        <a href="home.webp" target="_blank" rel="noopener" aria-label="Open the dashboard screenshot in a new tab">
-          <img src="home.webp" alt="A d20 dashboard with the next game session, upcoming sessions, campaigns and a character sheet link, shown in the dark theme." width="1460" height="924" loading="lazy">
+        <a href="{% static 'd20/img/home.webp' %}" target="_blank" rel="noopener" aria-label="Open the dashboard screenshot in a new tab">
+          <img src="{% static 'd20/img/home.webp' %}" alt="A d20 dashboard with the next game session, upcoming sessions, campaigns and a character sheet link, shown in the dark theme." width="1460" height="924" loading="lazy">
         </a>
         <figcaption>A look inside the campaign table. Search as you type, switch between light and dark themes, and keep your next session in view.</figcaption>
       </figure>
@@ -179,31 +186,13 @@
 
   <footer class="site-footer readme-footer">
     <div class="container">
-      <img src="../d20/static/d20/img/favicon.png" alt="" width="22" height="22">
+      <img src="{% static 'd20/img/favicon.png' %}" alt="" width="22" height="22">
       <span>d20: a shared table for your next adventure.</span>
       <span>Made by <a href="https://github.com/kateryna-che">Kateryna Cherepanova</a></span>
     </div>
   </footer>
 
-  <dialog class="dice-dialog" id="dice-dialog" aria-labelledby="dice-title" data-face-src="../d20/static/d20/img/dice/20.webp">
-    <p class="eyebrow" id="dice-title">d20 roll</p>
-    <div class="dice-table">
-      <div class="dice-stage">
-        <video muted playsinline preload="none" aria-hidden="true"><source src="../d20/static/d20/video/dice-roll.webm" type="video/webm"><source src="../d20/static/d20/video/dice-roll.mp4" type="video/mp4"></video>
-        <img class="dice-face" alt="" width="168" height="168">
-      </div>
-      <div class="dice-stage" hidden>
-        <video muted playsinline preload="none" aria-hidden="true"><source src="../d20/static/d20/video/dice-roll.webm" type="video/webm"><source src="../d20/static/d20/video/dice-roll.mp4" type="video/mp4"></video>
-        <img class="dice-face" alt="" width="168" height="168">
-      </div>
-    </div>
-    <p class="dice-result" role="status"></p>
-    <p class="dice-detail"></p>
-    <div class="form-actions"><button type="button" class="btn btn-primary" data-dice-again>Roll again</button><button type="button" class="btn btn-ghost" data-dice-close>Close</button></div>
-    <div class="dice-modes" role="group" aria-label="Roll two dice"><button type="button" class="btn btn-small" data-dice-again="advantage">With advantage</button><button type="button" class="btn btn-small" data-dice-again="disadvantage">With disadvantage</button></div>
-    <ol class="dice-history" aria-label="Earlier rolls" hidden></ol>
-  </dialog>
-  <script src="../d20/static/d20/js/dice.js" defer></script>
+  {% include "d20/includes/dice.html" %}
   <script>
     (function () {
       "use strict";
