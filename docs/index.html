@@ -76,7 +76,7 @@
         <p class="masthead-lead">A shared home for your tabletop campaigns. Plan the next session, keep your characters close, and bring your party together.</p>
         <div class="actions">
           <a class="btn btn-gold" href="https://d20-f3y6.onrender.com/">Open d20</a>
-          <a class="btn btn-light" href="https://github.com/kateryna-che/d20">Explore the code</a>
+          <a class="btn btn-light" href="https://github.com/kateryna-che/d20#readme">Read the documentation</a>
           <button type="button" class="btn btn-light" data-roll hidden>Roll a d20</button>
         </div>
       </div>
@@ -121,20 +121,25 @@
       </ul>
     </section>
 
-    <section class="card readme-section" id="preview" aria-labelledby="preview-title">
-      <div class="card-head">
-        <h2 id="preview-title">Your party. Your plans. All in one place.</h2>
-        <a href="home.webp" target="_blank" rel="noopener">Full screenshot</a>
-      </div>
-      <figure class="readme-image">
-        <a href="home.webp" target="_blank" rel="noopener" aria-label="Open the dashboard screenshot in a new tab">
-          <img src="home.webp" alt="A d20 dashboard with the next game session, upcoming sessions, campaigns and a character sheet link, shown in the dark theme." width="1460" height="924" loading="lazy">
-        </a>
-        <figcaption>A look inside the campaign table. Search as you type, switch between light and dark themes, and keep your next session in view.</figcaption>
-      </figure>
-    </section>
-
     <div class="split readme-details readme-section">
+      <section class="card" id="documentation" aria-labelledby="build-title">
+        <div class="card-head"><h2 id="build-title">Behind the table</h2><a href="https://github.com/kateryna-che/d20">Source code</a></div>
+        <p>A Django project with server-rendered templates, plain CSS and JavaScript. A little htmx keeps search responsive.</p>
+        <ul class="readme-stack" aria-label="Technology stack">
+          <li><span class="badge">Python</span></li><li><span class="badge">Django</span></li><li><span class="badge">htmx</span></li><li><span class="badge">PostgreSQL</span></li><li><span class="badge">SQLite</span></li>
+        </ul>
+        <h3>Made for a shared table</h3>
+        <ul class="list">
+          <li>Guests can browse campaigns. An account opens player details and session locations.</li>
+          <li>Campaign notes are shared with campaign members.</li>
+          <li>Local development uses SQLite; production uses PostgreSQL.</li>
+          <li>Application tests, type checking and code style checks accompany the project.</li>
+        </ul>
+        <h3>Make yourself at home in the code</h3>
+        <p class="muted">The README covers setup, demo data, tests and deployment.</p>
+        <a class="btn" href="https://github.com/kateryna-che/d20#readme">Read the documentation</a>
+      </section>
+
       <section class="card" id="demo" aria-labelledby="demo-title">
         <div class="card-head"><h2 id="demo-title">Take a seat at the table</h2><span class="badge badge-active">Live demo</span></div>
         <p>Explore ready-made campaigns, characters and notes as both a game master and a player.</p>
@@ -155,25 +160,20 @@
         <p class="muted">The free server sleeps between visits. The first page may take about a minute to open.</p>
         <a class="btn btn-primary" href="https://d20-f3y6.onrender.com/">Open the live demo</a>
       </section>
-
-      <section class="card" aria-labelledby="build-title">
-        <div class="card-head"><h2 id="build-title">Behind the table</h2><a href="https://github.com/kateryna-che/d20">Source code</a></div>
-        <p>A Django project with server-rendered templates, plain CSS and JavaScript. A little htmx keeps search responsive.</p>
-        <ul class="readme-stack" aria-label="Technology stack">
-          <li><span class="badge">Python</span></li><li><span class="badge">Django</span></li><li><span class="badge">htmx</span></li><li><span class="badge">PostgreSQL</span></li><li><span class="badge">SQLite</span></li>
-        </ul>
-        <h3>Made for a shared table</h3>
-        <ul class="list">
-          <li>Guests can browse campaigns. An account opens player details and session locations.</li>
-          <li>Campaign notes are shared with campaign members.</li>
-          <li>Local development uses SQLite; production uses PostgreSQL.</li>
-          <li>Application tests, type checking and code style checks accompany the project.</li>
-        </ul>
-        <h3>Make yourself at home in the code</h3>
-        <p class="muted">The README covers setup, demo data, tests and deployment.</p>
-        <a class="btn" href="https://github.com/kateryna-che/d20#readme">Read the documentation</a>
-      </section>
     </div>
+
+    <section class="card readme-section" id="preview" aria-labelledby="preview-title">
+      <div class="card-head">
+        <h2 id="preview-title">Your party. Your plans. All in one place.</h2>
+        <a href="home.webp" target="_blank" rel="noopener">Full screenshot</a>
+      </div>
+      <figure class="readme-image">
+        <a href="home.webp" target="_blank" rel="noopener" aria-label="Open the dashboard screenshot in a new tab">
+          <img src="home.webp" alt="A d20 dashboard with the next game session, upcoming sessions, campaigns and a character sheet link, shown in the dark theme." width="1460" height="924" loading="lazy">
+        </a>
+        <figcaption>A look inside the campaign table. Search as you type, switch between light and dark themes, and keep your next session in view.</figcaption>
+      </figure>
+    </section>
   </main>
 
   <footer class="site-footer readme-footer">
