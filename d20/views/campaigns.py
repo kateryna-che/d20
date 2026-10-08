@@ -43,6 +43,11 @@ class CampaignListView(SearchMixin, generic.ListView):
     search_placeholder = "Campaign title…"
 
     def get_queryset(self) -> QuerySet[Campaign]:
+        """Add the upcoming sessions to every campaign of the list.
+
+        For a logged-in user a campaign also says in "is_player" whether
+        the user plays in it.
+        """
         upcoming_sessions = GameSession.objects.filter(
             status=GameSession.Status.SCHEDULED, scheduled_at__gte=timezone.now()
         ).order_by("scheduled_at")
@@ -78,6 +83,10 @@ class CampaignDetailView(generic.DetailView):
     )
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        """Tell the template who the visitor is in the campaign.
+
+        The notes are added only for the game master and the players.
+        """
         context = super().get_context_data(**kwargs)
         context["is_game_master"] = self.object.game_master_id == self.request.user.pk
         context["is_player"] = any(
@@ -143,12 +152,15 @@ class CampaignDetailView(generic.DetailView):
 class CampaignCreateView(
     LoginRequiredMixin, ReturnUrlMixin, SuccessMessageMixin, generic.CreateView
 ):
+    """A logged-in user starts a campaign and becomes its game master."""
+
     model = Campaign
     form_class = CampaignForm
     success_url = reverse_lazy("d20:campaign-list")
     success_message = "The campaign was created. You are its game master."
 
     def form_valid(self, form: ModelForm) -> HttpResponse:
+        """Make the user the game master of the new campaign."""
         form.instance.game_master = self.request.user
         return super().form_valid(form)
 
@@ -156,12 +168,16 @@ class CampaignCreateView(
 class CampaignUpdateView(
     OwnerRequiredMixin, ReturnUrlMixin, SuccessMessageMixin, generic.UpdateView
 ):
+    """The game master edits the campaign."""
+
     model = Campaign
     form_class = CampaignForm
     success_message = "The campaign was updated."
 
 
 class CampaignDeleteView(OwnerRequiredMixin, SuccessMessageMixin, generic.DeleteView):
+    """The game master deletes the campaign with its sessions and notes."""
+
     model = Campaign
     success_url = reverse_lazy("d20:campaign-list")
     success_message = "The campaign was deleted."
@@ -175,9 +191,14 @@ class CampaignMembershipView(LoginRequiredMixin, generic.View):
     """
 
     def get(self, request: AuthenticatedHttpRequest, pk: int) -> HttpResponse:
+        """Lead to the campaign page: only its form changes the membership."""
         return redirect("d20:campaign-detail", pk=pk)
 
     def post(self, request: AuthenticatedHttpRequest, pk: int) -> HttpResponse:
+        """Join or leave; a repeated action changes nothing.
+
+        An unknown action gets 400, a campaign closed to the action gets 404.
+        """
         action = request.POST.get("action")
         if action not in ("join", "leave"):
             return HttpResponseBadRequest("Invalid membership action.")

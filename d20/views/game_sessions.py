@@ -41,6 +41,8 @@ class GameSessionListView(LoginRequiredMixin, SearchMixin, generic.ListView):
 
 
 class GameSessionDetailView(LoginRequiredMixin, generic.DetailView):
+    """The page of a session: any logged-in user may read it."""
+
     request: AuthenticatedHttpRequest
     queryset = GameSession.objects.select_related(
         "campaign__game_master"
@@ -50,6 +52,11 @@ class GameSessionDetailView(LoginRequiredMixin, generic.DetailView):
     )
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        """Tell the template who the visitor is in the session.
+
+        "confirmed_participations" are the answers of the players who come
+        and have chosen a character.
+        """
         context = super().get_context_data(**kwargs)
         my_participation = next(
             (
@@ -96,12 +103,15 @@ class GameSessionCreateView(
     success_message = "The session was planned."
 
     def get_campaigns(self) -> QuerySet[Campaign]:
+        """Campaigns that the user runs."""
         return Campaign.objects.filter(game_master=self.request.user)
 
 
 class GameSessionUpdateView(
     OwnerRequiredMixin, ReturnUrlMixin, SuccessMessageMixin, generic.UpdateView
 ):
+    """The game master of the campaign edits the session."""
+
     model = GameSession
     form_class = GameSessionForm
     owner_field = "campaign__game_master"
@@ -111,6 +121,8 @@ class GameSessionUpdateView(
 class GameSessionDeleteView(
     OwnerRequiredMixin, SuccessMessageMixin, generic.DeleteView
 ):
+    """The game master of the campaign deletes the session with its answers."""
+
     model = GameSession
     owner_field = "campaign__game_master"
     success_url = reverse_lazy("d20:session-list")
@@ -119,14 +131,15 @@ class GameSessionDeleteView(
 
 class GameSessionRespondView(LoginRequiredMixin, generic.View):
     """Save the answer of a campaign player: confirmed or declined.
-
     Only a scheduled session accepts answers.
     """
 
     def get(self, request: AuthenticatedHttpRequest, pk: int) -> HttpResponse:
+        """Lead to the session page: only its form saves an answer."""
         return redirect("d20:session-detail", pk=pk)
 
     def post(self, request: AuthenticatedHttpRequest, pk: int) -> HttpResponse:
+        """Save the first answer of the player or replace the earlier one."""
         game_session = get_object_or_404(
             GameSession, pk=pk, status=GameSession.Status.SCHEDULED
         )

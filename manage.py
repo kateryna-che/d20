@@ -4,6 +4,7 @@ import sys
 
 
 def main() -> None:
+    """Run administrative tasks with the development settings by default."""
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "d20_dev.settings.dev")
     try:
         from django.core.management import execute_from_command_line

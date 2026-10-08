@@ -15,12 +15,16 @@ from d20.models import (
 
 
 class RegistrationForm(UserCreationForm):
+    """A new account: the name and the email next to the username and password."""
+
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
         fields = (*UserCreationForm.Meta.fields, "first_name", "last_name", "email")
 
 
 class ProfileForm(forms.ModelForm):
+    """The name, the email and the bio that a user keeps in the profile."""
+
     class Meta:
         model = get_user_model()
         fields = ("first_name", "last_name", "email", "bio")
@@ -31,6 +35,8 @@ class ProfileForm(forms.ModelForm):
 
 
 class CampaignForm(forms.ModelForm):
+    """Create or update a campaign's details."""
+
     class Meta:
         model = Campaign
         fields = ("title", "description", "status")
@@ -38,19 +44,22 @@ class CampaignForm(forms.ModelForm):
 
 
 class MembershipForm(forms.ModelForm):
-    """A player chooses one of the own characters for the campaign."""
+    """Let a player choose one of their own characters for the campaign."""
 
     class Meta:
         model = CampaignMembership
         fields = ("character",)
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
+        """Offer only characters owned by the campaign player."""
         super().__init__(*args, **kwargs)
         character_field = cast(forms.ModelChoiceField, self.fields["character"])
         character_field.queryset = Character.objects.filter(owner=self.instance.player)
 
 
 class CharacterForm(forms.ModelForm):
+    """Edit a character's stats, equipment and background."""
+
     class Meta:
         model = Character
         fields = (
@@ -78,6 +87,8 @@ class CharacterForm(forms.ModelForm):
 
 
 class GameSessionForm(forms.ModelForm):
+    """Plan a session or update its status and summary."""
+
     class Meta:
         model = GameSession
         fields = (
@@ -98,18 +109,24 @@ class GameSessionForm(forms.ModelForm):
 
 
 class PreparationNoteForm(forms.ModelForm):
+    """Add or edit a note shared with the campaign."""
+
     class Meta:
         model = PreparationNote
         fields = ("title", "kind", "content")
 
 
 class ParticipationForm(forms.ModelForm):
+    """The answer of a player to a game session: confirmed or declined."""
+
     class Meta:
         model = SessionParticipation
         fields = ("attendance_status",)
 
 
 class SearchForm(forms.Form):
+    """The search field of a list page."""
+
     search = forms.CharField(
         max_length=255,
         required=False,
@@ -117,5 +134,6 @@ class SearchForm(forms.Form):
     )
 
     def __init__(self, *args: Any, placeholder: str = "Search", **kwargs: Any) -> None:
+        """Set the search placeholder for this list."""
         super().__init__(*args, **kwargs)
         self.fields["search"].widget.attrs["placeholder"] = placeholder

@@ -19,6 +19,13 @@ class IndexView(LoginRequiredMixin, generic.TemplateView):
     template_name = "d20/index.html"
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        """Campaigns, characters and sessions of the user with their counters.
+
+        A scheduled session stays among the upcoming ones for
+        SESSION_START_GRACE after its start, so the page still shows the
+        game that is going on. The unanswered sessions are the future ones
+        that the user plays in and has not answered yet.
+        """
         context = super().get_context_data(**kwargs)
         user = self.request.user
         now = timezone.now()

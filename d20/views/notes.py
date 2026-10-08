@@ -40,9 +40,11 @@ class PreparationNoteCreateView(
     success_message = "The note was added."
 
     def get_campaigns(self) -> QuerySet[Campaign]:
+        """Campaigns that the user runs or plays in."""
         return Campaign.objects.for_user(self.request.user)
 
     def form_valid(self, form: ModelForm) -> HttpResponse:
+        """Make the user the author of the new note."""
         form.instance.author = self.request.user
         return super().form_valid(form)
 
@@ -85,4 +87,5 @@ class PreparationNoteDeleteView(
         )
 
     def get_success_url(self) -> str:
+        """Return to the campaign: the page of the note is gone."""
         return self.object.campaign.get_absolute_url()

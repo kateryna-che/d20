@@ -9,6 +9,8 @@ from django.urls import reverse
 
 
 class User(AbstractUser):
+    """A person at the table: a game master, a player or both at once."""
+
     bio = models.TextField(blank=True)
 
     class Meta:
@@ -22,10 +24,13 @@ class User(AbstractUser):
 
     @property
     def display_name(self) -> str:
+        """The full name, or the username when the names are not filled in."""
         return self.get_full_name() or self.username
 
 
 class Character(models.Model):
+    """The character sheet of a player."""
+
     class CharacterClass(models.TextChoices):
         ARTIFICER = "artificer", "Artificer"
         BARBARIAN = "barbarian", "Barbarian"
@@ -145,6 +150,8 @@ class Character(models.Model):
 
 
 class CampaignQuerySet(models.QuerySet):
+    """The queries of the campaigns that several views share."""
+
     def for_user(self, user: User) -> Self:
         """Campaigns that the user runs or plays in."""
         return self.filter(
@@ -153,6 +160,8 @@ class CampaignQuerySet(models.QuerySet):
 
 
 class Campaign(models.Model):
+    """A game that one game master runs for a party of players."""
+
     class Status(models.TextChoices):
         PLANNING = "planning", "Planning"
         ACTIVE = "active", "Active"
@@ -220,6 +229,11 @@ class CampaignMembership(models.Model):
         return reverse("d20:campaign-detail", kwargs={"pk": self.campaign_id})
 
     def clean(self) -> None:
+        """Reject the game master as a player and a character of another user.
+
+        A relation that is not filled in or points to a missing row is left
+        to the validation of its own field.
+        """
         super().clean()
         if self.player_id is None:
             return
@@ -247,6 +261,8 @@ class CampaignMembership(models.Model):
 
 
 class GameSession(models.Model):
+    """One meeting of a campaign: its time and place, agenda and summary."""
+
     class Status(models.TextChoices):
         SCHEDULED = "scheduled", "Scheduled"
         COMPLETED = "completed", "Completed"
@@ -281,6 +297,7 @@ class GameSession(models.Model):
 
     @property
     def location_is_link(self) -> bool:
+        """Whether the place is a web address: the templates show it as a link."""
         return self.play_location.startswith(("http://", "https://"))
 
 
@@ -315,6 +332,11 @@ class SessionParticipation(models.Model):
         return f"{self.membership.player} at {self.game_session}"
 
     def clean(self) -> None:
+        """Accept the answer only from a player of the session's campaign.
+
+        A relation that is not filled in or points to a missing row is left
+        to the validation of its own field.
+        """
         super().clean()
         if self.game_session_id is None or self.membership_id is None:
             return
@@ -332,6 +354,8 @@ class SessionParticipation(models.Model):
 
 
 class PreparationNote(models.Model):
+    """A note of a campaign that only its game master and players read."""
+
     class Kind(models.TextChoices):
         GENERAL = "general", "General"
         NPC = "npc", "NPC"
