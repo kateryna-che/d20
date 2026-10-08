@@ -4,6 +4,10 @@ A campaign table for tabletop role-playing groups. The game master runs
 campaigns and plans game sessions; the players keep their character sheets,
 answer the invitations and share notes with the table.
 
+A [one-page HTML overview](docs/index.html) presents the project using the
+site's styles. To view it, open `docs/index.html` in your browser from a
+local checkout.
+
 ![The home page of d20 in the dark theme](docs/home.webp)
 
 The site is live at https://d20-f3y6.onrender.com/. The server is free and
