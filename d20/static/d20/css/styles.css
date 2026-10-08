@@ -1516,8 +1516,14 @@ main > .page-title > h1 {
   --icon: url("../img/icons/bow.png");
 }
 
-.weapon-bard,
-.weapon-monk,
+.weapon-bard {
+  --icon: url("../img/icons/lute.png");
+}
+
+.weapon-monk {
+  --icon: url("../img/icons/staff.png");
+}
+
 .weapon-rogue {
   --icon: url("../img/icons/dagger.png");
 }
