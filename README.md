@@ -324,9 +324,3 @@ framework and no build step.
 ## Authors
 
 - **Kateryna Cherepanova** - [kateryna-che](https://github.com/kateryna-che)
-
-## Acknowledgments
-
-- The structure of this README follows the
-  [README template](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-  of Billie Thompson.
