@@ -5,8 +5,7 @@ campaigns and plans game sessions; the players keep their character sheets,
 answer the invitations and share notes with the table.
 
 A [one-page HTML overview](https://d20-f3y6.onrender.com/about/) presents the
-project using the site's styles. It is served by Django at `/about/` and
-included in the same deployment as the application.
+project. It is served by Django at `/about/`
 
 ![The home page of d20 in the dark theme](d20/static/d20/img/home.webp)
 
