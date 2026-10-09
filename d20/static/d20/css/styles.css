@@ -1,0 +1,3252 @@
+/* d20: lilac paper, ink and gold. No external fonts. */
+
+:root {
+  --ink: #35223f;
+  --ink-soft: #4d375c;
+  /* The ink of the night theme. Shadows and veils take it in both themes. */
+  --night: #241629;
+  --page: #f3eef4;
+  --page-deep: #e7dceb;
+  --paper: #fbf7fa;
+  --field: #fffcfe;
+  --line: #e4d9e7;
+  --line-strong: #c5b6cc;
+  --gold: #c9a24b;
+  --gold-light: #f1d58f;
+  --gold-deep: #8a661c;
+  --crimson: #98345a;
+  --crimson-deep: #7a2647;
+  --text: #40354a;
+  --muted: #74687d;
+  --heading: var(--ink);
+  --accent: var(--crimson);
+  --accent-strong: var(--crimson-deep);
+  /* Text on the dark header, the masthead and other ink fills; headings
+     are brighter. */
+  --on-dark: #f3e7cf;
+  --on-dark-strong: #fff8e6;
+  /* A light wash over the ink fills: panels and hovered controls. */
+  --cream: #fdf8ec;
+  --frame: var(--ink);
+  --green: #2f6b4a;
+  --blue: #2f5d8a;
+  --violet: #6a4592;
+  --amber: #a5651b;
+  --grey: #63605c;
+  /* Facets of the die in img/d20.webp. */
+  --rose: #ef86a6;
+  --orchid: #c77fc4;
+  --iris: #8e72c4;
+  --radius: 14px;
+  --radius-small: 9px;
+  /* The sizes of small text: secondary lines, hints under fields, uppercase
+     labels and the labels of narrow tiles. */
+  --text-small: 0.93rem;
+  --text-hint: 0.875rem;
+  --text-label: 0.75rem;
+  --text-tiny: 0.64rem;
+  --shadow:
+    0 1px 2px color-mix(in srgb, var(--ink-soft) 5%, transparent),
+    0 14px 30px -20px color-mix(in srgb, var(--ink-soft) 40%, transparent);
+  --shadow-lift:
+    0 1px 2px color-mix(in srgb, var(--ink-soft) 6%, transparent),
+    0 22px 34px -20px color-mix(in srgb, var(--ink-soft) 50%, transparent);
+  --serif:
+    "Palatino Linotype", "Book Antiqua", Palatino, "Iowan Old Style",
+    "URW Palladio L", P052, Georgia, serif;
+  --sans: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  /* Paper grain: plum noise with a low alpha. */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .2 0 0 0 0 .4 0 0 0 .1 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* Outline of a twenty-sided die, used as a mask. */
+  --die-outline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 112' fill='none' stroke='%23000' stroke-width='4' stroke-linejoin='round'%3E%3Cpath d='M50 3 96 29v54L50 109 4 83V29z'/%3E%3Cpath d='M50 27 80 78H20z'/%3E%3Cpath d='M50 3v24M4 29l46-2 46 2M4 29l16 49M96 29 80 78M4 83l16-5 30 31 30-31 16 5'/%3E%3C/svg%3E");
+  --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none' stroke='%2374687d' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m1 1.5 5 5 5-5'/%3E%3C/svg%3E");
+  --hex: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  --glow-warm: color-mix(in srgb, var(--rose) 14%, transparent);
+  --glow-wine: color-mix(in srgb, var(--iris) 13%, transparent);
+  /* How far a badge colour is lifted towards white. */
+  --lift: 0%;
+  color-scheme: light;
+}
+
+/* The tavern at night. js/theme.js sets data-theme; print stays light. */
+@media screen {
+  :root[data-theme="dark"] {
+    --ink: var(--night);
+    --ink-soft: #3b2644;
+    --crimson: #8b2040;
+    --crimson-deep: #68152e;
+    --page: #1d1322;
+    --page-deep: #3a2942;
+    --paper: #281b2e;
+    --field: #1f1525;
+    --line: #45324d;
+    --line-strong: #6a5273;
+    --gold-deep: #dcb968;
+    --text: #e8dcc6;
+    --muted: #b0a08f;
+    --heading: #f7ecd6;
+    --accent: #f39ab4;
+    --accent-strong: #ffc2d3;
+    --frame: #a98e58;
+    --shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 12px 24px -16px rgba(0, 0, 0, 0.9);
+    --shadow-lift:
+      0 1px 0 rgba(0, 0, 0, 0.3),
+      0 20px 30px -18px rgba(0, 0, 0, 1);
+    --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none' stroke='%23b0a08f' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m1 1.5 5 5 5-5'/%3E%3C/svg%3E");
+    --glow-warm: color-mix(in srgb, var(--gold) 13%, transparent);
+    --glow-wine: color-mix(in srgb, var(--orchid) 10%, transparent);
+    --lift: 58%;
+    color-scheme: dark;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Many elements here set "display", which would show a hidden one. */
+[hidden] {
+  display: none !important;
+}
+
+section[id] {
+  scroll-margin-top: 64px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  background-color: var(--page);
+  background-image:
+    var(--grain),
+    radial-gradient(circle at 12% 0%, var(--glow-warm), transparent 42%),
+    radial-gradient(circle at 100% 30%, var(--glow-wine), transparent 45%);
+  background-attachment: scroll, fixed, fixed;
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0 0 0.5em;
+  font-family: var(--serif);
+  line-height: 1.2;
+  color: var(--heading);
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(1.75rem, 4vw, 2.4rem);
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  font-size: 1.3rem;
+}
+
+h3 {
+  font-size: 1.05rem;
+}
+
+p {
+  margin: 0 0 0.9em;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  transition: color 0.15s, text-decoration-color 0.15s;
+}
+
+a:hover {
+  color: var(--accent-strong);
+  text-decoration-color: currentColor;
+}
+
+:focus-visible {
+  outline: 3px solid var(--gold-deep);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--gold) 45%, transparent);
+}
+
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+main.container {
+  flex: 1;
+  padding-top: 28px;
+  padding-bottom: 56px;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  font-size: var(--text-label);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+/* Header and navigation */
+
+.site-header {
+  border-bottom: 3px solid var(--gold);
+  background: linear-gradient(180deg, var(--ink-soft), var(--ink));
+  color: var(--on-dark);
+}
+
+.site-header :focus-visible,
+.masthead :focus-visible {
+  outline-color: var(--gold-light);
+}
+
+.header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 24px;
+  min-height: 62px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  font-family: var(--serif);
+  font-size: 1.65rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.brand:hover {
+  color: var(--gold-light);
+}
+
+.brand img {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.4s ease;
+}
+
+.brand:hover img {
+  transform: rotate(60deg);
+}
+
+.nav-toggle {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.nav-toggle-label {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid color-mix(in srgb, var(--gold) 60%, transparent);
+  border-radius: var(--radius-small);
+  color: var(--on-dark);
+  cursor: pointer;
+  user-select: none;
+}
+
+.nav-toggle:focus-visible + .nav-toggle-label {
+  outline: 3px solid var(--gold-light);
+  outline-offset: 2px;
+}
+
+.site-nav {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-links,
+.nav-user {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-user {
+  margin-left: auto;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: var(--radius-small);
+  color: var(--on-dark);
+  text-decoration: none;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.nav-link:hover {
+  background: color-mix(in srgb, var(--cream) 10%, transparent);
+  color: #fff;
+}
+
+.nav-link.active {
+  background: color-mix(in srgb, var(--gold) 18%, transparent);
+  box-shadow: inset 0 -2px 0 var(--gold);
+  color: var(--gold-light);
+}
+
+.tab-icon {
+  display: none;
+}
+
+/* A long name is cut short instead of pushing the header to a second row. */
+.nav-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (min-width: 861px) {
+  /* The menu button belongs to small screens. Its checkbox is invisible,
+     but without this it would still take the keyboard focus. */
+  .nav-toggle {
+    display: none;
+  }
+
+  .nav-user a .nav-label {
+    max-width: 16ch;
+  }
+}
+
+/* Between the phone menu and a wide window the header keeps the icons:
+   the labels stay for screen readers. */
+@media (min-width: 861px) and (max-width: 1000px) {
+  .nav-user .nav-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    clip-path: inset(50%);
+  }
+}
+
+button.nav-link {
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.nav-link img {
+  width: 20px;
+  height: 20px;
+}
+
+.theme-toggle {
+  order: 2;
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--gold) 50%, transparent);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--gold-light);
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.theme-toggle:hover {
+  border-color: var(--gold);
+  background: color-mix(in srgb, var(--cream) 12%, transparent);
+}
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* The icon shows the theme the button switches to. */
+.theme-toggle .icon-sun,
+:root[data-theme="dark"] .theme-toggle .icon-moon {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-toggle .icon-sun {
+  display: block;
+}
+
+/* Footer */
+
+.site-footer {
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+  font-size: var(--text-small);
+  color: var(--muted);
+}
+
+.site-footer .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.site-footer img {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  opacity: 0.85;
+}
+
+/* People are round, characters are die-shaped tokens. */
+
+.avatar,
+.token {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: var(--size);
+  font-weight: 700;
+  line-height: 1;
+  user-select: none;
+}
+
+.avatar {
+  --size: 34px;
+  height: var(--size);
+  border-radius: 50%;
+  background: linear-gradient(
+    140deg,
+    var(--rose),
+    var(--orchid) 55%,
+    var(--iris)
+  );
+  font-size: calc(var(--size) * 0.44);
+  color: var(--ink);
+}
+
+.token {
+  --size: 36px;
+  --tone: var(--ink);
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: 1 / 1.1547;
+  clip-path: var(--hex);
+  background: var(--gold);
+  font-family: var(--serif);
+  font-size: calc(var(--size) * 0.46);
+  color: var(--gold-light);
+}
+
+.token::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  z-index: -1;
+  clip-path: var(--hex);
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--tone), white 16%),
+    var(--tone)
+  );
+}
+
+.avatar-small,
+.token-small {
+  --size: 26px;
+}
+
+.avatar-large,
+.token-large {
+  --size: 64px;
+}
+
+.token-large::before {
+  inset: 3px;
+}
+
+/* The token takes the colour of the class; without one it stays ink. */
+
+.token-artificer {
+  --tone: #8a5226;
+}
+
+.token-barbarian {
+  --tone: #8f3a1f;
+}
+
+.token-bard {
+  --tone: #93307c;
+}
+
+.token-cleric {
+  --tone: #5a6475;
+}
+
+.token-druid {
+  --tone: #5c6b24;
+}
+
+.token-fighter {
+  --tone: #7d2233;
+}
+
+.token-monk {
+  --tone: #1f6f78;
+}
+
+.token-paladin {
+  --tone: #8a6d1a;
+}
+
+.token-ranger {
+  --tone: #2f6b45;
+}
+
+.token-rogue {
+  --tone: #3a3a44;
+}
+
+.token-sorcerer {
+  --tone: #a1304f;
+}
+
+.token-warlock {
+  --tone: #5b3a93;
+}
+
+.token-wizard {
+  --tone: #2c5a94;
+}
+
+/* Masthead of the home page */
+
+body:has(.masthead) .site-header {
+  border-bottom: 1px solid color-mix(in srgb, var(--gold) 30%, transparent);
+}
+
+.masthead {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 3px solid var(--gold);
+  background:
+    radial-gradient(
+      60% 130% at 88% 45%,
+      color-mix(in srgb, var(--orchid) 30%, transparent),
+      transparent 62%
+    ),
+    linear-gradient(180deg, var(--ink), var(--ink-soft));
+  color: var(--on-dark);
+}
+
+.masthead-inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 24px 40px;
+  padding-top: 34px;
+  padding-bottom: 28px;
+}
+
+.masthead .eyebrow {
+  color: var(--gold);
+}
+
+.masthead h1 {
+  margin-bottom: 8px;
+  color: var(--on-dark-strong);
+}
+
+.masthead-lead {
+  max-width: 62ch;
+  margin-bottom: 20px;
+  color: color-mix(in srgb, var(--on-dark) 82%, transparent);
+}
+
+/* A die that rolls on click: the button has no look of its own. */
+.die-button {
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+}
+
+.die-button img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.die-button:hover img {
+  transform: rotate(24deg) scale(1.05);
+}
+
+.masthead-die {
+  width: 190px;
+  margin: -10px 8px -10px 0;
+  filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.5));
+  transform: rotate(-8deg);
+}
+
+.next-session {
+  position: relative;
+  width: 400px;
+  max-width: 100%;
+  padding: 18px 20px;
+  border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--cream) 7%, transparent);
+  box-shadow: 0 18px 30px -20px rgba(0, 0, 0, 0.7);
+}
+
+.next-session .eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 10px;
+  margin-bottom: 12px;
+  padding-right: 64px;
+}
+
+.next-session-in {
+  color: color-mix(in srgb, var(--on-dark) 78%, transparent);
+}
+
+.next-session-title {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--on-dark-strong);
+  text-decoration: none;
+}
+
+.next-session-title:hover {
+  color: var(--gold-light);
+}
+
+.next-session .meta {
+  margin-top: 4px;
+  color: color-mix(in srgb, var(--on-dark) 80%, transparent);
+}
+
+.next-session .meta a {
+  color: var(--gold-light);
+}
+
+.next-session-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid color-mix(in srgb, var(--gold) 30%, transparent);
+}
+
+.next-session-die {
+  position: absolute;
+  top: -30px;
+  right: -12px;
+  width: 84px;
+  filter: drop-shadow(0 10px 12px rgba(0, 0, 0, 0.5));
+  transform: rotate(12deg);
+}
+
+.counters {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.counter {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 12px 16px;
+  border: 1px solid color-mix(in srgb, var(--gold) 35%, transparent);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--cream) 6%, transparent);
+  color: var(--on-dark);
+  text-decoration: none;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.counter::after {
+  content: "\2192";
+  margin-left: auto;
+  opacity: 0.6;
+  color: var(--gold);
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.counter:hover {
+  border-color: var(--gold);
+  background: color-mix(in srgb, var(--cream) 12%, transparent);
+  color: #fff;
+}
+
+.counter:hover::after {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
+.counter-number {
+  font-family: var(--serif);
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: lining-nums;
+  color: var(--gold-light);
+}
+
+.counter-label {
+  font-size: var(--text-small);
+}
+
+/* Petals by day, fireflies by night: a decoration behind the text. */
+
+.drift {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.drift i {
+  position: absolute;
+  top: 0;
+  /* Room on the right for the drift of a falling petal. */
+  left: min(var(--x), calc(100% - 70px));
+  width: var(--size);
+  height: var(--size);
+  background: var(--petal) center / contain no-repeat;
+  animation: petal-fall var(--time) linear var(--delay) infinite;
+}
+
+.drift i:nth-child(1) {
+  --x: 5%;
+  --y: 20%;
+  --size: 18px;
+  --time: 21s;
+  --delay: -2s;
+  --petal: url("../img/drift/petal-1.png");
+  --firefly: url("../img/drift/firefly-1.png");
+}
+
+.drift i:nth-child(2) {
+  --x: 23%;
+  --y: 66%;
+  --size: 14px;
+  --time: 17s;
+  --delay: -9s;
+  --petal: url("../img/drift/petal-2.png");
+  --firefly: url("../img/drift/firefly-2.png");
+}
+
+.drift i:nth-child(3) {
+  --x: 42%;
+  --y: 32%;
+  --size: 20px;
+  --time: 24s;
+  --delay: -15s;
+  --petal: url("../img/drift/petal-3.png");
+  --firefly: url("../img/drift/firefly-1.png");
+}
+
+.drift i:nth-child(4) {
+  --x: 60%;
+  --y: 78%;
+  --size: 15px;
+  --time: 19s;
+  --delay: -6s;
+  --petal: url("../img/drift/petal-1.png");
+  --firefly: url("../img/drift/firefly-2.png");
+}
+
+.drift i:nth-child(5) {
+  --x: 77%;
+  --y: 14%;
+  --size: 22px;
+  --time: 26s;
+  --delay: -12s;
+  --petal: url("../img/drift/petal-2.png");
+  --firefly: url("../img/drift/firefly-1.png");
+}
+
+.drift i:nth-child(6) {
+  --x: 91%;
+  --y: 52%;
+  --size: 16px;
+  --time: 22s;
+  --delay: -18s;
+  --petal: url("../img/drift/petal-3.png");
+  --firefly: url("../img/drift/firefly-2.png");
+}
+
+:root[data-theme="dark"] .drift i {
+  top: var(--y);
+  width: 26px;
+  height: 26px;
+  background-image: var(--firefly);
+  animation: firefly-glow calc(var(--time) / 4) ease-in-out var(--delay)
+    infinite alternate;
+}
+
+/* A petal fades in under the top edge of its box and fades out above the
+   bottom one, so no edge cuts it. */
+@keyframes petal-fall {
+  from {
+    top: 0;
+    opacity: 0;
+    transform: translateX(0) rotate(0deg);
+  }
+
+  8%,
+  82% {
+    opacity: 0.9;
+  }
+
+  to {
+    top: calc(100% - 30px);
+    opacity: 0;
+    transform: translateX(40px) rotate(300deg);
+  }
+}
+
+@keyframes firefly-glow {
+  from {
+    opacity: 0.2;
+    transform: translate(0, 0) scale(0.7);
+  }
+
+  to {
+    opacity: 0.95;
+    transform: translate(16px, -20px) scale(1.05);
+  }
+}
+
+/* On the sign-in pages the petals fall beside the form, from the header
+   to the footer: a longer way, so it takes them longer. */
+
+main.container:has(> .drift) {
+  position: relative;
+}
+
+.drift-page {
+  right: 50%;
+}
+
+.drift-page i {
+  animation-duration: calc(var(--time) * 1.4);
+}
+
+/* Buttons */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-small);
+  background: var(--paper);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--night) 8%, transparent);
+  font: inherit;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--heading);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.15s,
+    color 0.15s,
+    border-color 0.15s,
+    transform 0.05s;
+}
+
+.btn:hover {
+  border-color: var(--gold-deep);
+  background: var(--page-deep);
+  color: var(--heading);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  border-color: var(--crimson-deep);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--crimson), white 12%),
+    var(--crimson)
+  );
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--gold-light) 45%, transparent),
+    0 1px 0 color-mix(in srgb, var(--night) 15%, transparent);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  border-color: var(--crimson-deep);
+  background: var(--crimson-deep);
+  color: #fff;
+}
+
+.btn-danger {
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  color: var(--accent);
+}
+
+.btn-danger:hover {
+  border-color: var(--crimson-deep);
+  background: var(--crimson);
+  color: #fff;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
+.btn-ghost:hover {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--heading) 9%, transparent);
+}
+
+.btn-light {
+  border-color: color-mix(in srgb, var(--gold) 70%, transparent);
+  background: transparent;
+  box-shadow: none;
+  color: var(--on-dark);
+}
+
+.btn-light:hover {
+  border-color: var(--gold);
+  background: color-mix(in srgb, var(--cream) 12%, transparent);
+  color: #fff;
+}
+
+.btn-gold {
+  border-color: var(--gold-deep);
+  background: linear-gradient(180deg, var(--gold-light), var(--gold));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  color: var(--ink);
+}
+
+.btn-gold:hover {
+  border-color: var(--gold-deep);
+  background: var(--gold-light);
+  color: var(--ink);
+}
+
+.btn-small {
+  padding: 5px 10px;
+  font-size: var(--text-hint);
+}
+
+/* Page head */
+
+.page-head {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px 20px;
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+}
+
+/* A rule that tapers to a point, like in a stat block. */
+.page-head::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 4px;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  background: linear-gradient(90deg, var(--crimson), var(--gold) 55%);
+}
+
+.page-head h1 {
+  margin-bottom: 6px;
+}
+
+.page-head > div:first-child {
+  flex: 1 1 320px;
+  min-width: 0;
+}
+
+.page-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.page-title > div {
+  min-width: 0;
+}
+
+/* A title that stands on its own, without a page head around it (the
+   character form): it keeps its distance from what follows, and its token
+   stays level with the single line on a phone too. */
+main > .page-title {
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+main > .page-title > h1 {
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Jumps between the sections of a long page: shown where it is one column. */
+.section-nav {
+  display: none;
+}
+
+/* The way back above a page title: links of the size of the text, led by
+   an arrow. The slashes between them keep the quiet colour. */
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 8px;
+  margin-bottom: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.breadcrumb::before {
+  content: "\2190";
+  color: var(--gold-deep);
+}
+
+.breadcrumb a {
+  color: var(--heading);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 14px;
+  margin: 0;
+  font-size: var(--text-small);
+  color: var(--muted);
+}
+
+.meta + .meta {
+  margin-top: 2px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* The numbers of a campaign under its title: each one leads to its part
+   of the page. */
+.hub-stats {
+  display: grid;
+  /* Two or three numbers: the notes are counted only for the table. */
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 12px;
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+}
+
+.hub-stats li {
+  display: flex;
+}
+
+.hub-stat {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 10px;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  box-shadow: var(--shadow);
+  font-size: var(--text-small);
+  color: var(--muted);
+  text-decoration: none;
+  transition: border-color 0.15s;
+}
+
+.hub-stat:hover {
+  border-color: var(--gold);
+  color: var(--muted);
+}
+
+.hub-stat b {
+  font-family: var(--serif);
+  font-size: 1.7rem;
+  line-height: 1;
+  font-variant-numeric: lining-nums;
+  color: var(--accent);
+}
+
+/* Cards and layout */
+
+.card {
+  min-width: 0;
+  padding: 20px 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.card > :last-child {
+  margin-bottom: 0;
+}
+
+.card > form + p {
+  margin-top: 14px;
+}
+
+.card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 12px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--text-small);
+}
+
+.card-head h2 {
+  margin: 0;
+}
+
+.card > h2:first-child {
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.card-head + h3 {
+  margin-top: 0;
+}
+
+.card h3 {
+  margin-top: 18px;
+  margin-bottom: 10px;
+  font-family: var(--sans);
+  font-size: var(--text-label);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+.card-title {
+  margin-bottom: 4px;
+  font-size: 1.2rem;
+}
+
+.card-title a {
+  color: var(--heading);
+  text-decoration: none;
+}
+
+.card-title a:hover {
+  color: var(--accent);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+/* A card that opens its title link wherever it is clicked. */
+.card-link {
+  position: relative;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+
+/* The body of a campaign card lays its lines out like the card itself. */
+.card-link,
+.campaign-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-link > *,
+.campaign-body > * {
+  margin: 0;
+}
+
+.card-link:hover {
+  border-color: var(--gold);
+  box-shadow: var(--shadow-lift);
+  transform: translateY(-2px);
+}
+
+.card-link .card-title a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.card-link a:not(.card-title a) {
+  position: relative;
+  z-index: 1;
+}
+
+.card-lead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.card-lead > div {
+  min-width: 0;
+}
+
+/* Something waits for the user here. */
+.card-attention {
+  border-color: var(--gold);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--rose) 13%, var(--paper)),
+    var(--paper) 96px
+  );
+  box-shadow: inset 0 3px 0 var(--gold), var(--shadow);
+}
+
+.card-foot {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+/* A campaign card: the party stands at its top, on felt of the colour of
+   the status. */
+
+/* Two classes: the padding of a card changes with the width of the screen. */
+.card.campaign-card {
+  /* The colour of the status takes a drop of ink: it sits next to the
+     header, and the light text on it stays readable. */
+  --felt: color-mix(in srgb, var(--tone) 75%, var(--ink));
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.campaign-planning {
+  --tone: var(--violet);
+}
+
+.campaign-active {
+  --tone: var(--green);
+}
+
+/* A completed campaign is closed: plain ink instead of a colour, a flat
+   card and a party that has lost its colours. */
+.campaign-completed {
+  --tone: var(--ink-soft);
+  background: color-mix(in srgb, var(--paper) 55%, transparent);
+  box-shadow: none;
+}
+
+.campaign-completed .party {
+  filter: grayscale(0.7);
+}
+
+/* The felt is as tall under words as under tokens, so the titles of a row
+   of cards stay level. */
+.campaign-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 64px;
+  padding: 10px 22px;
+  border-bottom: 2px solid var(--gold);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--felt), white 8%),
+    var(--felt)
+  );
+  font-size: var(--text-small);
+  color: var(--on-dark);
+}
+
+.campaign-head .badge {
+  border-color: color-mix(in srgb, var(--on-dark) 45%, transparent);
+  background: color-mix(in srgb, var(--cream) 12%, transparent);
+  color: var(--on-dark-strong);
+}
+
+/* The characters stand shoulder to shoulder. The row ends with an empty
+   strip that fades out: the characters who do not fit leave through it. */
+.party {
+  --fade: 24px;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  padding-right: var(--fade);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to left, transparent, #000 var(--fade));
+  mask-image: linear-gradient(to left, transparent, #000 var(--fade));
+}
+
+.party > * + * {
+  margin-left: -8px;
+}
+
+.campaign-body {
+  flex: 1;
+  padding: 16px 22px 20px;
+}
+
+/* The campaigns that the user runs or plays in are framed with gold. The
+   second line of the frame is an outline: it takes no room, so the titles
+   of a row stay level with the cards that have no frame. */
+.campaign-own {
+  border-color: var(--gold);
+  outline: 1px solid var(--gold);
+}
+
+.note-card {
+  border-left: 4px solid var(--kind);
+}
+
+.note-card::after {
+  content: "";
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 26px;
+  height: 26px;
+  background: color-mix(in srgb, var(--kind), white var(--lift));
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+/* The kind of a note gives it the colour and the drawing. */
+
+.note-general {
+  --kind: var(--grey);
+  --icon: url("../img/icons/hand.png");
+}
+
+.note-npc {
+  --kind: var(--violet);
+  --icon: url("../img/icons/whisper.png");
+}
+
+.note-location {
+  --kind: var(--blue);
+  --icon: url("../img/icons/eye.png");
+}
+
+.note-quest {
+  --kind: var(--amber);
+  --icon: url("../img/icons/fast.png");
+}
+
+.note-item {
+  --kind: var(--gold);
+  --icon: url("../img/icons/box.png");
+}
+
+.note-resource {
+  --kind: var(--green);
+  --icon: url("../img/icons/shine.png");
+}
+
+/* The kinds of the campaign notes above the cards: each link leaves the
+   notes of one kind, and the chosen one is gilded. */
+.kind-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.kind-filter a {
+  padding: 3px 11px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--paper);
+  font-size: var(--text-small);
+  font-weight: 600;
+  color: var(--heading);
+  text-decoration: none;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.kind-filter a:hover {
+  border-color: var(--accent);
+}
+
+.kind-filter a[aria-current] {
+  border-color: var(--gold-deep);
+  background: color-mix(in srgb, var(--gold) 28%, var(--paper));
+}
+
+.kind-filter span {
+  margin-left: 2px;
+  font-weight: 400;
+  opacity: 0.75;
+}
+
+/* One-colour drawings from img/icons, painted with the text colour. */
+
+.icon,
+.weapon {
+  background: currentColor;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
+}
+
+.icon {
+  flex: none;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* A filled sword: the thin outline disappears at this size. */
+.icon-strength {
+  --icon: url("../img/icons/strength.png");
+}
+
+.icon-dexterity {
+  --icon: url("../img/icons/fast.png");
+}
+
+.icon-constitution {
+  --icon: url("../img/icons/shield.png");
+}
+
+.icon-intelligence {
+  --icon: url("../img/icons/magic.png");
+}
+
+.icon-wisdom {
+  --icon: url("../img/icons/whisper.png");
+}
+
+.icon-charisma {
+  --icon: url("../img/icons/friendship.png");
+}
+
+/* The weapon of the class, drawn in a corner of a card. */
+.weapon {
+  position: absolute;
+  right: 16px;
+  bottom: 12px;
+  width: 104px;
+  height: 46px;
+  -webkit-mask-position: right bottom;
+  mask-position: right bottom;
+  color: color-mix(in srgb, var(--muted) 80%, transparent);
+  pointer-events: none;
+}
+
+.weapon-barbarian,
+.weapon-fighter,
+.weapon-paladin {
+  --icon: url("../img/icons/sword.png");
+}
+
+.weapon-ranger {
+  --icon: url("../img/icons/bow.png");
+}
+
+.weapon-bard {
+  --icon: url("../img/icons/lute.png");
+}
+
+.weapon-monk {
+  --icon: url("../img/icons/staff.png");
+}
+
+.weapon-rogue {
+  --icon: url("../img/icons/dagger.png");
+}
+
+.weapon-artificer,
+.weapon-cleric,
+.weapon-druid,
+.weapon-sorcerer,
+.weapon-warlock,
+.weapon-wizard {
+  --icon: url("../img/icons/wand.png");
+}
+
+.card-link:has(> .weapon):not(:has(> .card-foot)) {
+  padding-bottom: 62px;
+}
+
+.sheet-combat {
+  position: relative;
+}
+
+.sheet-combat .weapon {
+  top: 16px;
+  bottom: auto;
+  width: 110px;
+  height: 30px;
+  -webkit-mask-position: right center;
+  mask-position: right center;
+}
+
+.stack {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+  min-width: 0;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 20px;
+}
+
+.narrow {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.prose {
+  max-width: 70ch;
+  overflow-wrap: anywhere;
+}
+
+.prose p:last-child {
+  margin-bottom: 0;
+}
+
+.clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+}
+
+/* Lists */
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list > li {
+  padding: 12px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 60%, transparent);
+}
+
+.list > li:first-child {
+  padding-top: 0;
+}
+
+.list > li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 12px;
+}
+
+.row-main {
+  flex: 1 1 200px;
+  min-width: 0;
+}
+
+.row-title {
+  font-weight: 600;
+  color: var(--heading);
+  text-decoration: none;
+}
+
+.row-title:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+/* A list item led by a token or an avatar: the rest goes to the right. */
+.list > .lead {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 12px;
+}
+
+.lead > .avatar,
+.lead > .token {
+  grid-row: 1 / span 6;
+  margin-top: 2px;
+}
+
+.lead > .row-title {
+  justify-self: start;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.chips li {
+  padding: 3px 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--page);
+  font-size: var(--text-small);
+}
+
+/* Sessions: a calendar leaf next to the title */
+
+.session {
+  --leaf: 50px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.session > .row {
+  flex: 1;
+  min-width: 0;
+}
+
+.session ~ .meta {
+  margin: 6px 0 0 calc(50px + 14px);
+}
+
+/* A session row that opens its title link wherever it is clicked. */
+.session-link {
+  position: relative;
+}
+
+.session-link .row-title::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.session-link a:not(.row-title) {
+  position: relative;
+  z-index: 1;
+}
+
+.session-link:hover .row-title {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.session-link .date-tile {
+  transition: border-color 0.15s;
+}
+
+.session-link:hover .date-tile {
+  border-color: var(--gold);
+}
+
+.date-tile {
+  flex: none;
+  width: var(--leaf, 50px);
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-small);
+  background: var(--field);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--night) 8%, transparent);
+  line-height: 1.1;
+  text-align: center;
+}
+
+.date-month {
+  display: block;
+  padding: 3px 0;
+  background: var(--crimson);
+  font-size: var(--text-tiny);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.date-day {
+  display: block;
+  padding: 4px 0 6px;
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  font-variant-numeric: lining-nums;
+  color: var(--heading);
+}
+
+.date-tile-large {
+  --leaf: 70px;
+}
+
+.date-tile-large .date-month {
+  padding: 4px 0;
+  font-size: var(--text-label);
+}
+
+.date-tile-large .date-day {
+  padding: 5px 0 8px;
+  font-size: 1.95rem;
+}
+
+.date-tile-completed .date-month {
+  background: var(--ink-soft);
+}
+
+.date-tile-cancelled .date-month {
+  background: var(--grey);
+}
+
+.date-tile-cancelled .date-day {
+  color: var(--muted);
+}
+
+/* Badges */
+
+.badge {
+  --tone: var(--grey);
+  display: inline-block;
+  padding: 2px 9px;
+  border: 1px solid color-mix(in srgb, currentColor 32%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, currentColor 9%, var(--field));
+  font-size: var(--text-label);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--tone), white var(--lift));
+  white-space: nowrap;
+}
+
+.badge-active,
+.badge-scheduled,
+.badge-confirmed,
+.badge-resource {
+  --tone: var(--green);
+}
+
+.badge-planning,
+.badge-unanswered,
+.badge-location {
+  --tone: var(--blue);
+}
+
+.badge-cancelled,
+.badge-declined {
+  --tone: var(--crimson);
+}
+
+.badge-npc,
+.badge-master {
+  --tone: var(--violet);
+}
+
+.badge-quest,
+.badge-player {
+  --tone: var(--amber);
+}
+
+.badge-item {
+  --tone: var(--gold-deep);
+}
+
+/* Forms */
+
+.field {
+  margin-bottom: 16px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+  color: var(--heading);
+}
+
+.field label:has(.ability-modifier) {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ability-modifier {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-variant-numeric: lining-nums;
+  color: var(--accent);
+}
+
+.optional {
+  font-size: var(--text-hint);
+  font-weight: 400;
+  color: var(--muted);
+}
+
+input[type="text"],
+input[type="search"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="url"],
+input[type="datetime-local"],
+select,
+textarea {
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-small);
+  background-color: var(--field);
+  box-shadow: inset 0 1px 2px color-mix(in srgb, var(--night) 6%, transparent);
+  font: inherit;
+  color: var(--text);
+  transition: border-color 0.15s;
+}
+
+select {
+  padding-right: 34px;
+  background-image: var(--chevron);
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px 8px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+::placeholder {
+  opacity: 1;
+  color: color-mix(in srgb, var(--muted) 70%, transparent);
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+  border-color: var(--gold-deep);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--gold-deep);
+  outline: 3px solid color-mix(in srgb, var(--gold) 45%, transparent);
+  outline-offset: 0;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--crimson);
+}
+
+.help {
+  margin-top: 4px;
+  font-size: var(--text-hint);
+  color: var(--muted);
+}
+
+.help ul {
+  margin: 4px 0 0;
+  padding-left: 18px;
+}
+
+.errorlist {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  font-size: var(--text-small);
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.has-error input,
+.has-error select,
+.has-error textarea {
+  border-color: var(--crimson);
+  background-color: color-mix(in srgb, var(--crimson) 7%, var(--field));
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.form-section {
+  min-width: 0;
+  margin: 0 0 8px;
+  padding: 0;
+  border: 0;
+}
+
+.form-section legend {
+  width: 100%;
+  margin-bottom: 14px;
+  padding: 0 0 8px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--heading);
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0 16px;
+}
+
+.field-grid-wide {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
+}
+
+.filter {
+  flex: 2 1 240px;
+  min-width: 0;
+}
+
+.filter-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* The line of the field: a button is then as tall as the field next to it. */
+.filter-actions .btn {
+  line-height: inherit;
+}
+
+/* What the search has found: a line between the form and the list. */
+.search-summary {
+  margin: -6px 0 14px;
+  font-size: var(--text-small);
+  color: var(--muted);
+}
+
+.response-form {
+  margin-bottom: 12px;
+}
+
+/* The player's answer, right under the head of the session page. */
+.response-bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr);
+  align-items: start;
+  gap: 12px 32px;
+  margin-bottom: 20px;
+}
+
+.response-bar h2 {
+  margin-bottom: 8px;
+}
+
+.response-bar > div > :last-child {
+  margin-bottom: 0;
+}
+
+.cell-lead {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Messages */
+
+/* Messages of the site float in a corner and leave by themselves; the
+   pointer over a message keeps it. toast.js adds the closing button. */
+.messages {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 30;
+  display: grid;
+  gap: 8px;
+  width: min(360px, calc(100vw - 32px));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  /* The gaps between the messages let clicks through. */
+  pointer-events: none;
+}
+
+.message {
+  margin-bottom: 16px;
+  padding: 11px 14px;
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--blue);
+  border-radius: var(--radius-small);
+  background: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.messages .message {
+  position: relative;
+  margin-bottom: 0;
+  padding-right: 42px;
+  box-shadow: var(--shadow-lift);
+  pointer-events: auto;
+  animation: toast-in 0.3s ease-out, toast-out 0.4s ease-in 6s forwards;
+}
+
+.messages .message:hover,
+.messages .message:focus-within {
+  animation-play-state: paused;
+}
+
+.message-close {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.message-close:hover {
+  background: color-mix(in srgb, var(--heading) 9%, transparent);
+  color: var(--heading);
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@keyframes toast-out {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+  }
+}
+
+.message-success {
+  border-left-color: var(--green);
+  background: color-mix(in srgb, var(--green) 9%, var(--paper));
+}
+
+.message-error {
+  border-left-color: var(--crimson);
+  background: color-mix(in srgb, var(--crimson) 8%, var(--paper));
+}
+
+.notice {
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--amber);
+  border-radius: var(--radius-small);
+  background: var(--page);
+}
+
+/* Empty states */
+
+.empty {
+  padding: 28px 20px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--paper) 45%, transparent);
+  text-align: center;
+  color: var(--muted);
+}
+
+.empty::before {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 40px;
+  margin: 0 auto 10px;
+  background: var(--line-strong);
+  -webkit-mask: var(--die-outline) center / contain no-repeat;
+  mask: var(--die-outline) center / contain no-repeat;
+}
+
+.empty p:last-child {
+  margin-bottom: 0;
+}
+
+.card .empty {
+  padding: 18px 16px;
+  background: transparent;
+}
+
+.card .empty::before {
+  width: 26px;
+  height: 29px;
+  margin-bottom: 8px;
+}
+
+/* Tables */
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 10px 8px;
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 60%, transparent);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.table th {
+  border-bottom-color: var(--line-strong);
+  font-size: var(--text-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.table tbody tr:hover {
+  background: color-mix(in srgb, var(--page-deep) 30%, transparent);
+}
+
+.table tr:last-child td {
+  border-bottom: 0;
+}
+
+/* Character sheet */
+
+.sheet-stats {
+  container-type: inline-size;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px 10px;
+  padding-bottom: 14px;
+}
+
+@container (min-width: 600px) {
+  .stat-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+/* A stat is a button: a click rolls its check. */
+.stat {
+  position: relative;
+  width: 100%;
+  padding: 10px 4px 20px;
+  border: 1.5px solid var(--frame);
+  border-radius: 10px 10px 24px 24px;
+  background: var(--field);
+  box-shadow:
+    inset 0 0 0 3px var(--field),
+    inset 0 0 0 4px color-mix(in srgb, var(--gold) 55%, transparent);
+  font: inherit;
+  text-align: center;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s;
+}
+
+.stat:hover {
+  border-color: var(--gold-deep);
+  box-shadow: inset 0 0 0 3px var(--field), inset 0 0 0 4px var(--gold);
+  transform: translateY(-2px);
+}
+
+.stat .icon {
+  display: block;
+  width: 30px;
+  height: 18px;
+  margin: 0 auto 3px;
+  color: var(--gold-deep);
+}
+
+.stat-label {
+  display: block;
+  font-size: var(--text-tiny);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.stat-modifier {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1.2;
+  font-variant-numeric: lining-nums;
+  color: var(--heading);
+}
+
+.stat-score {
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  min-width: 42px;
+  padding: 1px 8px;
+  border: 1.5px solid var(--frame);
+  border-radius: 999px;
+  background: var(--paper);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  transform: translateX(-50%);
+}
+
+.vitals {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 10px;
+  margin: 0;
+}
+
+.vital {
+  padding: 10px 12px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  background: var(--page);
+  text-align: center;
+}
+
+.vital dt {
+  font-size: var(--text-tiny);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.vital dd {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-variant-numeric: lining-nums;
+  color: var(--accent);
+}
+
+.hp {
+  display: block;
+  width: 100%;
+  height: 6px;
+  margin-top: 6px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 999px;
+  background: var(--line);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.hp::-webkit-progress-bar {
+  background: var(--line);
+}
+
+.hp::-webkit-progress-value {
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--crimson), var(--rose));
+}
+
+.hp::-moz-progress-bar {
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--crimson), var(--rose));
+}
+
+/* Pagination */
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.page-current {
+  padding: 5px 12px;
+  border-radius: var(--radius-small);
+  background: var(--ink);
+  font-size: var(--text-small);
+  font-weight: 600;
+  color: var(--on-dark);
+}
+
+/* Sign in and sign up */
+
+.auth {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 40px;
+  margin-top: 24px;
+}
+
+.auth-hero {
+  padding: 8px 0;
+  background: radial-gradient(
+    closest-side at 50% 36%,
+    color-mix(in srgb, var(--rose) 30%, transparent),
+    transparent
+  );
+  text-align: center;
+}
+
+/* The logo floats over its shadow. */
+.auth-logo {
+  width: min(360px, 86%);
+  height: auto;
+  filter: drop-shadow(
+    0 18px 16px color-mix(in srgb, var(--night) 22%, transparent)
+  );
+  animation: die-float 7s ease-in-out infinite;
+}
+
+@keyframes die-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1.5deg);
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+
+/* On the login page the logo is a button that rolls the d20. */
+.die-button.auth-logo {
+  border-radius: var(--radius);
+}
+
+.auth-logo:hover img {
+  transform: scale(1.04);
+}
+
+.auth-hero h1 {
+  margin-top: 12px;
+}
+
+.auth-hero p {
+  max-width: 42ch;
+  margin-inline: auto;
+}
+
+.auth .card {
+  padding: 26px 28px;
+}
+
+/* The way to the table on the sign-up page. */
+.steps {
+  display: grid;
+  gap: 14px;
+  width: min(330px, 100%);
+  list-style: none;
+  margin: 22px auto 0;
+  padding: 0;
+  text-align: left;
+}
+
+.steps li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.steps strong {
+  display: block;
+  color: var(--heading);
+}
+
+.steps div span {
+  font-size: var(--text-small);
+  color: var(--muted);
+}
+
+/* A note page: a handout for the table. The colour and the drawing of the
+   kind come from the .note-* classes of the note cards. */
+
+.handout-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-bottom: 12px;
+}
+
+.handout-bar .breadcrumb {
+  margin: 0;
+}
+
+/* Two classes: the padding of a card changes with the width of the screen. */
+.card.handout {
+  --shade: color-mix(in srgb, var(--kind), white var(--lift));
+  padding: 0;
+  overflow: hidden;
+  border-top: 5px solid var(--shade);
+}
+
+.handout-head {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 22px 28px 20px;
+  border-bottom: 1px solid var(--line);
+  /* The same quiet tone for every kind: the colour stays in the details. */
+  background: var(--page);
+}
+
+.handout-head > div {
+  min-width: 0;
+}
+
+.handout-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  border: 1px solid color-mix(in srgb, var(--shade) 40%, transparent);
+  border-radius: 50%;
+  background: var(--paper);
+}
+
+.handout-icon::before {
+  content: "";
+  width: 34px;
+  height: 34px;
+  background: var(--shade);
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
+}
+
+.handout-head .eyebrow {
+  margin: 0;
+  color: var(--shade);
+}
+
+.handout-head h1 {
+  margin: 2px 0 6px;
+  font-size: clamp(1.5rem, 3.4vw, 2rem);
+}
+
+.handout .prose {
+  max-width: none;
+  padding: 24px 28px 28px;
+  font-family: var(--serif);
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+
+/* A raised initial: it stands on the first line of the text and rises
+   above it, so the text starts at the foot of the letter. */
+.handout .prose > p:first-child::first-letter {
+  margin-right: 2px;
+  font-size: 3.1em;
+  font-weight: 700;
+  line-height: 0.8;
+  color: var(--shade);
+}
+
+/* What a guest finds inside: samples made of the parts of the real pages. */
+
+.features {
+  position: relative;
+  margin-top: 48px;
+}
+
+.features-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  font-family: var(--sans);
+  font-size: var(--text-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+.features-title::before,
+.features-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line-strong);
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.feature {
+  padding: 18px 16px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--paper) 75%, transparent);
+  text-align: center;
+}
+
+.feature-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 54px;
+  margin-bottom: 10px;
+}
+
+/* The players of a campaign stand shoulder to shoulder. */
+.feature-art .avatar + .avatar {
+  margin-left: -18px;
+  box-shadow: 0 0 0 2px var(--paper);
+}
+
+.feature-art .icon {
+  width: 32px;
+  height: 32px;
+  color: color-mix(in srgb, var(--kind), white var(--lift));
+}
+
+.feature h3 {
+  margin-bottom: 4px;
+}
+
+.feature p {
+  margin: 0;
+  font-size: var(--text-small);
+  color: var(--muted);
+}
+
+/* Error pages */
+
+.error-page {
+  padding: 40px 0;
+  text-align: center;
+}
+
+.error-die {
+  width: 150px;
+  height: auto;
+  filter: drop-shadow(
+    0 16px 14px color-mix(in srgb, var(--night) 28%, transparent)
+  );
+  transform: rotate(-6deg);
+}
+
+.error-code {
+  margin-bottom: 8px;
+  font-family: var(--serif);
+  font-size: 5rem;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: lining-nums;
+  color: var(--accent);
+}
+
+/* Dice roller */
+
+.dice-dialog {
+  width: min(340px, calc(100vw - 32px));
+  padding: 24px 24px 20px;
+  border: 1px solid var(--gold);
+  border-radius: var(--radius);
+  background: var(--paper);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7);
+  text-align: center;
+  color: var(--text);
+}
+
+/* The backdrop inherits nothing, so it cannot read the variables: the
+   colour of --night is written out. */
+.dice-dialog::backdrop {
+  background: rgba(36, 22, 41, 0.8);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+
+.dice-dialog .eyebrow {
+  margin-bottom: 14px;
+}
+
+/* One die, or two side by side for a roll with advantage or disadvantage.
+   The height is the same for both, so the dialog does not jump. */
+.dice-table {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 180px;
+  margin-bottom: 12px;
+}
+
+.dice-stage {
+  position: relative;
+  flex: none;
+  width: 168px;
+  height: 168px;
+  overflow: hidden;
+  border: 3px solid var(--gold);
+  border-radius: 50%;
+  /* The clip has a white background, so the badge is white as well. */
+  background: #fff;
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--gold) 25%, transparent);
+  transition:
+    transform 0.5s cubic-bezier(0.3, 1.3, 0.5, 1),
+    opacity 0.4s,
+    filter 0.4s,
+    box-shadow 0.3s;
+}
+
+.dice-dialog.is-pair .dice-stage {
+  width: 128px;
+  height: 128px;
+}
+
+/* The second clip is mirrored, so the two dice do not roll in step. */
+.dice-stage + .dice-stage video {
+  transform: scaleX(-1);
+}
+
+/* The choice: the die that counts moves to the middle and grows to the
+   size of a single die; the other one steps aside behind it. */
+.dice-stage:first-child {
+  --to-middle: 70px;
+  --aside: -26px;
+}
+
+.dice-stage:last-child {
+  --to-middle: -70px;
+  --aside: 26px;
+}
+
+.dice-stage.is-kept {
+  z-index: 1;
+  transform: translateX(var(--to-middle)) scale(1.3125);
+}
+
+.dice-stage.is-dropped {
+  opacity: 0.55;
+  filter: grayscale(0.8);
+  transform: translateX(var(--aside)) scale(0.62);
+}
+
+.dice-stage video,
+.dice-stage img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.dice-stage img {
+  padding: 8.5%;
+  object-fit: contain;
+  animation: face-in 0.25s ease-out;
+}
+
+.dice-dialog.is-rolling .dice-stage img,
+.dice-dialog:not(.is-rolling) .dice-stage video {
+  display: none;
+}
+
+.dice-result {
+  min-height: 1.1em;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.1;
+  font-variant-numeric: lining-nums;
+  color: var(--accent);
+}
+
+.dice-detail {
+  min-height: 1.55em;
+  margin-bottom: 14px;
+  color: var(--muted);
+}
+
+.dice-dialog[data-outcome="critical"] .dice-stage:not(.is-dropped) {
+  box-shadow:
+    0 0 0 6px color-mix(in srgb, var(--gold) 50%, transparent),
+    0 0 34px color-mix(in srgb, var(--gold-light) 90%, transparent);
+}
+
+.dice-dialog[data-outcome="critical"] .dice-detail {
+  font-weight: 700;
+  color: var(--gold-deep);
+}
+
+.dice-dialog[data-outcome="fumble"] .dice-stage img {
+  filter: grayscale(0.7);
+}
+
+.dice-dialog .form-actions {
+  justify-content: center;
+  margin-top: 0;
+}
+
+.dice-modes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.dice-history {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 10px 0 0;
+  border-top: 1px solid var(--line);
+  font-size: var(--text-hint);
+  text-align: left;
+  color: var(--muted);
+}
+
+.dice-history li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 2px 0;
+}
+
+.dice-history b {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+  color: var(--heading);
+}
+
+@keyframes face-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+/* Loading animation between pages */
+
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: color-mix(in srgb, var(--night) 86%, transparent);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  color: var(--on-dark);
+  cursor: progress;
+  animation: loader-in 0.2s ease-out;
+}
+
+.loader-die {
+  width: 148px;
+  height: 148px;
+  overflow: hidden;
+  border: 3px solid var(--gold);
+  border-radius: 50%;
+  /* The clip has a white background, so the badge is white as well. */
+  background: #fff;
+  box-shadow:
+    0 0 0 6px color-mix(in srgb, var(--gold) 25%, transparent),
+    0 18px 30px -12px rgba(0, 0, 0, 0.6);
+}
+
+.loader-die video,
+.loader-die img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.loader-die img {
+  display: none;
+  padding: 22px;
+  object-fit: contain;
+}
+
+/* Still die: reduced motion or a browser that cannot play the clip. */
+.page-loader.is-still video {
+  display: none;
+}
+
+.page-loader.is-still img {
+  display: block;
+}
+
+.loader-text {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+@keyframes loader-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-loader,
+  .auth-logo,
+  .dice-stage img,
+  .drift i,
+  :root[data-theme="dark"] .drift i {
+    animation: none;
+  }
+
+  .drift i {
+    top: var(--y);
+    opacity: 0.8;
+  }
+
+  /* A message still leaves, only without the slide. */
+  .messages .message {
+    animation: toast-out 0.01s linear 8s forwards;
+  }
+
+  .brand img,
+  .die-button img,
+  .card-link,
+  .btn,
+  .stat,
+  .dice-stage,
+  .counter::after {
+    transition: none;
+  }
+
+  .brand:hover img,
+  .die-button:hover img,
+  .auth-logo:hover img,
+  .card-link:hover,
+  .btn:active,
+  .stat:hover {
+    transform: none;
+  }
+}
+
+/* Small screens */
+
+@media (max-width: 860px) {
+  .nav-toggle-label {
+    display: inline-block;
+  }
+
+  /* On a phone the four sections sit in a bar at the bottom of the screen,
+     under the thumb. The menu at the top keeps the roller, the profile and
+     the way out. */
+  .site-nav {
+    display: contents;
+  }
+
+  .nav-links {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 20;
+    flex-wrap: nowrap;
+    gap: 2px;
+    padding: 4px 6px calc(4px + env(safe-area-inset-bottom));
+    border-top: 2px solid var(--gold);
+    background: var(--ink);
+  }
+
+  .nav-links .nav-link {
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    padding: 6px 2px 5px;
+    font-size: var(--text-label);
+    line-height: 1.2;
+  }
+
+  .nav-links .nav-link.active {
+    box-shadow: none;
+  }
+
+  .tab-icon {
+    display: block;
+    width: 22px;
+    height: 22px;
+  }
+
+  .nav-user {
+    flex-basis: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    margin: 0;
+    padding: 8px 0 12px;
+    border-top: 1px solid color-mix(in srgb, var(--gold) 35%, transparent);
+  }
+
+  .nav-toggle:checked ~ .site-nav .nav-user {
+    display: flex;
+  }
+
+  .nav-user .btn {
+    width: 100%;
+  }
+
+  .theme-toggle {
+    order: 0;
+    margin-left: auto;
+  }
+
+  /* The page ends above the bar, and so do the messages. */
+  body:has(.nav-links) {
+    padding-bottom: calc(60px + env(safe-area-inset-bottom));
+  }
+
+  .messages {
+    left: 16px;
+    width: auto;
+  }
+
+  body:has(.nav-links) .messages {
+    bottom: calc(72px + env(safe-area-inset-bottom));
+  }
+
+  .masthead-inner,
+  .split,
+  .response-bar,
+  .auth {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .masthead-die {
+    display: none;
+  }
+
+  .next-session {
+    width: 100%;
+  }
+
+  /* One column: the form lies right under the text, so the petals fade
+     out above it instead of sliding under its edge. */
+  .drift-page {
+    right: 0;
+    bottom: auto;
+    height: 320px;
+  }
+
+  .section-nav {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    display: flex;
+    gap: 6px;
+    margin: -8px -16px 16px;
+    padding: 8px 16px;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--line);
+    background: color-mix(in srgb, var(--page) 88%, transparent);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+  }
+
+  .section-nav a {
+    flex: none;
+    padding: 4px 12px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: var(--paper);
+    font-size: var(--text-small);
+    font-weight: 600;
+    color: var(--heading);
+    text-decoration: none;
+  }
+
+  /* The form comes first on a phone. */
+  .steps {
+    display: none;
+  }
+
+  .handout-head {
+    padding: 18px 18px 16px;
+  }
+
+  .handout .prose {
+    padding: 18px 18px 22px;
+  }
+
+  .feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .masthead-inner {
+    padding-top: 26px;
+    padding-bottom: 22px;
+  }
+
+  .counters {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .counter {
+    padding: 9px 14px;
+  }
+
+  .counter-number {
+    min-width: 1.6ch;
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .card {
+    padding: 16px;
+  }
+
+  .campaign-head {
+    padding: 10px 16px;
+  }
+
+  .campaign-body {
+    padding: 14px 16px 16px;
+  }
+
+  /* Three narrow boxes: the number stands above its name in each. */
+  .hub-stat {
+    flex-direction: column;
+    padding: 10px 12px;
+  }
+
+  .auth .card {
+    padding: 18px 16px;
+  }
+
+  .filter-actions,
+  .filter-actions .btn {
+    flex: 1 1 auto;
+  }
+
+  .table th,
+  .table td {
+    padding: 8px 6px;
+  }
+
+  .avatar-large,
+  .token-large {
+    --size: 48px;
+  }
+
+  .page-title {
+    align-items: flex-start;
+  }
+
+  .date-tile-large {
+    --leaf: 56px;
+  }
+
+  .date-tile-large .date-day {
+    font-size: 1.5rem;
+  }
+
+  .session {
+    --leaf: 44px;
+    gap: 10px;
+  }
+
+  .session ~ .meta {
+    margin-left: calc(44px + 10px);
+  }
+}
+
+/* A character sheet or a note on paper */
+
+@page {
+  size: A4;
+  margin: 14mm;
+}
+
+@media print {
+  body {
+    background: #fff;
+    font-size: 10.5pt;
+  }
+
+  .site-header,
+  .site-footer,
+  .page-loader,
+  .dice-dialog,
+  .drift,
+  .breadcrumb,
+  .section-nav,
+  .actions,
+  .filters,
+  .pagination,
+  .messages {
+    display: none;
+  }
+
+  main.container {
+    max-width: none;
+    padding: 0;
+  }
+
+  h1 {
+    font-size: 22pt;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /* Paper is narrower than the two-column breakpoint of the screen. */
+  .split {
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .stack {
+    gap: 12px;
+  }
+
+  .vitals {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .card {
+    padding: 12px 14px;
+    background: #fff;
+    box-shadow: none;
+    break-inside: avoid;
+  }
+
+  .icon,
+  .weapon,
+  .campaign-head,
+  .handout,
+  .handout-head,
+  .handout-icon::before,
+  .token,
+  .token::before,
+  .avatar,
+  .badge,
+  .date-month,
+  .stat,
+  .vital,
+  .chips li,
+  .hp {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

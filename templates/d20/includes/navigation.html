@@ -1,0 +1,29 @@
+{% load static %}
+{% with name=request.resolver_match.url_name|default:"" %}
+  {% if user.is_authenticated %}
+    <div class="nav-links">
+      <a class="nav-link{% if name == 'index' %} active{% endif %}" href="{% url 'd20:index' %}"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 11 12 4l8.5 7"/><path d="M5.5 9.8V20h13V9.8"/></svg>Home</a>
+      <a class="nav-link{% if 'campaign' in name or 'membership' in name or 'note' in name %} active{% endif %}" href="{% url 'd20:campaign-list' %}"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 21V4"/><path d="M5.5 4.5h12l-2.5 4 2.5 4h-12"/></svg>Campaigns</a>
+      <a class="nav-link{% if 'session' in name %} active{% endif %}" href="{% url 'd20:session-list' %}"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Sessions</a>
+      <a class="nav-link{% if 'character' in name %} active{% endif %}" href="{% url 'd20:character-list' %}"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.8"/><path d="M4.5 20.5c.8-4 3.6-6 7.5-6s6.7 2 7.5 6"/></svg>Characters</a>
+    </div>
+    <div class="nav-user">
+      <button type="button" class="nav-link" data-roll title="Roll d20" hidden>
+        <img src="{% static 'd20/img/d20-logo.png' %}" alt="" width="20" height="20"><span class="nav-label">Roll d20</span>
+      </button>
+      {# "profile" is in the context of the page of a player and of the profile form. #}
+      <a class="nav-link{% if profile.pk == user.pk %} active{% endif %}" href="{{ user.get_absolute_url }}" title="{{ user.display_name }}">{% include "d20/includes/avatar.html" with player=user size="small" %}<span class="nav-label">{{ user.display_name }}</span></a>
+      <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-light btn-small">Log out</button>
+      </form>
+    </div>
+  {% else %}
+    <div class="nav-user">
+      {# The campaigns are open to guests; the other sections need an account. #}
+      <a class="nav-link{% if 'campaign' in name %} active{% endif %}" href="{% url 'd20:campaign-list' %}">Campaigns</a>
+      <a class="nav-link{% if name == 'login' %} active{% endif %}" href="{% url 'login' %}">Log in</a>
+      <a class="nav-link{% if name == 'register' %} active{% endif %}" href="{% url 'register' %}">Sign up</a>
+    </div>
+  {% endif %}
+{% endwith %}

@@ -1,0 +1,23 @@
+-r requirements.txt
+ast_serialize==0.12.1
+black==26.10.0
+click==8.5.0
+cssbeautifier==2.0.3
+django-stubs-ext==6.1.2
+django-stubs==6.1.2
+djlint==1.46.4
+EditorConfig==0.17.1
+jsbeautifier==2.0.3
+json5==0.15.0
+librt==0.16.0
+mypy==2.4.0
+mypy_extensions==1.1.0
+packaging==26.3
+pathspec==1.1.1
+platformdirs==4.12.3
+pytokens==0.4.1
+PyYAML==6.0.3
+regex==2026.9.29
+ruff==0.16.10
+types-PyYAML==6.0.12.20260906
+typing_extensions==4.16.0

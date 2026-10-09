@@ -1,0 +1,35 @@
+{% load static %}
+{# The face image is one of img/dice/1.webp ... 20.webp: dice.js puts the number in. #}
+{# The static tag is not used here: in production it adds a hash of the file to the name, and the number could not be swapped. #}
+<dialog class="dice-dialog" id="dice-dialog" aria-labelledby="dice-title" data-face-src="{% get_static_prefix %}d20/img/dice/20.webp">
+  <p class="eyebrow" id="dice-title">d20 roll</p>
+  {# The second die is thrown only with advantage or disadvantage. #}
+  <div class="dice-table">
+    <div class="dice-stage">
+      <video muted playsinline preload="none" aria-hidden="true">
+        <source src="{% static 'd20/video/dice-roll.webm' %}" type="video/webm">
+        <source src="{% static 'd20/video/dice-roll.mp4' %}" type="video/mp4">
+      </video>
+      <img class="dice-face" alt="" width="168" height="168">
+    </div>
+    <div class="dice-stage" hidden>
+      <video muted playsinline preload="none" aria-hidden="true">
+        <source src="{% static 'd20/video/dice-roll.webm' %}" type="video/webm">
+        <source src="{% static 'd20/video/dice-roll.mp4' %}" type="video/mp4">
+      </video>
+      <img class="dice-face" alt="" width="168" height="168">
+    </div>
+  </div>
+  <p class="dice-result" role="status"></p>
+  <p class="dice-detail"></p>
+  <div class="form-actions">
+    <button type="button" class="btn btn-primary" data-dice-again>Roll again</button>
+    <button type="button" class="btn btn-ghost" data-dice-close>Close</button>
+  </div>
+  <div class="dice-modes" role="group" aria-label="Roll two dice">
+    <button type="button" class="btn btn-small" data-dice-again="advantage">With advantage</button>
+    <button type="button" class="btn btn-small" data-dice-again="disadvantage">With disadvantage</button>
+  </div>
+  <ol class="dice-history" aria-label="Earlier rolls" hidden></ol>
+</dialog>
+<script src="{% static 'd20/js/dice.js' %}" defer></script>

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{# The shell of a page with one form: its pages fill in the blocks. #}
+{% block content %}
+  <div class="narrow">
+    <p class="breadcrumb">{% block breadcrumb %}{% endblock %}</p>
+    <h1>{% block heading %}{% endblock %}</h1>
+    {% block lead %}{% endblock %}
+    <div class="card">
+      <form method="post" novalidate>
+        {% csrf_token %}
+        {# The views that return to the source page put "next" in the context. #}
+        {% if next %}
+          <input type="hidden" name="next" value="{{ next }}">
+        {% endif %}
+        {% include "d20/includes/form.html" %}
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <a class="btn btn-ghost" href="{% block cancel_url %}{{ next }}{% endblock %}">Cancel</a>
+        </div>
+      </form>
+      {% block after_form %}{% endblock %}
+    </div>
+  </div>
+{% endblock %}

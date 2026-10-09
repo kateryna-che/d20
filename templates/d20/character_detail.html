@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ character.name }}{% endblock %}
+
+{% block content %}
+  <p class="breadcrumb"><a href="{% url 'd20:character-list' %}">Characters</a></p>
+  <div class="page-head">
+    <div class="page-title">
+      {% include "d20/includes/token.html" with size="large" %}
+      <div>
+        <h1>{{ character.name }}</h1>
+        <p class="meta">
+          <span>{{ character.summary }}</span>
+          <span>Player: <a href="{{ character.owner.get_absolute_url }}">{{ character.owner.display_name }}</a></span>
+          <span>Updated {{ character.updated_at|date:"j M Y" }}</span>
+        </p>
+      </div>
+    </div>
+    <div class="actions">
+      <button type="button" class="btn" data-print hidden>Print</button>
+      {% if character.owner_id == user.pk %}
+        <a class="btn" href="{% url 'd20:character-update' pk=character.pk %}?next={{ request.get_full_path|urlencode }}">Edit sheet</a>
+        <a class="btn btn-danger" href="{% url 'd20:character-delete' pk=character.pk %}">Delete</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="split">
+    <div class="stack">
+      <section class="card sheet-stats">
+        <h2>Ability scores</h2>
+        <div class="stat-grid">
+          {% for stat in character.stat_blocks %}
+            <button type="button" class="stat" data-roll data-roll-label="{{ stat.label }} check" data-roll-modifier="{{ stat.modifier }}" title="Roll a {{ stat.label }} check">
+              <span class="icon icon-{{ stat.label|lower }}" aria-hidden="true"></span>
+              <span class="stat-label">{{ stat.label }}</span>
+              <span class="stat-modifier">{% if stat.modifier >= 0 %}+{% endif %}{{ stat.modifier }}</span>
+              <span class="stat-score">{{ stat.score }}</span>
+            </button>
+          {% endfor %}
+        </div>
+      </section>
+
+      <section class="card sheet-combat">
+        <h2>Combat</h2>
+        <span class="weapon weapon-{{ character.character_class }}" aria-hidden="true"></span>
+        <dl class="vitals">
+          <div class="vital">
+            <dt>Level</dt>
+            <dd>{{ character.level }}</dd>
+          </div>
+          <div class="vital">
+            <dt>Hit points</dt>
+            <dd>{{ character.hit_points }} / {{ character.max_hit_points }}</dd>
+            <dd><progress class="hp" value="{{ character.hit_points }}" max="{{ character.max_hit_points }}" aria-label="Hit points"></progress></dd>
+          </div>
+          <div class="vital">
+            <dt>Armor class</dt>
+            <dd>{{ character.armor_class }}</dd>
+          </div>
+          <div class="vital">
+            <dt>Speed</dt>
+            <dd>{{ character.speed }} ft.</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="card">
+        <h2>Abilities</h2>
+        {% if character.abilities %}
+          <ul class="chips">
+            {% for ability in character.abilities.splitlines %}
+              <li>{{ ability }}</li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="muted">No features, traits or spells are listed.</p>
+        {% endif %}
+      </section>
+
+      <section class="card">
+        <h2>Inventory</h2>
+        {% if character.inventory %}
+          <ul class="chips">
+            {% for item in character.inventory.splitlines %}
+              <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="muted">The backpack is empty.</p>
+        {% endif %}
+      </section>
+
+      {% if character.notes %}
+        <section class="card">
+          <h2>Sheet notes</h2>
+          <div class="prose">{{ character.notes|linebreaks }}</div>
+        </section>
+      {% endif %}
+    </div>
+
+    <aside class="stack">
+      <section class="card">
+        <h2>Concept</h2>
+        {% if character.concept %}
+          <p>{{ character.concept }}</p>
+        {% else %}
+          <p class="muted">No concept yet.</p>
+        {% endif %}
+        <h3>Backstory</h3>
+        {% if character.backstory %}
+          <div class="prose">{{ character.backstory|linebreaks }}</div>
+        {% else %}
+          <p class="muted">The backstory is not written yet.</p>
+        {% endif %}
+      </section>
+
+      {% with memberships=character.memberships.all %}
+        <section class="card">
+          <h2>Campaigns</h2>
+          {% if memberships %}
+            <ul class="list">
+              {% for membership in memberships %}
+                <li>
+                  <a class="row-title" href="{{ membership.campaign.get_absolute_url }}">{{ membership.campaign.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <div class="empty">
+              <p>{% if character.owner_id == user.pk %}Not chosen for any campaign yet. Join a campaign and choose the character there.{% else %}Does not play in a campaign yet.{% endif %}</p>
+            </div>
+          {% endif %}
+        </section>
+
+        {% if memberships %}
+          <section class="card">
+            <h2>Sessions</h2>
+            <p class="muted">Responses of the player to the sessions of these campaigns.</p>
+            {% if participations %}
+              <ul class="list">
+                {% for participation in participations %}
+                  <li>
+                    <div class="row">
+                      <a class="row-title" href="{{ participation.game_session.get_absolute_url }}">{{ participation.game_session.title }}</a>
+                      <span class="badge badge-{{ participation.attendance_status }}">{{ participation.get_attendance_status_display }}</span>
+                    </div>
+                    <p class="meta">
+                      <span>{{ participation.membership.campaign.title }}</span>
+                      <span>{{ participation.game_session.scheduled_at|date:"j M Y" }}</span>
+                    </p>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <div class="empty">
+                <p>No responses yet.</p>
+              </div>
+            {% endif %}
+          </section>
+        {% endif %}
+      {% endwith %}
+    </aside>
+  </div>
+  <script src="{% static 'd20/js/sheet.js' %}" defer></script>
+{% endblock %}

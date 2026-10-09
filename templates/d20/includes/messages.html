@@ -1,0 +1,9 @@
+{% load static %}
+{% if messages %}
+  <ul class="messages" role="status">
+    {% for message in messages %}
+      <li class="message{% if message.tags %} message-{{ message.tags }}{% endif %}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+  <script src="{% static 'd20/js/toast.js' %}" defer></script>
+{% endif %}

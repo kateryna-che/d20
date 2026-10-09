@@ -1,0 +1,14 @@
+{% extends "d20/confirm_delete.html" %}
+
+{% block title %}Delete session{% endblock %}
+
+{% block breadcrumb %}
+  <a href="{{ gamesession.campaign.get_absolute_url }}">{{ gamesession.campaign.title }}</a> /
+  <a href="{{ gamesession.get_absolute_url }}">{{ gamesession.title }}</a>
+{% endblock %}
+
+{% block heading %}Delete session?{% endblock %}
+
+{% block warning %}
+  <p>The session <strong>{{ gamesession.title }}</strong> will be deleted together with the responses of the players.</p>
+{% endblock %}

@@ -1,0 +1,55 @@
+{# The party stands at the top of the card, on the colour of the status; the leaf of the next session lies at its foot. #}
+<article class="card card-link campaign-card campaign-{{ campaign.status }}{% if campaign.game_master_id == user.pk or campaign.is_player %} campaign-own{% endif %}">
+  {% with memberships=campaign.memberships.all next_session=campaign.upcoming_sessions|first %}
+    <div class="campaign-head">
+      {% if memberships %}
+        {# The first players of the party: the foot of the card counts them all. #}
+        <span class="party" aria-hidden="true">
+          {% for membership in memberships|slice:":8" %}
+            {% if membership.character %}
+              {% include "d20/includes/token.html" with character=membership.character %}
+            {% else %}
+              <span class="avatar">?</span>
+            {% endif %}
+          {% endfor %}
+        </span>
+      {% else %}
+        <span>No players yet</span>
+      {% endif %}
+      <span class="badge">{{ campaign.get_status_display }}</span>
+    </div>
+    <div class="campaign-body">
+      <h2 class="card-title"><a href="{{ campaign.get_absolute_url }}">{{ campaign.title }}</a></h2>
+      <p class="meta">
+        <span class="cell-lead">
+          {% include "d20/includes/avatar.html" with player=campaign.game_master size="small" %}
+          <span>Game master: <a href="{{ campaign.game_master.get_absolute_url }}">{{ campaign.game_master.display_name }}</a></span>
+        </span>
+        {% if campaign.game_master_id == user.pk %}
+          <span class="badge badge-master">You are the game master</span>
+        {% elif campaign.is_player %}
+          <span class="badge badge-player">You are a player</span>
+        {% endif %}
+      </p>
+      {% if campaign.description %}
+        <p class="clamp">{{ campaign.description }}</p>
+      {% endif %}
+      <div class="card-foot{% if next_session %} session{% endif %}">
+        {% if next_session %}
+          {% include "d20/includes/date_tile.html" with game_session=next_session %}
+        {% endif %}
+        <div>
+          {% if next_session %}
+            <p class="meta">
+              <span>Next session: {{ next_session.scheduled_at|date:"D, j M, H:i" }}</span>
+            </p>
+          {% endif %}
+          <p class="meta">
+            <span>Players: {{ memberships|length }}</span>
+            <span>Sessions: {{ campaign.sessions_count }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  {% endwith %}
+</article>

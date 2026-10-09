@@ -1,0 +1,21 @@
+{% extends "d20/form_page.html" %}
+
+{% block title %}Choose a character{% endblock %}
+
+{% block breadcrumb %}
+  <a href="{{ object.campaign.get_absolute_url }}">{{ object.campaign.title }}</a>
+{% endblock %}
+
+{% block heading %}Choose a character{% endblock %}
+
+{% block lead %}
+  <p class="muted">The hero you play in this campaign. You choose from your own characters.</p>
+{% endblock %}
+
+{% block cancel_url %}{{ object.campaign.get_absolute_url }}{% endblock %}
+
+{% block after_form %}
+  {% if not form.fields.character.queryset.exists %}
+    <p class="muted">You have no characters yet. <a href="{% url 'd20:character-create' %}?next={{ request.get_full_path|urlencode }}">Create a character</a></p>
+  {% endif %}
+{% endblock %}

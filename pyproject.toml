@@ -1,0 +1,46 @@
+[tool.black]
+force-exclude = '/migrations/'
+
+[tool.ruff]
+target-version = "py314"
+extend-exclude = ["migrations"]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle
+    "W",
+    "F",   # pyflakes
+    "I",   # the order of imports
+    "B",   # flake8-bugbear
+    "UP",  # pyupgrade
+    "DJ",  # flake8-django
+    "SIM", # flake8-simplify
+    "C4",  # flake8-comprehensions
+]
+
+[tool.ruff.lint.per-file-ignores]
+# The dotted paths of the password validators do not fit into a line.
+"d20_dev/settings/base.py" = ["E501"]
+# The settings of an environment take everything from the base ones.
+"d20_dev/settings/dev.py" = ["F403", "F405"]
+"d20_dev/settings/prod.py" = ["F403", "F405"]
+
+[tool.mypy]
+plugins = ["mypy_django_plugin.main"]
+exclude = ['/migrations/']
+strict = true
+# The generic views of Django take type arguments only in the stubs: at run
+# time "ListView[Campaign]" is an error, so the views stay without them.
+disallow_any_generics = false
+
+[tool.django-stubs]
+django_settings_module = "d20_dev.settings.dev"
+
+# Only the linter of djLint is used: its formatter would re-indent every
+# template and move the whitespace between inline elements.
+[tool.djlint]
+profile = "django"
+
+[tool.djlint.per-file-ignores]
+# The empty elements are the petals and the fireflies: CSS draws them.
+"templates/d20/includes/drift.html" = "H020"

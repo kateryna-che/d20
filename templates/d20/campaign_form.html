@@ -1,0 +1,19 @@
+{% extends "d20/form_page.html" %}
+
+{% block title %}{{ object|yesno:"Edit campaign,New campaign" }}{% endblock %}
+
+{% block breadcrumb %}
+  {% if object %}
+    <a href="{{ object.get_absolute_url }}">{{ object.title }}</a>
+  {% else %}
+    <a href="{% url 'd20:campaign-list' %}">Campaigns</a>
+  {% endif %}
+{% endblock %}
+
+{% block heading %}{{ object|yesno:"Edit campaign,New campaign" }}{% endblock %}
+
+{% block lead %}
+  {% if not object %}
+    <p class="muted">You will be the game master. A one-shot is a campaign with a single session.</p>
+  {% endif %}
+{% endblock %}

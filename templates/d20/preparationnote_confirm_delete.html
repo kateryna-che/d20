@@ -1,0 +1,14 @@
+{% extends "d20/confirm_delete.html" %}
+
+{% block title %}Delete note{% endblock %}
+
+{% block breadcrumb %}
+  <a href="{{ preparationnote.campaign.get_absolute_url }}">{{ preparationnote.campaign.title }}</a> /
+  <a href="{{ preparationnote.get_absolute_url }}">{{ preparationnote.title }}</a>
+{% endblock %}
+
+{% block heading %}Delete note?{% endblock %}
+
+{% block warning %}
+  <p>The note <strong>{{ preparationnote.title }}</strong> will be deleted for everyone in the campaign.</p>
+{% endblock %}

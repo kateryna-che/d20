@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}My characters{% endblock %}
+
+{% block content %}
+  <div class="page-head">
+    <div>
+      <h1>My characters</h1>
+      <p class="meta">
+        <span>Your heroes and their sheets. Characters of other players are on the pages of campaigns and sessions.</span>
+      </p>
+    </div>
+    <div class="actions">
+      <a class="btn btn-primary" href="{% url 'd20:character-create' %}?next={{ request.get_full_path|urlencode }}">New character</a>
+    </div>
+  </div>
+
+  {% include "d20/includes/search_form.html" %}
+
+  {# The search form replaces this block while the visitor types. #}
+  <div id="search-results">
+    {% include "d20/includes/search_summary.html" with noun="character" %}
+    {% if character_list %}
+      <div class="card-grid">
+        {% for character in character_list %}
+          {% include "d20/includes/character_card.html" %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty">
+        {% if search_query %}
+          <p>None of your characters match “{{ search_query }}”.</p>
+        {% else %}
+          <p>You have no characters yet.</p>
+          <p><a class="btn btn-primary" href="{% url 'd20:character-create' %}?next={{ request.get_full_path|urlencode }}">Create your first hero</a></p>
+        {% endif %}
+      </div>
+    {% endif %}
+    {% include "d20/includes/pagination.html" %}
+  </div>
+{% endblock %}
+
+{# The pages are a part of the search results. #}
+{% block pagination %}{% endblock %}

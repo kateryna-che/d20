@@ -1,0 +1,5 @@
+{# A calendar leaf of a session. The full date is written next to it. #}
+<span class="date-tile{% if size %} date-tile-{{ size }}{% endif %} date-tile-{{ game_session.status }}" aria-hidden="true">
+  <span class="date-month">{{ game_session.scheduled_at|date:"M" }}</span>
+  <span class="date-day">{{ game_session.scheduled_at|date:"j" }}</span>
+</span>

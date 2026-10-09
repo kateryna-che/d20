@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}{{ preparationnote.title }}{% endblock %}
+
+{% block content %}
+  <div class="narrow">
+    <div class="handout-bar">
+      <p class="breadcrumb">
+        <a href="{{ preparationnote.campaign.get_absolute_url }}">{{ preparationnote.campaign.title }}</a>
+      </p>
+      {# The author edits the note; the game master may delete it too. #}
+      {% if preparationnote.author_id == user.pk or preparationnote.campaign.game_master_id == user.pk %}
+        <div class="actions">
+          {% if preparationnote.author_id == user.pk %}
+            <a class="btn" href="{% url 'd20:note-update' pk=preparationnote.pk %}?next={{ request.get_full_path|urlencode }}">Edit</a>
+          {% endif %}
+          <a class="btn btn-danger" href="{% url 'd20:note-delete' pk=preparationnote.pk %}">Delete</a>
+        </div>
+      {% endif %}
+    </div>
+
+    {# A handout: the kind of the note gives it the colour and the drawing. #}
+    <article class="card handout note-{{ preparationnote.kind }}">
+      <header class="handout-head">
+        <span class="handout-icon" aria-hidden="true"></span>
+        <div>
+          <p class="eyebrow">{{ preparationnote.get_kind_display }}</p>
+          <h1>{{ preparationnote.title }}</h1>
+          <p class="meta">
+            <span>By {{ preparationnote.author.display_name }}</span>
+            <span>Updated {{ preparationnote.updated_at|date:"j M Y, H:i" }}</span>
+          </p>
+        </div>
+      </header>
+      <div class="prose">{{ preparationnote.content|linebreaks }}</div>
+    </article>
+  </div>
+{% endblock %}

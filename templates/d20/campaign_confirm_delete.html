@@ -1,0 +1,14 @@
+{% extends "d20/confirm_delete.html" %}
+
+{% block title %}Delete campaign{% endblock %}
+
+{% block breadcrumb %}
+  <a href="{{ campaign.get_absolute_url }}">{{ campaign.title }}</a>
+{% endblock %}
+
+{% block heading %}Delete campaign?{% endblock %}
+
+{% block warning %}
+  <p>The campaign <strong>{{ campaign.title }}</strong> will be deleted together with its player list, sessions, answers of the players and preparation notes.</p>
+  <p class="muted">Characters of the players stay untouched.</p>
+{% endblock %}

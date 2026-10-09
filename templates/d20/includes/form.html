@@ -1,0 +1,5 @@
+{% include "d20/includes/form_errors.html" %}
+{% for field in form.hidden_fields %}{{ field }}{% endfor %}
+{% for field in form.visible_fields %}
+  {% include "d20/includes/form_field.html" %}
+{% endfor %}

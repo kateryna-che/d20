@@ -1,0 +1,12 @@
+{% extends "error_page.html" %}
+
+{% block title %}Server error{% endblock %}
+
+{# Django renders this page without a context, so the menu cannot know who is logged in. #}
+{% block header_controls %}{% endblock %}
+
+{% block code %}500{% endblock %}
+
+{% block heading %}Rocks fall, everyone dies{% endblock %}
+
+{% block explanation %}Something broke on the server. Try again in a minute.{% endblock %}

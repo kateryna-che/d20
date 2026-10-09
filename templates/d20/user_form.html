@@ -1,0 +1,11 @@
+{% extends "d20/form_page.html" %}
+
+{% block title %}Edit profile{% endblock %}
+
+{% block breadcrumb %}
+  <a href="{{ user.get_absolute_url }}">My profile</a>
+{% endblock %}
+
+{% block heading %}Edit profile{% endblock %}
+
+{% block cancel_url %}{{ user.get_absolute_url }}{% endblock %}

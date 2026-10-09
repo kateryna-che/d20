@@ -1,0 +1,2 @@
+# The build script runs on Linux: CRLF line endings break it.
+*.sh text eol=lf

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Log in{% endblock %}
+
+{% block content %}
+  {% include "d20/includes/drift.html" with page=True %}
+  <div class="auth">
+    <div class="auth-hero">
+      <button type="button" class="die-button auth-logo" data-roll aria-label="Roll the d20">
+        <img src="{% static 'd20/img/logo.webp' %}" alt="" width="360" height="140">
+      </button>
+      <h1>Gather your party</h1>
+      <p class="muted">Plan Dungeons &amp; Dragons campaigns, schedule sessions, keep character sheets and preparation notes at one table.</p>
+      <button type="button" class="btn" data-roll hidden>
+        <img src="{% static 'd20/img/d20-logo.png' %}" alt="" width="20" height="20">Roll a d20
+      </button>
+    </div>
+
+    <div class="card">
+      <h2>Log in</h2>
+      {# A guest who just opens the site comes here from the home page: that needs no warning. #}
+      {% url 'd20:index' as home_url %}
+      {% if next and next != home_url and not form.errors %}
+        <p class="notice">Please log in to see this page.</p>
+      {% endif %}
+      <form method="post" action="{% url 'login' %}" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        {% include "d20/includes/form.html" %}
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Log in</button>
+        </div>
+      </form>
+      <p class="muted">New at the table? <a href="{% url 'register' %}">Create an account</a>.</p>
+    </div>
+  </div>
+
+  {% include "d20/includes/features.html" %}
+  {# Only guests see this page, and base.html gives the roller to logged-in users only. #}
+  {% include "d20/includes/dice.html" %}
+{% endblock %}

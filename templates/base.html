@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Campaign table{% endblock %} | d20</title>
+  <link rel="icon" type="image/png" href="{% static 'd20/img/favicon.png' %}">
+  <script src="{% static 'd20/js/theme.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'd20/css/styles.css' %}">
+</head>
+
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="{% url 'd20:index' %}">
+      <img src="{% static 'd20/img/d20-logo.png' %}" alt="" width="40" height="40">
+      <span>d20</span>
+    </a>
+    {% block header_controls %}
+      <button type="button" class="theme-toggle" data-theme-toggle hidden>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.4 14.6A8.5 8.5 0 0 1 9.4 3.6a8.5 8.5 0 1 0 11 11z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.5 1.5M17.2 17.2l1.5 1.5M5.3 18.7l1.5-1.5M17.2 6.8l1.5-1.5"/></svg>
+      </button>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Show the menu">
+      <label for="nav-toggle" class="nav-toggle-label">Menu</label>
+      <nav class="site-nav" aria-label="Main">
+        {% include "d20/includes/navigation.html" %}
+      </nav>
+    {% endblock %}
+  </div>
+</header>
+
+{% block masthead %}{% endblock %}
+
+<main class="container">
+  {% include "d20/includes/messages.html" %}
+
+  {% block content %}{% endblock %}
+
+  {% block pagination %}
+    {% include "d20/includes/pagination.html" %}
+  {% endblock %}
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <img src="{% static 'd20/img/favicon.png' %}" alt="" width="22" height="22">
+    <span>d20: a shared table for Dungeons &amp; Dragons campaigns and session preparation.</span>
+    <a href="{% url 'd20:about' %}">About d20</a>
+  </div>
+</footer>
+
+{% include "d20/includes/loader.html" %}
+{% if user.is_authenticated %}
+  {% include "d20/includes/dice.html" %}
+{% endif %}
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{# The shell of a page that asks before a delete: its pages fill in the blocks. #}
+{% block content %}
+  <div class="narrow">
+    <p class="breadcrumb">{% block breadcrumb %}{% endblock %}</p>
+    <h1>{% block heading %}{% endblock %}</h1>
+    <div class="card">
+      {% block warning %}{% endblock %}
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-actions">
+          <button type="submit" class="btn btn-danger">Yes, delete</button>
+          <a class="btn btn-ghost" href="{{ object.get_absolute_url }}">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

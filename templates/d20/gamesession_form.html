@@ -1,0 +1,14 @@
+{% extends "d20/form_page.html" %}
+
+{% block title %}{{ object|yesno:"Edit session,Plan a session" }}{% endblock %}
+
+{% block breadcrumb %}
+  {% if object %}
+    <a href="{{ object.campaign.get_absolute_url }}">{{ object.campaign.title }}</a> /
+    <a href="{{ object.get_absolute_url }}">{{ object.title }}</a>
+  {% else %}
+    <a href="{{ campaign.get_absolute_url }}">{{ campaign.title }}</a>
+  {% endif %}
+{% endblock %}
+
+{% block heading %}{{ object|yesno:"Edit session,Plan a session" }}{% endblock %}

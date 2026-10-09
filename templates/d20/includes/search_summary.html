@@ -1,0 +1,4 @@
+{# How many objects the search has found: "noun" names one of them. #}
+{% if search_query and paginator.count %}
+  <p class="search-summary">Found {{ paginator.count }} {{ noun }}{{ paginator.count|pluralize }} for “{{ search_query }}”.</p>
+{% endif %}

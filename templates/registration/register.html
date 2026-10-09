@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Sign up{% endblock %}
+
+{% block content %}
+  {% include "d20/includes/drift.html" with page=True %}
+  <div class="auth">
+    <div class="auth-hero">
+      <img class="auth-logo" src="{% static 'd20/img/logo.webp' %}" alt="d20" width="360" height="140">
+      <h1>Create an account</h1>
+      <p class="muted">An account lets you run campaigns as a game master and join other campaigns as a player.</p>
+      <ol class="steps">
+        <li>
+          <span class="token" aria-hidden="true">1</span>
+          <div><strong>Create an account</strong><span>A username and a password are enough.</span></div>
+        </li>
+        <li>
+          <span class="token" aria-hidden="true">2</span>
+          <div><strong>Join a campaign</strong><span>Or start your own as the game master.</span></div>
+        </li>
+        <li>
+          <span class="token" aria-hidden="true">3</span>
+          <div><strong>Choose a character</strong><span>Bring one of your heroes to the table.</span></div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2>Sign up</h2>
+      <form method="post" novalidate>
+        {% csrf_token %}
+        {% include "d20/includes/form.html" %}
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Sign up</button>
+          <a class="btn btn-ghost" href="{% url 'login' %}">I already have an account</a>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}
